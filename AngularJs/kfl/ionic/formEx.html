@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no,initial-scale=1.0,maximum-scale=1.0,min-scale=1.0"/>
+  <link rel="stylesheet" href="css/ionic.css"/>
+  <title></title>
+</head>
+<body>
+<ion-header-bar>
+  <h1 class="title">header</h1>
+</ion-header-bar>
+
+<ion-content>
+  <div class="list list-inset">
+    <label class="item item-input">
+      <span class="input-label">姓名：</span>
+      <input type="text" placeholder="你的姓名"/>
+    </label>
+    <label class="item item-input">
+      <span class="input-label">需要查找什么：</span>
+      <i class="icon ion-search placeholder-icon"></i>
+      <input type="text" placeholder="搜索内容"/>
+    </label>
+    <label class="item item-input">
+      <span class="input-label">日期：</span>
+      <input type="text" placeholder="你的姓名"/>
+    </label>
+    <label class="item item-select">
+      <div class="input-label">选择喜欢的颜色：</div>
+      <select>
+        <option value="red">红色</option>
+        <option value="blue">蓝色</option>
+        <option value="green">绿色</option>
+      </select>
+    </label>
+    <ul class="list">
+      <li class="item item-toggle">
+        切换开关：
+        <label class="toggle">
+          <input type="checkbox" />
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </li>
+    </ul>
+    <div class="item">
+      选择喜欢的电影
+      <ion-list>
+        <ion-checkbox>钢铁侠</ion-checkbox>
+        <ion-checkbox>蝙蝠侠</ion-checkbox>
+        <ion-checkbox>蜘蛛侠</ion-checkbox>
+      </ion-list>
+      <!--<ul class="list">-->
+        <!--<li class="item item-checkbox">-->
+          <!--<label class="checkbox">-->
+            <!--<input type="checkbox">-->
+          <!--</label>-->
+          <!--钢铁侠-->
+        <!--<li class="item item-checkbox">-->
+          <!--<label class="checkbox">-->
+            <!--<input type="checkbox">-->
+          <!--</label>-->
+          <!--蝙蝠侠-->
+        <!--</li>-->
+        <!--<li class="item item-checkbox">-->
+          <!--<label class="checkbox">-->
+            <!--<input type="checkbox">-->
+          <!--</label>-->
+          <!--蜘蛛侠-->
+        <!--</li>-->
+      <!--</ul>-->
+    </div>
+
+    <div class="item">
+      <ion-list>
+        <ion-radio>男</ion-radio>
+        <ion-radio>女</ion-radio>
+      </ion-list>
+      <!--<div class="list">-->
+        <!--<label class="item item-radio">-->
+          <!--<input type="radio" name="group"/>-->
+          <!--<div class="item-content">-->
+            <!--男-->
+          <!--</div>-->
+          <!--<i class="radio-icon ion-checkmark"></i>-->
+        <!--</label>-->
+        <!--<label class="item item-radio">-->
+          <!--<input type="radio" name="group"/>-->
+          <!--<div class="item-content">-->
+            <!--女-->
+          <!--</div>-->
+          <!--<i class="radio-icon ion-checkmark"></i>-->
+        <!--</label>-->
+
+      <!--</div>-->
+    </div>
+
+
+  </div>
+</ion-content>
+
+<ion-footer-bar>
+  <h1 class="title">footer</h1>
+</ion-footer-bar>
+
+<script src="js/ionic.bundle.js"></script>
+<script>
+  var app = angular.module('myApp', ['ionic']);
+</script>
+</body>
+</html>

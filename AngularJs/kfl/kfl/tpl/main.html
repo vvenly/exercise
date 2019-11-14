@@ -1,0 +1,43 @@
+
+<div ng-include="'tpl/include/header.html'"></div>
+
+<ion-content class="has-header has-footer">
+  <!--<h1>菜品列表页面</h1>-->
+
+  <!-- 搜索框-->
+  <div class="list list-inset">
+    <div class="item item-input">
+      <input type="text" placeholder="输入要搜索的菜品或者原材料名称"/>
+      <i class="icon ion-search"></i>
+    </div>
+  </div>
+
+  <!-- 列表-->
+  <div class="list list-inset">
+    <a ui-sref="detail" class="item item-thumbnail-left">
+      <img src="img/p0281.jpg" alt=""/>
+      <h4>鱼香肉丝</h4>
+      <p>30</p>
+    </a>
+    <a ui-sref="detail" class="item item-thumbnail-left">
+      <img src="img/p0281.jpg" alt=""/>
+      <h4>鱼香肉丝</h4>
+      <p>31</p>
+    </a>
+    <a ui-sref="detail" class="item item-thumbnail-left">
+      <img src="img/p0281.jpg" alt=""/>
+      <h4>鱼香肉丝</h4>
+      <p>32</p>
+    </a>
+    <button class="button button-block button-balanced">
+      加载更多
+    </button>
+  </div>
+
+
+  <!-- 按钮-->
+
+</ion-content>
+
+
+<div ng-include="'tpl/include/footer.html'"></div>

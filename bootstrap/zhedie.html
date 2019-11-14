@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Bootstrap 实例 - 折叠面板</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap.css">
+    <script src="jquery-1.12.4.min.js"></script>
+    <script src="bootstrap.js"></script>
+    <style>
+        table{
+            width: 800px;
+            margin: 50px auto;
+        }
+
+        table td{
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+
+<table id="aco">
+
+    <tr>
+        <td>11</td>
+        <td>22</td>
+        <td>33</td>
+        <td>44</td>
+        <td>
+            <a data-toggle="collapse" href="#collapse0">点击我进行展开，再次点击我进行折叠。第 1部分</a>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="5">
+            <div id="collapse0" class="panel-collapse collapse">
+                <div class="panel-body">
+                    11m keffiyeh helvetica, craft beer labore wes anderson
+                    cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
+                    vice lomo.
+                </div>
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td>11</td>
+        <td>22</td>
+        <td>33</td>
+        <td>44</td>
+        <td>
+            <a data-toggle="collapse" href="#collapse1">点击我进行展开，再次点击我进行折叠。第 1部分</a>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="5">
+            <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body">
+                    11m keffiyeh helvetica, craft beer labore wes anderson
+                    cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
+                    vice lomo.
+                </div>
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td>11</td>
+        <td>22</td>
+        <td>33</td>
+        <td>44</td>
+        <td>
+            <a data-toggle="collapse" href="#collapse2">
+                点击我进行展开，再次点击我进行折叠。第 2 部分
+            </a>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="5">
+            <div id="collapse2" class="panel-collapse collapse">
+                <div class="panel-body">
+                    Nihil anim keffiyeh helvetica, craft beer labore wes anderson
+                    cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
+                    vice lomo.
+                </div>
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td>11</td>
+        <td>22</td>
+        <td>33</td>
+        <td>44</td>
+        <td>
+            <a data-toggle="collapse" href="#collapse3">
+                点击我进行展开，再次点击我进行折叠。第 2 部分
+            </a>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="5">
+            <div id="collapse3" class="panel-collapse collapse">
+                <div class="panel-body">
+                    Nihil anim keffiyeh helvetica, craft beer labore wes anderson
+                    cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
+                    vice lomo.
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+
+<script>
+    // $('#collapseTwo').on('show.bs.collapse', function () {
+    //
+    //     $('#collapseOne').collapse('hide');
+    //     console.log(123);
+    //     // 执行一些动作...
+    // })
+
+    function asd() {
+        for(var i=0;i<4;i++){
+            $('#collapse'+i).on('show.bs.collapse', function () {
+                // console.log($(this).parent().parent());
+                var pa=$(this).parent().parent();
+
+                // pa.siblings().find('div.collapse').collapse('hide');
+                pa.siblings().find('div.collapse').prop('class','panel-collapse collapse');
+
+                // $('#collapse1').collapse('hide')
+
+            })
+        }
+    }
+
+    asd();
+
+
+
+
+    // $('#collapse2').on('show.bs.collapse', function () {
+    //     // console.log($(this).parent().parent());
+    //     var pa=$(this).parent().parent();
+    //
+    //     // $(this).collapse('show');
+    //
+    //     // pa.siblings().find('div.collapse').collapse('hide');
+    //     pa.siblings().find('div.collapse').prop('class','panel-collapse collapse');
+    //
+    // });
+    //
+    // $('#collapse1').on('show.bs.collapse', function () {
+    //     // console.log($(this).parent().parent());
+    //     var pa=$(this).parent().parent();
+    //
+    //     // pa.siblings().find('div.collapse').collapse('hide');
+    //     pa.siblings().find('div.collapse').prop('class','panel-collapse collapse');
+    //
+    // })
+
+</script>
+</body>
+</html>

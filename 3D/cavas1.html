@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        canvas{
+            position: absolute;
+            left: 20%;
+            /*transform:rotateY(19deg);*/
+
+        }
+
+        div{
+            -webkit-transform: rotateX(130deg);
+        }
+
+        #canvas1{
+            top:10px;
+            -webkit-transform: rotateX(30deg);
+        }
+        #canvas2{
+            top:50px;
+            -webkit-transform: rotateX(60deg);
+        }
+        #canvas3{
+            top:100px;
+            -webkit-transform: rotateX(90deg);
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <canvas id="canvas1" width="1200" height="800"></canvas>
+    <canvas id="canvas2" width="1200" height="800"></canvas>
+    <canvas id="canvas3" width="1200" height="800"></canvas>
+</div>
+
+
+
+<script>
+
+    function drawImg(id,name){
+        let cans=document.getElementById(id);
+        let ctx=cans.getContext("2d");
+
+        let image=new Image();
+        image.src="../svgImg/"+name;
+        // image.src="../svgImg/1.png";
+
+        //必须在图片加载完后才能绘制
+        image.onload=function () {
+            ctx.drawImage(image,0,0);   //在画布X轴 坐标100  Y轴坐标100处添加一张图片
+        };
+
+    }
+
+    // drawImg();
+
+    drawImg("canvas1","1.png");
+    drawImg("canvas2","2.svg");
+    drawImg("canvas3","3.svg");
+
+
+</script>
+</body>
+</html>

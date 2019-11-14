@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+  <link rel="stylesheet" href="css/ionic.css"/>
+  <script src="js/ionic.bundle.js"></script>
+  <title></title>
+</head>
+<body ng-controller="parentCtrl">
+<ion-header-bar>
+  <h1 class="title">头部</h1>
+</ion-header-bar>
+
+<ion-content>
+  <div ui-view=""></div>
+</ion-content>
+
+<ion-footer-bar>
+  <h1 class="title">底部</h1>
+</ion-footer-bar>
+
+<script>
+  var app=angular.module("myApp",['ionic']);
+
+  app.config(function($stateProvider,$urlRouterProvider){
+    $stateProvider
+      .state('main',{
+      url:"/myMain/:id",
+      templateUrl:'tpl/main.html',
+        controller:"mainCtrl"
+    })
+      .state('login',{
+        url:'/myLogin',
+        templateUrl:'tpl/login.html'
+      })
+      .state('register',{
+        url:'/myRegister',
+        templateUrl:'tpl/register.html'
+      })
+    $urlRouterProvider.otherwise('/myLogin')
+
+  })
+  app.controller("parentCtrl",['$scope','$state',
+    function($scope,$state){
+      $scope.jump=function(stateName,stateParam){
+        //第一个为跳转的目的地，第二为要传输的参数
+        $state.go(stateName,stateParam);
+      }
+    }])
+
+  app.controller('mainCtrl',['$scope','$stateParams',
+    function($scope,$stateParams){
+      console.log($stateParams.id);
+      $scope.ID=$stateParams.id;
+    }])
+</script>
+</body>
+</html>

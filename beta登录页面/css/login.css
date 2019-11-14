@@ -1,0 +1,212 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+input::-webkit-input-placeholder{
+    color:#999;
+    font-size: 18px;
+}
+input{
+    background:none;
+    outline: none;
+    -webkit-appearance: none;
+    border-radius: 0;
+    border:none;
+}
+#bg{
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -10;
+}
+.login{
+    margin-top: 2%;
+    background: url("../img/logo.png") no-repeat 20%;
+}
+.login span{
+    display: block;
+    margin-left: 23%;
+    color: #ffffff;
+    font-size: 34px;
+}
+@media (max-width: 1440px){
+    .login span{
+        margin-left: 24%;
+    }
+}
+@media (max-width: 1280px){
+    .login{
+        background: url("../img/logo.png") no-repeat 18%;
+    }
+    .login span{
+        margin-left: 24%;
+    }
+}
+
+.input{
+    position: absolute;
+    top: 27%;
+    left: 63%;
+    font-size: 18px;
+    width: 382px;
+    height: 443px;
+    background: #fff;
+}
+.input h2{
+    font-size: 28px;
+   font-weight: normal;
+    text-align: center;
+    padding: 15px 0 10px 0;
+    color:#333;
+}
+
+.eng-btn,.pro-btn{
+    display: inline-block;
+    width: 280px;
+    height: 44px;
+    text-align: center;
+    line-height: 44px;
+    border: solid 1px #068dec;
+    margin-left: 50px;
+    cursor: pointer;
+    color: #068dec;
+}
+.eng-btn{
+    margin-top: 60px;
+    margin-bottom: 20px;
+}
+.eng-btn:hover,.pro-btn:hover{
+    background: #068dec;
+    color:#ffffff;
+}
+.fieldset:hover .cd-username{
+    background-image: url("../img/us1.png")
+}
+.fieldset:hover .cd-password{
+    background-image: url("../img/mm1.png")
+}
+.cd-form .fieldset {
+    position: relative;
+}
+.cd-form label.image-replace {
+    display: inline-block;
+    position: absolute;
+    left: 41px;
+    top: 50%;
+    padding-right: 46px;
+    border-right: 1px solid #d2d8d8;
+    bottom: auto;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: 27px;
+    height: 32px;
+    overflow: hidden;
+    text-indent: 100%;
+    white-space: nowrap;
+    color: transparent;
+    text-shadow: none;
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+}
+.cd-username {
+    /*background-image: url(cd-icon-username.svg);*/
+    background-image: url("../img/us.png")
+}
+.cd-password {
+    background-image: url("../img/mm.png")
+}
+
+
+.cd-form input.cyy-bootInput {
+    border: 1px solid #d2d8d8;
+}
+.cd-form input.cyy-bootInput:hover{
+    border: 1px solid #0081ea;
+}
+
+.full-width2 {
+    width: 291px;
+    font-size: 20px;
+    margin-left: 45px;
+
+}
+.cd-form input[type=submit] {
+    padding: 11px 0;
+    cursor: pointer;
+    background: #2386fe;
+    color: #FFF;
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+}
+.inputStatus2 {
+    width: 24px;
+    height: 20px;
+    opacity: 0;
+}
+.inputStyle2 {
+    position: absolute;
+    top: 8px;
+    left: 0px;
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid #e0d6d6;
+    /*background: url(../img/check.png);*/
+}
+.inputStatus2:checked+.inputStyle2 {
+    background: url(../img/check1.png);
+    background-size: cover;
+    border: none;
+}
+.remember-check{
+    color: #666;
+    font-size: 18px;
+    margin: 10px 0 10px 45px;
+}
+.alert_info{
+    color:#ff0000;
+    font-size: 18px;
+    margin-left: 45px;
+    display: none;
+}
+
+.cyy-bootSel:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+    width: 291px !important;
+}
+
+.cyy-bootSel:not(.input-group-btn), .cyy-bootSel[class*=col-] {
+
+    margin: 0 0 0 45px !important;
+}
+.cyy-bootInput{
+    width: 291px !important;
+    height: 45px !important;
+    margin: 0 0 0 45px !important;
+    font-size: 18px;
+    padding-left: 50px;
+
+}
+.cyy-bootSel .btn{
+    height: 45px;
+    font-size: 18px;
+}
+.caret {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    border-width: 4px;
+    border-style: solid;
+    border-color: #000 transparent transparent transparent;
+}
+.err-mag{
+    margin: 0 !important;
+}

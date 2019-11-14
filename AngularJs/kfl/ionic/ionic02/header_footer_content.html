@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no,initial-scale=1.0,maximum-scale=1.0,min-scale=1.0"/>
+  <link rel="stylesheet" href="css/ionic.css"/>
+  <title></title>
+</head>
+<body ng-controller="myCtrl">
+<ion-header-bar class="bar-balanced" align-title="left">
+  <h1 class="title">header</h1>
+</ion-header-bar>
+
+<ion-content overflow-scroll="true">
+  <ul class="list">
+    <li class="item" ng-repeat="tmp in list">
+      {{tmp}}
+    </li>
+  </ul>
+</ion-content>
+
+<ion-footer-bar class="positive-bg" align-title="right">
+  <h1 class="title">footer</h1>
+</ion-footer-bar>
+
+<script src="js/ionic.bundle.js"></script>
+<script>
+  var app = angular.module('myApp', ['ionic']);
+  app.controller('myCtrl',['$scope',function($scope){
+    $scope.list=[];
+    for(var i=0;i<100;i++){
+      $scope.list.push(i);
+    }
+  }])
+</script>
+</body>
+</html>

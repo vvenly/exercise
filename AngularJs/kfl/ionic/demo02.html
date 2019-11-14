@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1.0,maximum-scale=1.0,min-scale=1.0" />
+  <link rel="stylesheet" href="css/ionic.css"/>
+  <title></title>
+</head>
+<body>
+  <ion-header-bar class="bar-balanced">
+    <button class="button icon ion-android-add"></button>
+    <h1 class="title">button</h1>
+    <button class="button icon ion-android-arrow-back"></button>
+  </ion-header-bar>
+
+  <ion-content>
+    <button>普通按钮</button>
+    <button class="button">ionic按钮</button>
+    <button class="button button-positive">蓝色按钮</button>
+    <button class="button button-assertive">红色按钮</button>
+    <button class="button button-full button-calm">占据整行按钮</button>
+    <button class="button button-small button-energized">小按钮</button>
+    <button class="button button-energized">正常按钮</button>
+    <button class="button button-large button-energized">大按钮</button>
+    <button class="button button-outline button-dark">按钮</button>
+    <button class="button button-light">按钮</button>
+    <button class="button button-calm">天蓝色按钮</button>
+    <button class="button button-royal">紫色按钮</button>
+    <button class="button button-balanced">绿色按钮</button>
+    <button class="button button-clear button-royal">clear按钮</button>
+
+    <button class="button">
+      <i class="icon ion-android-home"></i>主页
+    </button>
+    <button class="button">
+      主页<i class="icon ion-android-home"></i>
+    </button>
+    <button class="button icon-right ion-android-home">主页
+    </button>
+    <br/>
+    <!--只有图标和边框-->
+    <button class="button icon ion-navicon"></button>
+    <!--只有图标没有边框-->
+    <button class="button button-icon ion-navicon"></button>
+
+    <div class="button-bar">
+      <button class="button button-dark">btn1</button>
+      <button class="button button-stable">btn2</button>
+      <button class="button button-dark">btn1</button>
+      <button class="button button-stable">btn2</button>
+      <button class="button button-dark">btn1</button>
+      <button class="button button-stable">btn2</button>
+    </div>
+
+
+  </ion-content>
+
+  <ion-footer-bar class="bar-energized">
+    <h1 class="title">footer</h1>
+  </ion-footer-bar>
+
+<script src="js/ionic.bundle.js"></script>
+<script>
+  var app=angular.module('myApp',['ionic'])
+</script>
+</body>
+</html>

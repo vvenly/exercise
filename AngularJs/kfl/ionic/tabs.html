@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no,initial-scale=1.0,maximum-scale=1.0,min-scale=1.0"/>
+  <link rel="stylesheet" href="css/ionic.css"/>
+  <title></title>
+</head>
+<body>
+<ion-header-bar>
+  <h1 class="title">header</h1>
+</ion-header-bar>
+
+<ion-content>
+  <div class="row responsive-sm">
+    <div class="col">我的订单</div>
+  </div>
+  <div class="row">
+    <div class="col col-10">序号</div>
+    <div class="col col-20">菜品</div>
+    <div class="col col-33">下单时间</div>
+    <div class="col col-33">联系人</div>
+  </div>
+  <div class="row">
+    <div class="col col-10">1</div>
+    <div class="col col-20"><img src="img/4.jpg"/></div>
+    <div class="col col-33">2016-11-11</div>
+    <div class="col col-33">GOlden</div>
+  </div>
+  <div class="row">
+    <div class="col col-30">1</div>
+    <div class="col"><img src="img/4.jpg" class="responsive-sm"/></div>
+    <div class="col">2016-11-11</div>
+    <div class="col">GOlden</div>
+  </div>
+  <div class="row">
+    <div class="col col-30">1</div>
+    <div class="col"><img src="img/4.jpg"/></div>
+    <div class="col">2016-11-11</div>
+    <div class="col">GOlden</div>
+  </div>
+</ion-content>
+
+<!--<ion-footer-bar>-->
+  <div class="tabs tabs-icon-top tabs-assertive">
+    <a href="#" class="tab-item">
+      <i class="icon ion-home"></i>
+      主页
+    </a>
+    <a href="#" class="tab-item">
+      <i class="icon ion-person"></i>
+      个人中心
+    </a>
+    <a href="#" class="tab-item">
+      <i class="icon ion-gear-a"></i>
+      设置
+    </a>
+  </div>
+<!--</ion-footer-bar>-->
+
+<script src="js/ionic.bundle.js"></script>
+<script>
+  var app = angular.module('myApp', ['ionic'])
+</script>
+</body>
+</html>

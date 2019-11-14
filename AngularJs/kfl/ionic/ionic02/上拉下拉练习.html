@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no,initial-scale=1.0,maximum-scale=1.0,min-scale=1.0"/>
+  <link rel="stylesheet" href="css/ionic.css"/>
+  <title></title>
+</head>
+<body ng-controller="myCtrl">
+<ion-header-bar>
+  <h1 class="title">header</h1>
+</ion-header-bar>
+
+<ion-content>
+  <ion-refresher on-refresh="refresh()" pulling-text="下拉刷新">
+
+  </ion-refresher>
+
+  <ul class="list list-inset">
+    <li ng-repeat="tmp in list" class="item">
+      {{tmp}}
+    </li>
+  </ul>
+
+  <ion-infinite-scroll immediate-check="false" on-infinite="doInfin()">
+
+  </ion-infinite-scroll>
+</ion-content>
+
+<ion-footer-bar>
+  <h1 class="title">footer</h1>
+</ion-footer-bar>
+
+<script src="js/ionic.bundle.js"></script>
+<script>
+  var app = angular.module('myApp', ['ionic']);
+  app.controller("myCtrl",['$scope',function($scope){
+   $scope.list=[1,2,3,4,5];
+   //定义下拉刷新方法
+    $scope.refresh=function(){
+      for(var i=0;i<5;i++){
+        $scope.list.push($scope.list.length+i+1);
+      }
+      $scope.$broadcast('scroll.refreshComplete');
+    };
+
+    //定义上拉加载更多方法
+    $scope.doInfin=function(){
+      for(var i=0;i<5;i++){
+        $scope.list.push($scope.list.length+i+1);
+      }
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    }
+  }])
+</script>
+</body>
+</html>

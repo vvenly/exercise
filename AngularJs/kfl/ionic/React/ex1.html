@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <script src="js/react.js"></script>
+  <script src="js/react-dom.js"></script>
+  <script src="js/browser.min.js"></script>
+  <title></title>
+</head>
+<body>
+
+<div id="example">
+
+</div>
+
+<script type="text/babel">
+  var UserComponent=React.createClass({
+    render:function(){
+      return <h2>用户名：<input type="text"/></h2>
+    }
+  })
+
+  var UpwdComponent=React.createClass({
+    render:function(){
+      return <h2>密 码：<input type="password"/></h2>
+    }
+  })
+
+  var BtnComponent=React.createClass({
+    render:function(){
+      return <h2>
+        <button>注册</button>
+        <button>登录</button>
+        </h2>
+    }
+  })
+
+  var AllComponent=React.createClass({
+   render:function(){
+      return <div>
+        <UserComponent/>
+        <UpwdComponent/>
+        <BtnComponent />
+      </div>
+    }
+  })
+
+  ReactDOM.render(
+    <AllComponent/>,
+    document.getElementById('example')
+  )
+
+</script>
+</body>
+</html>

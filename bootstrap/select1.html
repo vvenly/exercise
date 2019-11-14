@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap-select.min.css">
+
+    <style>
+        #d1{width: 300px;margin: 100px auto;}
+    </style>
+</head>
+<body>
+
+<link href="/static/app/css/bootstrap-multiselect.css" rel="stylesheet">
+
+<script src="/static/app/js/bootstrap-multiselect.js"></script>
+
+<div class="form-group">
+    <label class="col-md-2 control-label" >SQL输入方式:</label>
+    <select type="input" class="multipleSelect singleSelect form-control"
+            style="width:50%;" id="sql_select"
+            data-live-search="true" name="sql_select">
+        <option value=0>请选择</option>
+        <option value=1>SQL语句</option>
+        <option value=2>SQL附件</option>
+    </select>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('select.multipleSelect').multiselect({
+            buttonWidth: '50%',
+            includeSelectAllOption: true,
+            selectAllText:'全选',
+            nonSelsequenceectedText:'请选择',
+            allSelectedText:'全部',
+            dropRight:true,
+            maxHeight:true,
+            enableFiltering:true,
+        });
+        $('select.singleSelect').multiselect({
+            buttonWidth: '50%',
+            includeSelectAllOption: true,
+            nonSelectedText:'请选择',
+            allSelectedText:'全部',
+            dropRight:true,
+            maxHeight:300,
+            enableFiltering:true,
+        });
+    });
+</script>
+
+
+<script src="jquery-1.12.4.min.js"></script>
+<script src="bootstrap.js"></script>
+<script src="bootstrap-select.js"></script>
+</body>
+</html>

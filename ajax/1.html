@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<button  onclick="t1()">test</button>
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+    function t1() {
+        $.ajax({
+
+            // headers:{
+            //     'Content-Type':'application/json;charset=utf8',
+            //     'newId':'123456'
+            // },
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Accept","application/json; charset=utf-8");
+            },
+
+            type: "get",
+            success: function (data) {
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

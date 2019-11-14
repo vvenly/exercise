@@ -1,0 +1,14 @@
+body{margin:80px auto;}
+.center{position: fixed;top:50%;left:50%;
+  transform: translate(-50%,-50%)}
+.eatStar{
+  color:#387BB0;
+  font-size: 4em;
+  font-family: "SimHei";
+  text-align: center;
+}
+.img-responsive{
+  max-width: 100%;
+  height:auto;
+  display: block;
+}

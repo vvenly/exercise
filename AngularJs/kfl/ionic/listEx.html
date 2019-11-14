@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no,initial-scale=1.0,maximum-scale=1.0,min-scale=1.0"/>
+  <link rel="stylesheet" href="css/ionic.css"/>
+  <title></title>
+</head>
+<body>
+<ion-header-bar>
+  <h1 class="title">header</h1>
+</ion-header-bar>
+
+<ion-content>
+  <ul class="list">
+    <li class="item item-icon-left item-icon-right">
+      <i class="icon ion-plane"></i>
+      <p>飞行模式</p>
+      <i class="icon ion-ios-arrow-right"></i>
+    </li>
+    <li class="item item-icon-left item-icon-right">
+      <i class="icon ion-wifi"></i>Wi-Fi
+      <span class="badge badge-light">未连接</span>
+      <i class="icon ion-ios-arrow-right"></i>
+    </li>
+    <li class="item item-icon-left item-icon-right">
+      <i class="icon ion-bluetooth"></i>蓝牙
+      <span class="badge badge-light">打开</span>
+      <i class="icon ion-ios-arrow-right"></i>
+    </li>
+    <li class="item item-icon-left item-icon-right">
+      <i class="icon ion-gear-a"></i>系统更新
+      <span class="badge badge-assertive">新版本</span>
+      <i class="icon ion-ios-arrow-right"></i>
+    </li>
+  </ul>
+</ion-content>
+
+<ion-footer-bar>
+  <h1 class="title">footer</h1>
+</ion-footer-bar>
+
+<script src="js/ionic.bundle.js"></script>
+<script>
+  var app = angular.module('myApp', ['ionic'])
+</script>
+</body>
+</html>

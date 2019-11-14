@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no,initial-scale=1.0,maximum-scale=1.0,min-scale=1.0"/>
+  <link rel="stylesheet" href="css/ionic.css"/>
+  <title></title>
+</head>
+<body ng-controller="myCtrl">
+<ion-side-menus>
+  <ion-side-menu-content>
+    <ion-header-bar>
+      <button class="button" menu-toggle="right">打开右边菜单</button>
+      <h1 class="title">header</h1>
+      <button class="button" menu-close>关闭</button>
+    </ion-header-bar>
+
+    <ion-footer-bar>
+      <button ng-click="opleft(true)" class="button button-energized">打开左边的菜单</button>
+      <h1 class="title">footer</h1>
+      <button ng-click="opright(true)" class="button button-dark">打开右边的菜单</button>
+    </ion-footer-bar>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="right" class="royal-bg">
+    <ul class="list list-inset">
+      <li class="item">设置</li>
+      <li class="item">个人中心</li>
+      <li class="item">退出</li>
+    </ul>
+  </ion-side-menu>
+
+  <ion-side-menu side="left" class="calm-bg">
+    <ul class="list list-inset">
+      <li class="item">QQ空间</li>
+      <li class="item">微信好友</li>
+      <li class="item">微信游戏</li>
+    </ul>
+    <button class="button" ng-click="opleft(false)">close</button>
+  </ion-side-menu>
+</ion-side-menus>
+
+<script src="js/ionic.bundle.js"></script>
+<script>
+  var app = angular.module('myApp', ['ionic']);
+  app.controller('myCtrl',['$scope',
+    '$ionicSideMenuDelegate',function($scope,
+    $ionicSideMenuDelegate){
+      //根据传入参数的true/false决定开启还是关闭
+        $scope.opleft=function(arg){
+          $ionicSideMenuDelegate.toggleLeft(arg)
+        };
+      $scope.opright=function(arg){
+        $ionicSideMenuDelegate.toggleRight(arg)
+      }
+    }])
+</script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no,initial-scale=1.0,maximum-scale=1.0,min-scale=1.0"/>
+  <link rel="stylesheet" href="css/ionic.css"/>
+  <title></title>
+</head>
+<body>
+<ion-header-bar>
+  <h1 class="title">header</h1>
+</ion-header-bar>
+
+<ion-content>
+  <h5>ionic的表单是通过list模拟实现的</h5>
+  <div class="list">
+    <label class="item item-input">
+      <input type="text" placeholder="name"/>
+    </label>
+    <label class="item item-input">
+      <input type="password" placeholder="password"/>
+    </label>
+  </div>
+
+  <div class="list list-inset">
+    <label class="item item-input">
+      <span class="input-label">UserName</span>
+      <input type="text" placeholder="name"/>
+    </label>
+    <label class="item item-input">
+      <span class="input-label">UserName</span>
+      <input type="password" placeholder="password"/>
+    </label>
+  </div>
+
+  <div class="list list-inset">
+    <label class="item item-input item-stacked-label">
+      <span class="input-label">UserName</span>
+      <input type="text" placeholder="name"/>
+    </label>
+    <label class="item item-input item-stacked-label">
+      <span class="input-label">UserName</span>
+      <input type="password" placeholder="password"/>
+    </label>
+  </div>
+
+  <div class="list list-inset">
+    <label class="item item-input item-floating-label">
+      <input type="text" placeholder="name"/>
+      <span class="input-label">UserName</span>
+    </label>
+    <label class="item item-input item-floating-label">
+      <span class="input-label">UserName</span>
+      <input type="password" placeholder="password"/>
+    </label>
+  </div>
+
+  <h5>一定要加上后面两个div,input才能显示</h5>
+  <ul class="list list-inset">
+    <li class="item item-toggle">
+      <h1>wifi</h1>
+      <label class="toggle toggle-assertive">
+        <input type="checkbox"/>
+        <div class="track">
+          <div class="handle"></div>
+        </div>
+      </label>
+    </li>
+
+
+  </ul>
+</ion-content>
+
+<ion-footer-bar>
+  <h1 class="title">footer</h1>
+</ion-footer-bar>
+
+<script src="js/ionic.bundle.js"></script>
+<script>
+  var app = angular.module('myApp', ['ionic'])
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no,initial-scale=1.0,maximum-scale=1.0,min-scale=1.0"/>
+  <link rel="stylesheet" href="css/ionic.css"/>
+  <title></title>
+</head>
+<body>
+<div ui-view="">邮箱</div>
+
+<script src="js/ionic.bundle.js"></script>
+<script>
+  var app = angular.module('myApp', ['ionic']);
+  app.config(function
+    ($stateProvider,$urlRouterProvider){
+    $stateProvider
+      .state('mail',{
+        url:"/myMail",
+        templateUrl:'tpl/mail.html'
+      })
+      .state('mail.inbox',{
+        url:'/myInbox',
+        templateUrl:"tpl/inbox.html"
+      })
+      .state('mail.outbox',{
+        url:'/myOutbox',
+        templateUrl:"tpl/outbox.html"
+      })
+    $urlRouterProvider.otherwise("/myMail");
+  })
+</script>
+</body>
+</html>

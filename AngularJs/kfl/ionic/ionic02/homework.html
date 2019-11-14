@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no,initial-scale=1.0,maximum-scale=1.0,min-scale=1.0"/>
+  <link rel="stylesheet" href="css/ionic.css"/>
+  <title></title>
+  <style>
+    .imgresponsive{max-width: 100%;}
+  </style>
+</head>
+<body ng-controller="myCtrl">
+<ion-header-bar>
+  <h1 class="title">header</h1>
+</ion-header-bar>
+
+<ion-content>
+  <ul class="list">
+    <li ng-repeat="dish in dishList" class="item">
+      <div class="row">
+        <div class="col" ng-if="$index<dish.length">
+          <img class="imgresponsive" src="img/{{dish.imgu}}" />
+          <h3>{{dish.name}}</h3>
+          <p>{{dish.price}}</p>
+        </div>
+        <div class="col">
+          <img class="imgresponsive" src="img/{{dish.imgu}}" />
+          <h3>{{dish.name}}</h3>
+          <p>{{dish.price}}</p>
+        </div>
+        <div class="col">
+          <img class="imgresponsive" src="img/{{dish.imgu}}" />
+          <h3>{{dish.name}}</h3>
+          <p>{{dish.price}}</p>
+        </div>
+        <div class="col">
+          <img class="imgresponsive" src="img/{{dish.imgu}}" />
+          <h3>{{dish.name}}</h3>
+          <p>{{dish.price}}</p>
+        </div>
+      </div>
+
+    </li>
+  </ul>
+</ion-content>
+
+<ion-footer-bar>
+  <h1 class="title">footer</h1>
+</ion-footer-bar>
+
+<script src="js/ionic.bundle.js"></script>
+<script>
+  var app = angular.module('myApp', ['ionic']);
+
+  app.controller('myCtrl',['$scope',function($scope){
+      $scope.dishList=[
+        {imgu:"1.jpg",name:'甜甜私房猫',price:50},
+        {imgu:"2.jpg",name:'私房猫',price:55},
+        {imgu:"3.jpg",name:'甜甜',price:65},
+        {imgu:"4.jpg",name:'甜甜猫',price:60},
+        {imgu:"1.jpg",name:'甜甜私房猫',price:70},
+        {imgu:"2.jpg",name:'私房猫',price:80},
+        {imgu:"3.jpg",name:'甜甜',price:90},
+        {imgu:"4.jpg",name:'甜甜猫',price:91},
+        {imgu:"1.jpg",name:'甜甜私房猫',price:78},
+        {imgu:"2.jpg",name:'私房猫',price:77},
+        {imgu:"3.jpg",name:'甜甜',price:66},
+        {imgu:"4.jpg",name:'甜甜猫',price:55}
+      ]
+  }])
+</script>
+</body>
+</html>

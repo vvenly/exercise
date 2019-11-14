@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no,initial-scale=1.0,maximum-scale=1.0,min-scale=1.0"/>
+  <link rel="stylesheet" href="css/ionic.css"/>
+  <title></title>
+</head>
+<body ng-controller="myCtrl">
+<ion-header-bar>
+  <h1 class="title">{{title}}</h1>
+</ion-header-bar>
+
+<ion-tabs class="tabs-positive tabs-icon-top">
+  <ion-tab on-select="choose(1)"
+
+           title="music" icon="ion-headphone">
+    <ion-view>
+      <ion-content class="royal-bg">
+        音乐页面
+      </ion-content>
+    </ion-view>
+  </ion-tab>
+
+  <ion-tab on-select="choose(2)" title="movie"
+           icon-off="ion-ios-videocam-outline" icon-on="ion-ios-videocam">
+    <ion-view>
+      <ion-content class="positive-bg">
+        电影页面
+      </ion-content>
+    </ion-view>
+  </ion-tab>
+
+
+  <ion-tab on-select="choose(3)" title="app" icon="ion-iphone">
+    <ion-view>
+      <ion-content class="calm-bg">
+        应用程序列表页面
+      </ion-content>
+    </ion-view>
+  </ion-tab>
+
+</ion-tabs>
+
+<!--<ion-content>-->
+
+<!--</ion-content>-->
+
+<!--<ion-footer-bar>-->
+  <!--<h1 class="title">footer</h1>-->
+<!--</ion-footer-bar>-->
+
+<script src="js/ionic.bundle.js"></script>
+<script>
+  var app = angular.module('myApp', ['ionic']);
+  app.controller('myCtrl',['$scope',function($scope){
+      $scope.title='';
+      $scope.choose=function(index){
+        console.log('被选中了');
+        if(index==1){$scope.title="选择音乐"}
+        else if(index==2){$scope.title="选择电影"}
+        else{$scope.title="选择应用"}
+      }
+  }])
+</script>
+</body>
+</html>

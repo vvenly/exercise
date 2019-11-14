@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var n2=12345.23;
+    console.log((n2%1000).toFixed(2));
+
+    function staAjax() {
+        $.ajax({
+            // headers: {
+            //     Accept: "application/json; charset=utf-8"
+            // },
+            async:false,
+            type: "GET",
+            // type: "OPITIONS",
+            // url: "http://106.12.90.62:8080/epvase/subway/station/selectByLine",
+            url: "http://47.99.211.157:8081/epvase/subway/station/selectByLine",
+
+            dataType: "json",
+            // headers:{'Content-Type':'application/json;charset=utf8'},
+            // crossDomain: true,
+            // data: {"id":id},
+            success: function (json) {
+                var data=json.data;
+                stationData=json.data;
+
+                // val4 = "中文b"
+                // var station = /[测试Bb]/.test(val4);
+                // var obj={};
+                //
+                // for(var i=0,len=data.length;i<len;i++){
+                //     if(!/[测试Bb1]/.test(data[i].stationName)){
+                //
+                //         obj={"stationName":data[i].stationName,"centerMil":data[i].centerMil,"centerPix":data[i].centerPix};
+                //         stationData.push(obj);
+                //     }
+                //
+                // }
+            },
+            error: function () {
+                console.log("请求失败");
+            }
+        })
+
+
+
+
+
+
+
+
+
+        $.ajax({
+            type: "post",
+            url:"http://abc.cc/qrcode3/index.php/home/index/testpost",
+            dataType: "json",
+            data: {"key":"value"},
+            // headers : {'Authorization':'Basic bmVvd2F5Oe4lb3dheQ=='},
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Authorization", "Basic bmVvd2F5Oe4lb3dheQ==");
+                },
+            success: function(data){ alert(data); },
+            error: function(data){ alert("error"); } ,});
+
+
+
+
+
+
+
+        $.ajax({    
+            type: "post",    
+            url:"http://abc.cc/qrcode3/index.php/home/index/testpost",    
+            dataType: "jsonp",    
+            data: {"key":"value"},    
+            // headers : {'Authorization':'Basic bmVvd2F5Oe4lb3dheQ=='},    
+            success: function(data){ alert(data); },    
+            error: function(data){ alert("error"); }
+        });
+
+
+        //服务器端代码：
+
+        // public function testpost() {    
+        //     $data = $_GET['key']?$_GET['key']:"123456";    
+        //     $callback = $_GET['callback'];    
+        //     if(!preg_match("/^[0-9a-zA-Z_.]+$/",$callback)){exit('参数错误！');    }    
+        //     echo $callback.'('.json_encode($data).')';    
+        //     exit;
+        // }
+
+
+
+
+
+
+
+
+        $(".get_data").click(function() {    
+            var key = $("#user").val() + ":" + $("#pass").val();    
+            //base64编码    
+            var authKey = base64encode(key);   
+            $.ajax({        
+                type: 'GET',        
+                dataType: 'json',        
+                url: "http://abc.cc/qrcode3/home/index/testajax",        
+                headers: {'Authorization': 'Basic '+authKey,"lpy":"lpy"},        
+                success: function(data) {            
+                    alert(data.msg+"--"+data.user);        
+                    },        
+                error:function(data){            
+                    alert("error");        
+                }    
+            });
+        });
+
+
+
+
+
+        $.ajax({
+
+            headers:{
+                'Content-Type':'application/json;charset=utf8',
+                'organId':'1333333333'
+            },
+
+            type: "get",
+            success: function (data) {
+            }
+        });
+
+
+        }
+</script>
+</body>
+</html>

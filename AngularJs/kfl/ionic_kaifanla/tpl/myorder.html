@@ -1,0 +1,30 @@
+<div ng-include="'tpl/kflheader.html'"></div>
+
+<ion-content class="has-header has-footer">
+  <h1 class="text-center">我的订单</h1>
+  <div class="list list-inset">
+    <div class="row row-center text-center">
+      <div class="col col-20">编号</div>
+      <div class="col col-25">菜品</div>
+      <div class="col col-25">下单时间</div>
+      <div class="col col-20">联系人</div>
+    </div>
+    <div class="row text-center" ng-repeat="order in orderList">
+      <div class="col col-20 col-center">{{order.oid}}</div>
+      <div class="col col-25">
+        <a href="#/kflDetail/{{order.did}}">
+          <img class="img-responsive"
+               ng-src="img/{{order.img_sm}}" alt=""/>
+        </a>
+      </div>
+      <div class="col col-25 col-center">
+        {{order.order_time | date:'yy-MM-dd hh:mm'}}
+      </div>
+      <div class="col col-20 col-center">
+        {{order.user_name}}
+      </div>
+    </div>
+
+</ion-content>
+
+<div ng-include="'tpl/kflfooter.html'"></div>

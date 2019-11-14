@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #d1{width: 500px;height: 300px;margin: 100px;overflow: auto}
+        #d2{width: 1000px;
+            height: 800px;background: #aaf;}
+    </style>
+</head>
+<body>
+
+<div id="d1">
+    <div id="d2"></div>
+</div>
+
+js原生版：
+
+scrollTop   /  scrollLeft
+
+<br><br>
+
+<button onclick="jsScoGet()">获取</button>
+<button onclick="jsScoSet()">设置</button>
+
+<script>
+    function jsScoGet() {
+
+        //括号里面不写值是 获取操作
+        // alert(document.getElementById('d1').scrollTop );     //获取滚动的高
+        alert(document.getElementById('d1').scrollLeft );       //获取滚动的长
+    }
+
+    function jsScoSet() {
+
+        //括号里面写值是 设置操作
+        // document.getElementById('d1').scrollTop=100;        //设置滚动条高度的位置
+        document.getElementById('d1').scrollLeft=100;         //设置滚动条长度的位置
+    }
+</script>
+
+<br>
+
+<br><hr><br>
+<h3>jQuery版：</h3>
+
+API：scrollTop()   /
+
+<button onclick="jqScoGet()">获取</button>
+<button onclick="jqScoSet()">设置</button>
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+    function jqScoGet() {
+
+            //括号里面不写值是 获取操作
+        // alert($("#d1").scrollTop());             //获取滚动的高
+        alert($("#d1").scrollLeft());              //获取滚动的长
+    }
+
+    function jqScoSet() {
+
+        //括号里面写值是 设置操作
+        // $("#d1").scrollTop(100);         //设置滚动条高度的位置
+        $("#d1").scrollLeft(200);           //设置滚动条长度的位置
+    }
+</script>
+
+</body>
+</html>

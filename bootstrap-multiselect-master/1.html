@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="docs/css/bootstrap-3.3.2.min.css" type="text/css">
+    <link rel="stylesheet" href="docs/css/bootstrap-example.min.css" type="text/css">
+    <link rel="stylesheet" href="docs/css/prettify.min.css" type="text/css">
+
+    <script type="text/javascript" src="docs/js/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="docs/js/bootstrap-3.3.2.min.js"></script>
+    <script type="text/javascript" src="docs/js/prettify.min.js"></script>
+
+    <link rel="stylesheet" href="dist/css/bootstrap-multiselect.css" type="text/css">
+    <script type="text/javascript" src="dist/js/bootstrap-multiselect.js"></script>
+</head>
+<body>
+
+<div class="form-group">
+    <label class="col-md-2 control-label" >SQL输入方式:</label>
+    <select type="input" class="multipleSelect singleSelect form-control"
+            style="width:50%;" id="sql_select"
+            data-live-search="true" name="sql_select">
+        <option value=0>请选择</option>
+        <option value=1>SQL语句</option>
+        <option value=2>SQL附件</option>
+    </select>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('select.multipleSelect').multiselect({
+            buttonWidth: '50%',
+            includeSelectAllOption: true,
+            selectAllText:'全选',
+            nonSelsequenceectedText:'请选择',
+            allSelectedText:'全部',
+            dropRight:true,
+            maxHeight:true,
+            enableFiltering:true,
+        });
+        $('select.singleSelect').multiselect({
+            buttonWidth: '50%',
+            includeSelectAllOption: true,
+            nonSelectedText:'请选择',
+            allSelectedText:'全部',
+            dropRight:true,
+            maxHeight:300,
+            enableFiltering:true,
+        });
+    });
+</script>
+
+</body>
+</html>

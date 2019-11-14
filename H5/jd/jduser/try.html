@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<div id="buy-stat-native">
+    <!--消费统计1-->
+    <svg id="svg-buy-stat" style="border:1px solid #aaa">
+        <defs>
+
+        </defs>
+        <g fill="transparent" stroke="#333" stroke-width="1"></g>
+    </svg>
+</div>
+
+
+<div id="buy-stat-fc">
+    <!--消费统计2-->
+
+</div>
+
+<div id="buy-stat-fc12">
+    <!--消费统计2-->
+
+</div>
+
+<script src="js/jquery-1.12.4.min.js"></script>
+<script>
+    $.ajax({
+        url:"data/buy_stat.php",
+//    data:{uid:sessionStorage['loginUid']},
+        success: function (list) {
+            //根据服务器端返回的数据绘制SVG统计图
+
+            var w=700;
+            var h=500;
+            $('#svg-buy-stat').attr('width',w).attr('height',h);
+            var barWidth=w/(2*list.length+1);
+            var maxValue=list[0].value;//所有金额中的最大值
+            for(var i=1;i<list.length;i++){
+                if(list[i].value>maxValue){
+                    maxValue=list[i].value;
+                }
+            }
+            var html='';
+            $.each(list,function(i,month){
+                var bw=barWidth; //每个数字的宽
+                var bh=h*month.value/maxValue;
+                //var bh=0; //每个数字的高，用动画撑起来的，所以初始值必须为0
+                var bx=(2*i+1)*barWidth; //每个数字的X定位
+                var by=h-bh; //每个数字的Y定位
+                html+=`
+        <rect width="${bw}" height=0 data-full-height="${bh}" x="${bx}" y="${by}"></rect>
+        `;
+            });
+            $('#svg-buy-stat g').html(html);
+            //启动定时器，让每个柱子的高度主键变大，直到fullheight
+            setInterval(function(){
+                $('#svg-buy-stat g rect').each(function (i,rect) {
+                    var ch=$(rect).attr('height');
+                    ch=parseFloat(ch);
+                    ch+=2;
+                    var fh=$(rect).data('fullHeight');
+                    fh=parseFloat(fh);
+                    if(ch<fh){
+                        $(rect).attr('height',ch);
+                        $(rect).attr('y',h-ch);
+                    }
+                    //使用一个计数记录已到完整高度的柱子数量，若总数已满12个，则清楚定时器
+                })
+            },10)
+        }
+    })
+
+
+
+</script>
+
+<!--<script src="js/fusioncharts.charts.js"></script>-->
+<script src="js/fusioncharts.js"></script>
+<script>
+    $.ajax({
+    url:"data/buy_stat.php",
+    data:{uid:sessionStorage['loginUid']},
+    success: function (list){
+    var c=new FusionCharts({
+    type:'column2d',//'pie2d',//'column3d', //'column2d',//doughnut2d
+    renderAt:'buy-stat-fc',
+    width:'800',
+    height:'500',
+    dataSource:{
+    data:list
+    }
+
+    });
+
+    c.render();  //将图表渲染出来
+    }
+    });
+
+    $.ajax({
+        url:"data/buy_stat.php",
+        data:{uid:sessionStorage['loginUid']},
+        success: function (list){
+            var c=new FusionCharts({
+                type:'doughnut2d',//'pie2d',//'column3d', //'column2d',//doughnut2d
+                renderAt:'buy-stat-fc12',
+                width:'800',
+                height:'500',
+                dataSource:{
+                    data:list
+                }
+
+            });
+
+            c.render();  //将图表渲染出来
+        }
+    })
+</script>
+</body>
+</html>

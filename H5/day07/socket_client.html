@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <h2></h2>
+  <button id="btconnect">链接WS服务器</button>
+  <button id="btSend">发送消息WS服务器</button>
+  <button id="btclose">断开与WS服务器</button>
+
+  <script>
+    var wsClient=null;
+    btconnect.onclick=function(){
+      wsClient=new WebSocket('ws://127.0.0.1:9999');
+      wsClient.onopen= function () {
+        console.log("成功链接到服务器")
+      }
+    }
+    btSend.onclick= function () {
+      //向WS服务器发送一个消息
+      wsClient.send('hello server');
+      //接收WS服务器返回的消息
+      wsClient.onmessage= function (e) {//当接收到信息时
+        console.log('WS客户端接收到一个 服务器的消息'+ e.data);
+      }
+    }
+    btclose.onclick= function () {
+      wsClient.close();
+      wsClient.onclose= function () {//当链接断开时
+        console.log('到服务器的链接已断开');
+      }
+    }
+  </script>
+
+</body>
+</html>

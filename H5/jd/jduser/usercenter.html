@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> 用户中心 </title>
+  <meta charset="utf-8"/>
+  <link rel="stylesheet" href="css/usercenter.css">
+  <link rel="stylesheet" href="jdnet.css">
+  <link rel="icon" href="img/favicon.ico">
+  <link rel="stylesheet" href="css/jd.css">
+</head>
+
+<body>
+<div id="header"></div>
+<div id="main">
+  <!--左侧导航-->
+  <div class="affix">
+    <h3>用户中心</h3>
+    <ul>
+      <li class="active"><a href="#my-order">我的订单</a></li>
+      <li><a href="#buy-stat-native">统计消费（原生版）</a></li>
+      <li><a href="#buy-stat-fc">消费统计（FC版）</a></li>
+      <li><a href="#luck-lottery">幸运抽奖</a></li>
+    </ul>
+  </div>
+
+  <!--右侧导航-->
+  <div class="right">
+    <div id="my-order" >
+      <!--我的订单-->
+      <table id="table-order">
+        <thead>
+        <tr>
+          <th>订单信息</th>
+          <th>收货人</th>
+          <th>订单金额</th>
+          <th>
+            <select id="selectTime">
+              <option value="m1">最近一个月</option>
+              <option value="m3">最近三个月</option>
+              <option value="m6">最近六个月</option>
+              <option value="m12">最近一年</option>
+            </select>
+          </th>
+          <th>
+            <select id="selectStatus">
+              <option value="9">全部状态</option>
+              <option value="1">等待付款</option>
+              <option value="2">运输中</option>
+              <option value="3">等待发货</option>
+              <option value="4">关闭订单</option>
+              <option value="6">订单完成</option>
+            </select>
+          </th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+    </div>
+    <div id="buy-stat-native">
+      <!--消费统计1-->
+      <svg id="svg-buy-stat" style="border:1px solid #aaa">
+        <defs>
+
+        </defs>
+        <g fill="transparent" stroke="#333" stroke-width="1"></g>
+      </svg>
+    </div>
+    <div id="buy-stat-fc">
+      <!--消费统计2-->
+
+    </div>
+    <div id="luck-lottery" class="active">
+      <!--幸运抽奖-->
+      <button disabled id="bt-lottery">抽奖统计信息加载中</button>
+      <canvas id="canvas-lottery"></canvas>
+    </div>
+  </div>
+</div>
+
+<div id="footer"></div>
+
+<script src="js/jquery-1.12.4.min.js"></script>
+<script src="js/fusioncharts.charts.js"></script>
+<script src="js/fusioncharts.js"></script>
+<script>
+  /**功能点1：若用户未登录，则跳转到登录页面（产品列表页）**/
+//  if(!sessionStorage['loginUid']){
+//    location.href = 'productlist.html';
+//  }
+
+  /**功能点2：异步请求页头和页尾，修改页头中的欢迎消息**/
+//  $('#header').load('data/header.php',function(){
+  //    $('#welcome').html('欢迎回来：'+sessionStorage['loginUname']);
+  //  });
+  //  $('#footer').load('data/footer.php');
+
+  /**功能点3：点击附加导航，实现右侧DIV的切换**/
+  $('.affix').on('click','li a', function(e){
+    e.preventDefault();
+    //修改附加导航中的激活项
+    $(this).parent().addClass('active').siblings('.active').removeClass('active');
+    //右侧主体内容切换
+    var id = $(this).attr('href');
+    $(id).addClass('active').siblings('.active').removeClass('active');
+  })
+
+  //功能点4  页面加载完成，异步请求当前登录用户的订单信息
+//  $.ajax({
+//    url:'data/my_order.php',
+//    data:{uid:sessionStorage['loginUid']},
+//    success:function(list){
+//      var html='';
+//      $.each(list, function (i,order){
+//        html+=`
+//        <tr>
+//          <td colspan="6">订单编号${order.oid}</td>
+//        </tr>
+//        <tr>
+//          <td>
+//          `;
+//
+//        $.each(order.products,function(i,p){
+//          html+=`
+//            <a href="#"><img src="${p.pic}" /></a>
+//          `;
+//        })
+//
+//        html+=`</td>
+//          <td>${order.rcvName}</td>
+//          <td>￥${order.price} <br/><span class="payment">${order.payment}</span></td>
+//          <td><span class="orderTime">${order.orderTime}<br>22:18:35</span></td>
+//          <td>
+//            <span class="status">等待发货</span>
+//          </td>
+//          <td>
+//            <a href="#">查看</a>
+//            <a href="#">评价</a>
+//            <a href="#">晒单</a>
+//            <a href="#">还要买</a>
+//          </td>
+//        </tr>
+//        `;
+//      })
+//        $('#table-order tbody').html(html);
+//
+//      //替换表格中的数据--支付方式
+//      $('#table-order .payment').each(function (i,span) {
+//        console.log(span);
+//        if(span.innerHTML==='1'){
+//          span.innerHTML='货到付款';
+//        }else if(span.innerHTML==='2'){
+//          span.innerHTML='京东支付'
+//        }else if(span.innerHTML==='3'){
+//          span.innerHTML='手机支付'
+//        }else if(span.innerHTML==='4'){
+//          span.innerHTML='在线支付'
+//        }
+//      })
+//      //替换表格中的数据--下单时间
+//      $('#table-order .orderTime').each(function(i,span){
+//        var t =span.innerHTML;
+//        t=parseInt(t);
+//        t=new Date(t);
+//        span.innerHTML= t.getFullYear()+'-'+(t.getMonth()+1)+'-'+t.getHours()+'-'+ t.getMinutes();
+//      });
+//
+//      //替换表格中的数据--
+//
+//    },
+//    error:function(){
+//      alert('我的订单请求失败');
+//    }
+//  })
+
+ //功能点5
+  $.ajax({
+    url:"data/buy_stat.php",
+//    data:{uid:sessionStorage['loginUid']},
+    success: function (list) {
+      //根据服务器端返回的数据绘制SVG统计图
+
+      var w=800;
+      var h=500;
+      $('#svg-buy-stat').attr('width',w).attr('height',h);
+      var barWidth=w/(2*list.length+1);
+      var maxValue=list[0].value;//所有金额中的最大值
+      for(var i=1;i<list.length;i++){
+        if(list[i].value>maxValue){
+          maxValue=list[i].value;
+        }
+      }
+      var html='';
+      $.each(list,function(i,month){
+        var bw=barWidth; //每个数字的宽
+        var bh=h*month.value/maxValue;
+        //var bh=0; //每个数字的高，用动画撑起来的，所以初始值必须为0
+        var bx=(2*i+1)*barWidth; //每个数字的X定位
+        var by=h-bh; //每个数字的Y定位
+        html+=`
+        <rect width="${bw}" height=0 data-full-height="${bh}" x="${bx}" y="${by}"></rect>
+        `;
+      });
+      $('#svg-buy-stat g').html(html);
+      //启动定时器，让每个柱子的高度主键变大，直到fullheight
+      setInterval(function(){
+        $('#svg-buy-stat g rect').each(function (i,rect) {
+          var ch=$(rect).attr('height');
+          ch=parseFloat(ch);
+          ch+=2;
+          var fh=$(rect).data('fullHeight');
+          fh=parseFloat(fh);
+          if(ch<fh){
+            $(rect).attr('height',ch);
+            $(rect).attr('y',h-ch);
+          }
+          //使用一个计数记录已到完整高度的柱子数量，若总数已满12个，则清楚定时器
+        })
+      },10)
+    }
+  })
+
+  //功能点6
+  $.ajax({
+    url:"data/buy_stat.php",
+    data:{uid:sessionStorage['loginUid']},
+    success: function (list){
+      var c=new FusionCharts({
+        type:'doughnut2d',//'pie2d',//'column3d', //'column2d',
+        renderAt:'buy-stat-fc',
+        width:'800',
+        height:'500',
+        dataSource:{
+          data:list
+        }
+
+      });
+
+      c.render();  //将图表渲染出来
+    }
+    })
+
+  //功能点7  抽奖
+  $.ajax({
+    url:'data/lottery_stat.php',
+    data:{uid:sessionStorage['loginUid']},
+    success:function(obj){
+      if(obj.used>obj.total){
+        $('#bt-lottery').html(`无法抽奖(总抽奖次数：${obj.total-obj.used})`);
+        return;
+      }
+      $('#bt-lottery').html(`开始抽奖（总抽奖次数:${obj.total}剩余抽奖次数：${obj.total-obj.used}）`)
+      //加载抽奖必须的图片 圆盘与指针
+      var progress=0;
+      var imgPan=new Image();
+      imgPan.src='img/pan.png';
+      imgPan.onload=function(){
+        progress+=80;
+        if(progress===100){
+          drawLottery();
+        }
+      }
+
+      var progress=0;
+      var imgPin=new Image();
+      imgPin.src='img/pin.png';
+      imgPin.onload=function(){
+        progress+=20;
+        if(progress===100){
+          drawLottery();
+        }
+      }
+      var w=0;
+      var h=0;
+      var ctx=null;
+      function drawLottery(){
+        console.log("两张图片加载完成");
+        w=imgPan.width;
+        h=imgPan.height;
+        var canvas=document.getElementById('canvas-lottery');
+        canvas.width=w;
+        canvas.height=h;
+        ctx=canvas.getContext('2d');
+        ctx.drawImage(imgPan,0,0);
+        ctx.drawImage(imgPin,w/2-imgPin.width/2,h/2-imgPin.height/2);
+        $('#bt-lottery').prop('disabled',false).one('click', function () {
+          console.log('开始抽奖');
+          startLottery();
+        });
+
+      }
+      function startLottery(){
+        var deg=0;  //圆盘当前已经旋转的角度
+        var last=0;  //圆盘已经旋转的时长
+        var duration=Math.random()*5000+4000;  //圆盘旋转总时长
+        var timer=setInterval(function(){
+
+          //旋转之后绘制圆盘
+          ctx.save();
+          ctx.translate(w/2,h/2);
+          ctx.rotate(deg*Math.PI/180);
+          ctx.drawImage(imgPan,-w/2,-h/2);
+          ctx.restore();
+
+          //未旋转的状态下绘制指针
+          ctx.drawImage(imgPin,w/2-imgPin.width/2,h/2-imgPin.height/2);
+
+          deg+=5;
+          deg%=360;
+          last+=10;
+          if(last>=duration){
+            clearInterval(timer);
+          }
+        },20)
+      }
+    }
+  })
+
+</script>
+
+</body>
+</html>

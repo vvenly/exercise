@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #d1{
+            position: relative;top:100px;;left:200px;}
+        .in1{text-align: right}
+        #int2{text-align: right;}
+        html{border-top: 5px;
+            border-left: 3px;
+            margin: 10px;padding:5px;
+        }
+        body{
+            cursor: url("img/cursor.png"),default;
+        }
+        input{
+            color: #aaf;
+        }
+    </style>
+</head>
+<body>
+
+
+<div id="d1">
+    <input class="in1" type="text" dir='rtl'>
+    <input type="text" id="int2"/>
+
+    <button>click</button>
+    
+    <div style="height: 800px;"></div>
+
+    <input class="input111" type="checkbox"/>
+
+    <ul>
+        <li class="liqqq"></li>
+    </ul>
+</div>
+
+
+
+<script>
+    var oidw=document.documentElement.clientWidth; //获取可见区域宽度
+    var oidh=document.documentElement.clientHeight; //获取可见区域高度
+    console.log('1、'+oidw+" "+ oidh);
+
+    var a=document.body.clientWidth;  //BODY宽度
+    var b=document.body.clientHeight;  //BODY高度
+
+    console.log('2、'+a,b);
+
+//    区别：
+//
+//    body是DOM对象里的body子节点，即 <body> 标签；
+//    documentElement 是整个节点树的根节点root，即<html> 标签；
+
+
+    sW = document.documentElement.scrollWidth;  //html元素对象内容的实际！宽度，包括滚动条隐藏的部分，即html元素对象的滚动宽度
+    sH = document.documentElement.scrollHeight; //html元素对象内容的实际！高度，包括滚动条隐藏的部分，即html元素对象的滚动高度
+
+    console.log('3、'+sW,sH);
+
+    //浏览器兼容性 所有浏览器解释都一样。
+
+
+    var c=document.documentElement.clientLeft;
+    var d=document.documentElement.clientTop;
+
+    console.log('4、'+c,d);
+
+//    浏览器兼容性
+//    在FireFox中，clientLeft和clientTop的值永远为0。
+//    在IE7中，clientLeft和clientTop的值永远为2
+
+
+    var arr=["a","b","c","d","e"];
+    arr=arr.pop();
+    console.log(arr,typeof arr);
+
+    var str1="abcdefg123";
+    str1=str1.substr(2,2); //从2号位置起提取 2个字符 返回字符串
+    console.log(str1);
+
+    console.log();
+
+
+</script>
+</body>
+</html>

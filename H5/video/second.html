@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{width: 500px;margin: 100px auto;}
+
+        video{width: 100%;}
+    </style>
+</head>
+<body>
+
+<div>
+    <video id="video1" src="http://47.93.203.247/web/video/test.mp4" autoplay="autoplay" controls="controls"></video>
+</div>
+
+
+<script type="text/javascript">
+    getvideoprogress();
+
+    function getvideoprogress() {
+        setTimeout(function () {
+            var vid = document.getElementById("video1");
+            var currentTime=vid.currentTime.toFixed(1);
+            if(currentTime==5){
+                //触发
+                return false;
+            }
+            console.log(currentTime);
+            getvideoprogress();
+        }, 50);
+    }
+</script>
+
+</body>
+</html>

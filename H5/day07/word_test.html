@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    #list{
+      list-style: none;
+      padding: 0;
+    }
+    #list span{
+      display: inline-block;
+      width: 80px;
+      text-align: right;
+      padding-right:15px;
+    }
+  </style>
+</head>
+<body>
+<h2>单词辅助记忆系统</h2>
+<h3>保存单词</h3>
+<hr/>
+<ul id="list">
+  <!--<li>-->
+    <!--列表应该动态生成-->
+    <!--<span>blue:</span><input/>-->
+    <!--<span>yellow:</span><input/>-->
+    <!--<span>red:</span><input/>-->
+  <!--</li>-->
+</ul>
+<hr/>
+<input type="button" value="提交" id="bts"/>
+
+<script>
+  //读取客户端浏览器中永久保存的生词
+  var html='';
+  for(var i=0;i<localStorage.length;i++){
+    var e=localStorage.key(i);//第i个键就是个英文单词
+    html+=`
+      <li><span>${e}:<span><input/></li>
+    `;
+  }
+  list.innerHTML=html;
+
+  //为提交试卷绑定监听，进行判断
+  bts.onclick= function () {
+    var total=localStorage.length;
+    var correct=0;
+    var inputlist=list.querySelectorAll('input');
+    for(var i=0;i<inputlist.length;i++){
+      var c=inputlist[i];//用户输入的
+      var e=localStorage.key(i);//第i个单词的键
+      if(localStorage[e]===c){//保存第i个值
+        correct++;
+      }
+    }
+    //将总词汇量与正确数量保存下来，供下一个页面使用
+    sessionStorage['total']=total;
+    sessionStorage['correct']=correct;
+
+    location.href="text.result.html";
+  }
+
+</script>
+</body>
+</html>

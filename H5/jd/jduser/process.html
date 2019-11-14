@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>工程进度</title>
+    <style>
+        body{
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+<!--<div id="buy-stat-fc">-->
+    <!--&lt;!&ndash;插件&ndash;&gt;-->
+
+<!--</div>-->
+
+
+<br><br><br>
+
+
+<!--  手写-->
+<div>
+    <svg id="s1" width="600" height="500" style="border:1px solid #ddd">
+        <g stroke="#000" fill="transparent" font-size="14">
+            <!--<rect width="480" height="380" x="10" y="10">-->
+            <!--</rect>-->
+            <rect width="550" height="450" x="25" y="25" fill="#fff"></rect>
+            <polyline points="75,450 75,50 70,60 70,60 75,50 80,60" stroke-width="2"></polyline>
+            <polyline points="75,450 510,450 500,455 510,450 500,445" stroke-width="2"></polyline>
+            <text x="50" y="450">0</text>
+            <text x="35" y="389">4000</text>
+            <text x="35" y="328">8000</text>
+            <text x="30" y="267">12000</text>
+            <text x="30" y="205">16000</text>
+            <text x="30" y="143">20000</text>
+            <text x="30" y="80">24000</text>
+
+
+
+            <polyline points="75,389 500,389 "></polyline>
+            <polyline points="75,328 500,328 "></polyline>
+            <polyline points="75,267 500,267 "></polyline>
+            <polyline points="75,205 500,205 "></polyline>
+            <polyline points="75,143 500,143 "></polyline>
+            <polyline points="75,80 500,80 "></polyline>
+
+
+            <linearGradient id="g1" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0" stop-color="#24ED24"></stop>
+                <stop offset="1" stop-color="#C1FCC1"></stop>
+            </linearGradient>
+        </g>
+
+        <g id="line"></g>
+
+    </svg>
+</div>
+
+
+<br><br><br><br><br>
+
+
+
+
+
+
+<script src="js/jquery-1.12.4.min.js"></script>
+<script>
+    var arr=[
+        {"label":"总进度", "value":230},
+        {"label":"总进度完成","value":200},
+        {"label":"左线进度","value":110},
+        {"label":"左线进度完成","value":95},
+        {"label":"右线进度","value":120},
+        {"label":"右线进度完成","value":105}
+    ];
+
+    function rn(min,max){
+        return parseInt(Math.random()*(max-min)+min);
+    }
+    function rc(min,max){
+        var r=rn(min,max);
+        var g=rn(min,max);
+        var b=rn(min,max);
+        return `rgb(${r},${g},${b})`;
+    }
+
+    //console.dir(arr);
+    var x1=90;
+    var rx=95;
+    var ry=450;
+    for(var i=0;i<arr.length;i++){
+//    var tet=document.createElementNS('http://www.w3.org/2000/svg','text');
+//    var x=tet.getAttribute('x');
+        var html="";
+        html+=`
+      <text font-size="10" x="${x1}" y="465">${arr[i].label}</text>
+    `;
+        x1+=55;
+        html+=`
+      <rect class="rect11" fill="url(#g1)"
+      width="40" height="${arr[i].value}" x="${rx}" y="${450-arr[i].value}"></rect>
+    `;
+        rx+=70;
+        s1.innerHTML+=html;
+
+        var dehtml='';
+        var c=rc();
+        dehtml+=`
+      <linearGradient id="g${i}" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="${c}"></stop>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"></stop>
+    </linearGradient>
+    `;
+        line.innerHTML=dehtml;
+
+        //为每个柱子绑定监听函数
+        $("#s1").on('mouseenter','.rect11', function () {
+            $(this).attr('stroke','#333');
+        })
+        $('#s1').on('mouseleave','.rect11', function () {
+            $(this).attr('stroke','#aaa');
+        })
+    }
+
+
+
+
+</script>
+
+
+
+</body>
+</html>

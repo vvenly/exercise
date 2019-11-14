@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script src="js/jquery-1.12.4.min.js"></script>
+<script>
+    $.ajax({
+        type: "POST",
+        url: "data/english.php",
+        dataType: "json",
+//        data: {"company_id":getSelectedValue(cid),"work_id":getSelectedValue(wid),"page":1,"page_size":10},
+        success: function (json) {
+            console.log(json);
+        },
+        error: function () {
+            console.log("请求失败");
+        }
+    });
+</script>
+
+</body>
+</html>

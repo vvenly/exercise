@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #d1{
+            width: 400px;
+            height: 300px;
+            margin: 100px auto;
+        }
+        video{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div id="d1">
+    <video id="videoPlay" autoplay="autoplay" controls>
+
+        <source src="long0307.mp4" type="video/mp4">
+
+    </video>
+</div>
+
+<script>
+
+    function getMs() {
+        // var video = document.getElementById("videoPlay");
+
+        // var currentTime=video.currentTime.toFixed(0);
+        //
+        // console.log(currentTime);
+
+
+        var video2 = document.querySelector('video');
+
+        var currentTime2=video2.currentTime.toFixed(0);
+
+        // var videoStatus=video2.readyState;
+
+        // if(videoStatus)
+
+        console.log(currentTime2);
+
+
+
+        if(currentTime2==0){
+            console.log(123);
+            // video2.play();
+
+            location.reload(window.location.href);
+
+            console.log(321);
+        }
+    }
+
+    // getMs();
+
+    // setInterval(getMs,1000);
+
+    setTimeout(getMs,1000);
+</script>
+
+</body>
+</html>

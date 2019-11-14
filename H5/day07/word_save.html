@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <h2>单词辅助记忆系统</h2>
+  <h3>保存单词</h3>
+  <hr/>
+    英文：<input id="english"/><br/><br/>
+    中文：<input id="chinese"/><br/><br/>
+  <input type="button" value="保存" id="bts"/>
+  <hr/>
+
+  <a href="word_test.html">开始测试</a>
+  <a href="word_remove.html">删除测试</a>
+
+
+  <script>
+    bts.onclick= function () {
+      var e=english.value;
+      var c=chinese.value;
+      localStorage[e]=c;//英文作为键，中文作为值
+      english.value='';
+      chinese.value='';
+
+    }
+
+    $('#add').click(function(){
+        var n=cname.value;
+        var c=pic.value;
+        var s=price.value;
+        var d=typeId.value;
+
+        $.post('cake_add.php',{cname:n,pic:c,price:s,typeId:d},
+            function(data,msg,xhr){
+                if(data.code>0){
+                    alert('添加成功！新添加编号为'+data.cid);
+                }else{
+                    alert('添加失败'+data.msg)
+                }
+            })
+    })
+  </script>
+</body>
+</html>

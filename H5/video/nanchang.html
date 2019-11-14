@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta charset="UTF-8"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title></title>
+
+    <link rel="stylesheet" href="css/boot-font.css">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="js/jQuery-3.3.1.min.js"></script>
+
+
+
+</head>
+
+<body>
+
+<img src="img/bg1.jpg" alt="" style="position: fixed;top: 0;left: 0;width: 100%;height: 100%;z-index: -1;">
+
+<div id="wrapper">
+
+    <div class="panel-body">
+
+        <!--header-->
+
+        <div id="nav-title" style="margin-top: 15px;">
+
+            <div style="width: 100%;font-size: 5.5rem;font-weight: bold;text-align: center;">
+
+                <img src="img/nanchang.png" style="width: 75px;">
+
+                <span style="position: relative;top:6px;left: 5px;">南昌地铁作业管理视频分析系统</span>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="headerRt" >
+
+            <div class="rightIcon" style="padding-top: 16px;">
+
+                <div class="bell" style="margin-right: 10px;">
+
+                    <i class="fa fa-bell-o "></i>
+
+                </div>
+
+                <div class="iconBox">今日违章抓拍</div>
+
+                <div class="fontSize">
+
+                    <div class="iconBox" >0</div>
+
+                    <div class="iconBox" >0</div>
+
+                    <div class="iconBox" id="countNum">0</div>
+
+                    <div class="visitor people" >次</div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!--分割线-->
+
+        <div class="progress schedule">
+
+            <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+
+                <!--<span class="sr-only">100% Complete</span>-->
+
+            </div>
+
+        </div>
+
+        <!---main-->
+
+        <div id="main" class="mainDiv">
+
+
+
+            <div id="mainLeft">
+
+                <div class="bor_box bor_box_lt"></div>
+
+                <div class="bor_box bor_box_lb" style="left: -3px;bottom: -3px;"></div>
+
+                <div class="bor_box bor_box_rb" style="right: -3px;bottom: -3px;"></div>
+
+                <div class="bor_box bor_box_rt" style="top:-3px;"></div>
+
+
+
+                <video id="videoPlay" autoplay="autoplay" controls>
+
+                    <source src="long0307_Smonking.mp4" type="video/mp4">
+
+                </video>
+
+
+
+            </div>
+
+
+
+            <div id="mainRight" class="box" >
+
+                <!--<div class="bor_box bor_box_rt"></div>-->
+
+
+
+                <div  style="position:relative;margin: 20px 0 20px 5%;">
+
+                    <div class="bor_box bor_box_lb"></div>
+
+                    <div class="bor_box bor_box_rb"></div>
+
+                    <div class="box_top"  >
+
+                        <div class="box_top_left">
+
+                            <p>危险行为分析</p>
+
+                            <div class="bor_box bor_box_lt"></div>
+
+                        </div>
+
+                        <div class="box_top_right">
+
+                            <!--<span class="r_hr"></span>-->
+
+                            <!--<span class="r_hr"></span>-->
+
+                            <!--<span class="r_hr"></span>-->
+
+                            <!--<span class="r_hr"></span>-->
+
+                            <!--<span class="r_hr"></span>-->
+
+                            <!--<span class="r_hr"></span>-->
+
+                            <!--<span class="r_hr"></span>-->
+
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="bot">
+                        <div class="listDiv">
+
+                            <div class="half" >
+
+                                <div class="imgPople"><img id="img8"></div>
+
+                            </div>
+
+                            <div class="imgParent">
+
+                                <div class="popleRt" >
+
+                                    <div  class="img-name">
+
+                                        <p class="wordsTitle">
+
+                                            <span class="writing">发现地</span>
+
+                                            <b class="writingRt">:</b>
+
+                                            <span class="writing">YDK14550(小)</span>
+
+                                        </p>
+
+                                        <p class="wordsTitle">
+
+                                            <span class="writing">违规类型</span>
+
+                                            <b class="writingRt">:</b>
+
+                                            <span class="writing">隧道内吸烟</span>
+
+                                        </p>
+
+                                        <p class="writingDate" >
+
+                                            2019年02月01日 &nbsp;  14:54:30
+
+                                        </p>
+
+                                    </div>
+
+
+
+                                </div>
+
+                            </div>
+
+                            <div class="clear"></div>
+
+                        </div>
+
+
+                        <div class="listDiv">
+
+                            <div class="half" >
+
+                                <div class="imgPople"><img id="img7"></div>
+
+                            </div>
+
+                            <div class="imgParent">
+
+                                <div class="popleRt" >
+
+                                    <div  class="img-name">
+
+                                        <p class="wordsTitle">
+
+                                            <span class="writing">发现地</span>
+
+                                            <b class="writingRt">:</b>
+
+                                            <span class="writing">龙门吊</span>
+
+                                        </p>
+
+                                        <p class="wordsTitle">
+
+                                            <span class="writing">违规类型</span>
+
+                                            <b class="writingRt">:</b>
+
+                                            <span class="writing">进入危险区域</span>
+
+                                        </p>
+
+                                        <p class="writingDate" >
+
+                                            2019年02月01日 &nbsp;  14:53:50
+
+                                        </p>
+
+                                    </div>
+
+
+
+                                </div>
+
+                            </div>
+
+                            <div class="clear"></div>
+
+                        </div>
+
+
+
+                        <div class="listDiv">
+
+                            <div class="half" >
+
+                                <div class="imgPople"><img id="img6"></div>
+
+                            </div>
+
+                            <div class="imgParent">
+
+                                <div class="popleRt" >
+
+                                    <div  class="img-name">
+
+                                        <p class="wordsTitle">
+
+                                            <span class="writing">发现地</span>
+
+                                            <b class="writingRt">:</b>
+
+                                            <span class="writing">龙门吊</span>
+
+                                        </p>
+
+                                        <p class="wordsTitle">
+
+                                            <span class="writing">违规类型</span>
+
+                                            <b class="writingRt">:</b>
+
+                                            <span class="writing">未穿反光衣</span>
+
+                                        </p>
+
+                                        <p class="writingDate" >
+
+                                            2019年02月01日 &nbsp;  14:52:02
+
+                                        </p>
+
+                                    </div>
+
+
+
+                                </div>
+
+                            </div>
+
+                            <div class="clear"></div>
+
+                        </div>
+
+                        <div class="listDiv">
+
+                            <div class="half" >
+
+                                <div class="imgPople" ><img id="img5"></div>
+
+                            </div>
+
+                            <div class="imgParent">
+
+                                <div class="popleRt" >
+
+                                    <div  class="img-name">
+
+                                        <p class="wordsTitle">
+
+                                            <span class="writing">发现地</span>
+
+                                            <b class="writingRt">:</b>
+
+                                            <span class="writing">龙门吊</span>
+
+                                        </p>
+
+                                        <p class="wordsTitle">
+
+                                            <span class="writing">违规类型</span>
+
+                                            <b class="writingRt">:</b>
+
+                                            <span class="writing">未穿反光衣</span>
+
+                                        </p>
+
+                                        <p class="writingDate" >
+
+                                            2019年02月01日   &nbsp; 14:41:58
+
+                                        </p>
+
+                                    </div>
+
+
+
+                                </div>
+
+                            </div>
+
+                            <div class="clear"></div>
+
+                        </div>
+
+                        <div class="listDiv">
+
+                            <div class="half" >
+
+                                <div class="imgPople" ><img id="img4"></div>
+
+                            </div>
+
+                            <div class="imgParent">
+
+                                <div class="popleRt" >
+
+                                    <div  class="img-name">
+
+                                        <p class="wordsTitle">
+
+                                            <span class="writing">发现地</span>
+
+                                            <b class="writingRt">:</b>
+
+                                            <span class="writing">龙门吊</span>
+
+                                        </p>
+
+                                        <p class="wordsTitle">
+
+                                            <span class="writing">违规类型</span>
+
+                                            <b class="writingRt">:</b>
+
+                                            <span class="writing">未穿反光衣，未戴安全帽</span>
+
+                                        </p>
+
+                                        <p class="writingDate" >
+
+                                            2019年02月01日  &nbsp;  14:23:06
+
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="clear"></div>
+
+                        </div>
+
+                        <div class="listDiv">
+
+                            <div class="half" >
+
+                                <div class="imgPople" ><img id="img3"></div>
+
+                            </div>
+
+                            <div class="imgParent">
+
+                                <div class="popleRt" >
+
+                                    <div  class="img-name">
+
+                                        <p class="wordsTitle">
+
+                                            <span class="writing">发现地</span>
+
+                                            <b class="writingRt">:</b>
+
+                                            <span class="writing">龙门吊</span>
+
+                                        </p>
+
+                                        <p class="wordsTitle">
+
+                                            <span class="writing">违规类型</span>
+
+                                            <b class="writingRt">:</b>
+
+                                            <span class="writing">未穿反光衣，未戴安全帽</span>
+
+                                        </p>
+
+                                        <p class="writingDate" >
+
+                                            2019年02月01日   &nbsp; 14:22:24
+
+                                        </p>
+
+                                    </div>
+
+
+
+                                </div>
+
+                            </div>
+
+                            <div class="clear"></div>
+
+                        </div>
+
+                        <div class="listDiv">
+
+                            <div class="half" >
+
+                                <div class="imgPople" ><img id="img2"></div>
+
+                            </div>
+
+                            <div class="imgParent">
+
+                                <div class="popleRt" >
+
+                                    <div  class="img-name">
+
+                                        <p class="wordsTitle">
+
+                                            <span class="writing">发现地</span>
+
+                                            <b class="writingRt">:</b>
+
+                                            <span class="writing">龙门吊</span>
+
+                                        </p>
+
+                                        <p class="wordsTitle">
+
+                                            <span class="writing">违规类型</span>
+
+                                            <b class="writingRt">:</b>
+
+                                            <span class="writing">未穿反光衣，未戴安全帽</span>
+
+                                        </p>
+
+                                        <p class="writingDate" >
+
+                                            2019年02月01日  &nbsp;  14:18:42
+
+                                        </p>
+
+                                    </div>
+
+
+
+                                </div>
+
+                            </div>
+
+                            <div class="clear"></div>
+
+                        </div>
+
+                        <div class="listDiv">
+
+                            <div class="half" >
+
+                                <div   class="imgPople" ><img id="img1"></div>
+
+                            </div>
+
+                            <div class="imgParent">
+
+                                <div class="popleRt" >
+
+                                    <div class="img-name">
+
+                                        <p class="wordsTitle">
+
+                                            <span class="writing">发现地</span>
+
+                                            <b class="writingRt">:</b>
+
+                                            <span class="writing">龙门吊</span>
+
+                                        </p>
+
+                                        <p class="wordsTitle">
+
+                                            <span class="writing">违规类型</span>
+
+                                            <b class="writingRt">:</b>
+
+                                            <span class="writing">未穿反光衣，未戴安全帽</span>
+
+                                        </p>
+
+                                        <p class="writingDate" >
+
+                                            2019年02月01日  &nbsp;  14:15:45
+
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="clear"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+
+
+    var startTime=Number(new Date());     //页面初始时间
+
+
+
+    var video = document.getElementById("videoPlay");
+
+
+
+    $(document).ready(function () {
+
+        getvideoprogress();
+
+    });
+
+
+
+    function clock() {
+
+
+
+        var curerntTime=Number(new Date());
+
+
+
+        var time=curerntTime-startTime+1549001735*1000;
+
+        var data3=new Date(time);
+
+
+
+        var h=(data3.getHours()<10) ? "0"+data3.getHours() : data3.getHours(),
+
+            mi=(data3.getMinutes()<10) ? "0"+data3.getMinutes() : data3.getMinutes(),
+
+            s=(data3.getSeconds()<10) ? "0"+data3.getSeconds() : data3.getSeconds();
+
+
+
+        $("#time-hm").html(h+":"+mi+":"+s);
+
+
+
+        // console.log(Number(new Date())-time);
+
+    }
+
+
+
+    function getvideoprogress() {
+
+        setTimeout(function () {
+
+            var currentTime=video.currentTime.toFixed(1);
+
+
+
+            if(currentTime==10){
+
+
+
+                imgShow('img1','l3');
+
+
+
+            }else if(currentTime==38){
+
+                imgShow('img2','l4');
+
+
+
+            } else if(currentTime==67){
+
+                imgShow('img3','l5');
+
+
+
+            } else if(currentTime==92){
+
+                imgShow('img4','l6');
+
+            }else if(currentTime==119){
+
+                imgShow('img5','l1');
+
+            }else if(currentTime==198){
+
+                imgShow('img6','l2');
+
+            }else if(currentTime==242){
+
+                imgShow('img7','l7');
+
+            }
+            else if(currentTime==263){
+
+                imgShow('img8','smoking');
+
+                // return false;
+
+            }else if(currentTime==302){
+                location.reload(window.location.href);
+            }
+
+            // console.log(currentTime);
+
+            getvideoprogress();
+
+        }, 100);
+
+    }
+
+
+
+    var count=0;
+
+
+
+    function imgShow(id,name) {
+
+
+
+        if(name){
+
+            var ele=$('#'+id);
+
+            ele.prop("src","img/"+name+".jpg");
+
+            ele.parent().parent().parent().fadeIn();
+
+            count+=1;
+
+            // console.log(count);
+
+            $("#countNum").html(count);
+
+        }
+
+    }
+
+</script>
+</body>
+
+</html>
+

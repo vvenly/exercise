@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--重点browser-->
+<script src="js/browser.min.js"></script>
+
+<!--重点：  type="text/babel"-->
+<script type="text/babel">
+    let abc=18;
+
+    function user(){
+        let age = abc;
+
+        setInterval(() => {
+
+            console.log(age++);
+
+        }, 1000);
+    }
+
+
+    user();
+</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <link rel="icon" href="img/favicon.ico">
+  <link rel="stylesheet" href="css/register.css">
+  <title>用户注册 — 京东商城</title>
+</head>
+<body>
+<!--头部-->
+<div class="container header">
+  <a class="logo" href="#">
+    <img src="images/logo-201305.png" alt=""/>
+  </a>
+  <h1 class="welcome">欢迎注册</h1>
+</div>
+
+<!--主体-->
+<div class="container main">
+  <video class="bg-video" src="res/snow.mp4" autoplay muted loop></video>
+  <div class="box">
+    <form id="form-register">
+      <div class="form-group">
+        <label class="control-label" for="uname">用户名：</label>
+        <input class="form-control" type="text" id="uname" name="uname"/>
+        <span class="help-block">提示性信息</span>
+      </div>
+      <div class="form-group">
+        <label class="control-label" for="upwd">密码：</label>
+        <input class="form-control" type="password" id="upwd" name="upwd"/>
+        <span class="help-block">提示性信息</span>
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="age"/>
+        <span class="help-block">提示性信息</span>
+      </div>
+      <div class="form-group">
+        <input type="button" value="提交注册信息" class="bt-submit"/>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!--尾部-->
+<div class="container footer"></div>
+<script src="js/jquery-1.11.3.js"></script>
+<script src="js/register.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        document.getElementsByTagName("html")[0].style.fontSize=document.documentElement.clientWidth/10+"px";
+    </script>
+    <link rel="stylesheet" href="CSS/style.min.css">
+</head>
+<body>
+
+<div id="parent">
+    <img src="images/border.jpg" id="bgImg">
+    <div id="bigBg">
+        <span id="mouseOut"></span>
+        <span id="mouseOut1"></span>
+        <span id="mouseOut2"></span>
+        <span id="mouseOut3"></span>
+        <span id="mouseOut4"></span>
+        <span id="mouseOut5"></span>
+        <span id="mouseOut6"></span>
+        <span id="mouseOut7"></span>
+        <span id="mouseOut8"></span>
+    </div>
+</div>
+
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+
+//    let evt = "onorientationchange" in window ? "orientationchange" : "resize";
+//        window.addEventListener(evt, function() { //只能在手机下执行
+//            if (width< 500) {
+//                window.location.href = 'http://localhost:63343/exercise/games/404.html';
+//                console.log(1);
+//            } else {
+//                window.location.href = 'http://localhost:63343/exercise/games/mouse.html';
+//                console.log(2);
+//            }
+//        })
+
+//        let width = document.documentElement.clientWidth;
+//        let height =  document.documentElement.clientHeight;
+//        let evt = "onorientationchange" in window ? "orientationchange" : "resize";
+//    window.addEventListener(evt, function() {
+//        if(width<height){
+//            $("#parent").html("请横屏显示");
+//        }else{
+//            location.reload();
+//        }
+//
+//    }
+//    );
+//
+//        console.log(width+"w + h"+height);
+
+
+//    let width = document.documentElement.clientWidth;
+//    let height =  document.documentElement.clientHeight;
+//    let hem=document.documentElement.clientHeight/10;
+//
+//    (function () {
+//        if(width<height){
+//            $("#parent").html("请横屏显示");
+////            $("#parent").css({
+////                "position":"fixed",
+////                "top":(height-width)/2,
+////                "left":0-(height-width)/2,
+////                "transform":"rotate(90deg)",
+////                "width":height,
+////                "height": "10rem"
+////            })
+////            $("#bigBg").css({
+////                "width":6.55*hem +"px",
+////                "height": 4.5*hem +"px"
+////            })
+//        }else{
+//
+//        }
+//        console.log(width +" . "+hem);
+//    })()
+</script>
+
+</body>
+</html>

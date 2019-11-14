@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #d1{
+            position: relative;top:100px;;left:200px;}
+        .in1{text-align: right}
+        #int2{text-align: right;}
+    </style>
+</head>
+<body>
+
+
+<div id="d1">
+    <input class="in1" type="text" dir='rtl'>
+    <input type="text" id="int2"/>
+
+    <button>click</button>
+</div>
+
+
+
+
+
+
+<script>
+    int2.onchange=function(){
+        console.log(int2.value);
+        var value=int2.value.split('');
+       value.reverse();
+       var str= value.join("");
+       // value=value.replace(/,/ig,"");
+        console.log(str);
+        int2.value=str;
+    }
+</script>
+</body>
+</html>

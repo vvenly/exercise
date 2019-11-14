@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> 京东商城－购物车 </title>
+  <meta charset="utf-8"/>
+  <link rel="stylesheet" href="jdnet.css">
+  <link rel="icon" href="img/favicon.ico">
+  <link rel="stylesheet" href="css/jd.css">
+  <link rel="stylesheet" href="css/addorder.css">
+</head>
+
+<body>
+<div id="header"></div>
+<div id="main">
+  <h1>下单成功！</h1>
+  <p>您的订单编号为：<b id="oid"></b></p>
+  <p>点击 <a href="usercenter.html">此处</a> 进入用户中心，查看我的所有订单</p>
+
+</div>
+
+<div id="footer"></div>
+
+<script src="js/jquery-1.12.4.min.js"></script>
+<script>
+  /**功能点1：若用户未登录，则跳转到登录页面（产品列表页）**/
+  if(!sessionStorage['loginUid']){
+    location.href = 'productlist.html';
+  }
+
+  /**功能点2：异步请求页头和页尾，修改页头中的欢迎消息**/
+  $('#header').load('data/header.php',function(){
+    $('#welcome').html('欢迎回来：'+sessionStorage['loginUname']);
+  });
+  $('#footer').load('data/footer.php');
+
+  /**功能点3：点击附加导航，实现右侧DIV的切换**/
+  $('.affix').on('click','li a', function(e){
+    e.preventDefault();
+    //修改附加导航中的激活项
+    $(this).parent().addClass('active').siblings('.active').removeClass('active');
+    //右侧主体内容切换
+    var id = $(this).attr('href');
+    $(id).addClass('active').siblings('.active').removeClass('active');
+  })
+</script>
+
+</body>
+</html>

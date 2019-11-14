@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+
+<h2>单词辅助记忆系统</h2>
+<h3>保存单词</h3>
+<hr/>
+  <p>总词汇量 <span id="spantotal"></span></p>
+<p>总词汇量 <span id="spancorrect"></span></p>
+<p>总词汇量 <span id="spanScore"></span></p>
+<hr/>
+<a href="word_save.html"></a>
+<a href="word_text.html"></a>
+
+<script>
+
+  var total=sessionStorage['total'];
+  var correct=sessionStorage['correct'];
+  spantotal.innerHTML=total;
+  spancorrect.innerHTML=correct;
+  spanScore.innerHTML=(correct/total)*100+'%';
+
+</script>
+</body>
+</html>

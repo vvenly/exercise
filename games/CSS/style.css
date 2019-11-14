@@ -1,0 +1,113 @@
+body, div, p {
+  margin: 0;
+  padding: 0;
+  color: #C458D6; }
+
+#bigBg {
+  width: 6.55rem;
+  height: 4.5rem;
+  background-image: url("../images/bg_canvas.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 15px auto;
+  position: relative; }
+
+#mouseOut {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.24rem;
+  width: 0.8rem;
+  height: 0.8rem;
+  background-image: url("../images/mouse1.png");
+  background-repeat: no-repeat;
+  background-size: cover; }
+
+#mouseOut1 {
+  position: absolute;
+  top: 1.5rem;
+  left: 2.95rem;
+  width: 0.8rem;
+  height: 0.8rem;
+  background-image: url("../images/mouse2.png");
+  background-repeat: no-repeat;
+  background-size: cover; }
+
+#mouseOut2 {
+  position: absolute;
+  top: 1.5rem;
+  left: 4.65rem;
+  width: 0.8rem;
+  height: 0.8rem;
+  background-image: url("../images/mouse3.png");
+  background-repeat: no-repeat;
+  background-size: cover; }
+
+#mouseOut3 {
+  position: absolute;
+  top: 2.25rem;
+  left: 1.2rem;
+  width: 0.8rem;
+  height: 0.8rem;
+  background-image: url("../images/mouse5.png");
+  background-repeat: no-repeat;
+  background-size: cover; }
+
+#mouseOut4 {
+  position: absolute;
+  top: 2.25rem;
+  left: 2.95rem;
+  width: 0.8rem;
+  height: 0.8rem;
+  background-image: url("../images/mouse4.png");
+  background-repeat: no-repeat;
+  background-size: cover; }
+
+#mouseOut5 {
+  position: absolute;
+  top: 2.25rem;
+  left: 4.65rem;
+  width: 0.8rem;
+  height: 0.8rem;
+  background-image: url("../images/mouse1.png");
+  background-repeat: no-repeat;
+  background-size: cover; }
+
+#mouseOut6 {
+  position: absolute;
+  top: 3.05rem;
+  left: 0.95rem;
+  width: 0.8rem;
+  height: 0.8rem;
+  background-image: url("../images/mouse1.png");
+  background-repeat: no-repeat;
+  background-size: cover; }
+
+#mouseOut7 {
+  position: absolute;
+  top: 3.1rem;
+  left: 2.95rem;
+  width: 0.8rem;
+  height: 0.8rem;
+  background-image: url("../images/mouse1.png");
+  background-repeat: no-repeat;
+  background-size: cover; }
+
+#mouseOut8 {
+  position: absolute;
+  top: 3.1rem;
+  left: 4.85rem;
+  width: 0.8rem;
+  height: 0.8rem;
+  background-image: url("../images/mouse1.png");
+  background-repeat: no-repeat;
+  background-size: cover; }
+
+#bgImg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -100; }
+
+/*# sourceMappingURL=style.css.map */

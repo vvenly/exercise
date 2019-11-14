@@ -1,0 +1,86 @@
+$color:#C458D6;
+$inBlock:inline-block;
+
+@mixin bgSame($url){
+  background: {
+    image: url($url);
+    repeat:no-repeat;
+    size:cover;
+  };
+}
+
+body,div,p{
+  margin:0;
+  padding: 0;
+  color:$color;
+}
+
+#bigBg{
+  width:6.55rem;
+  height:4.5rem;
+  @include bgSame("../images/bg_canvas.png");
+  margin:15px auto;
+  position: relative;
+}
+
+@mixin mouseSpan($top,$left){
+  position: absolute;
+  top:$top;
+  left:$left;
+  width:0.8rem;
+  height:0.8rem;
+}
+
+#mouseOut{
+  @include mouseSpan(1.5rem,1.24rem);
+  @include bgSame("../images/mouse1.png");
+}
+
+#mouseOut1{
+  @include mouseSpan(1.5rem,2.95rem);
+  @include bgSame("../images/mouse2.png");
+}
+
+#mouseOut2{
+  @include mouseSpan(1.5rem,4.65rem);
+  @include bgSame("../images/mouse3.png");
+}
+
+#mouseOut3{
+  @include mouseSpan(2.25rem,1.2rem);
+  @include bgSame("../images/mouse5.png");
+}
+
+#mouseOut4{
+  @include mouseSpan(2.25rem,2.95rem);
+  @include bgSame("../images/mouse4.png");
+}
+
+#mouseOut5{
+  @include mouseSpan(2.25rem,4.65rem);
+  @include bgSame("../images/mouse1.png");
+}
+
+#mouseOut6{
+  @include mouseSpan(3.05rem,0.95rem);
+  @include bgSame("../images/mouse1.png");
+}
+
+#mouseOut7{
+  @include mouseSpan(3.1rem,2.95rem);
+  @include bgSame("../images/mouse1.png");
+}
+
+#mouseOut8{
+  @include mouseSpan(3.1rem,4.85rem);
+  @include bgSame("../images/mouse1.png");
+}
+
+#bgImg{
+  position: fixed;
+  top: 0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index: -100;
+}

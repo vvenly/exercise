@@ -1,0 +1,43 @@
+<h2>打地鼠(未完成)</h2>
+
+<div class="main gameBeat">
+    <div class="box">
+        <ul id="ul"></ul>
+    </div>
+
+    <div class="text">
+        <ul>
+            <li><input type="button" value="开始游戏" id="start" ng-click="startGame()"/></li>
+            <li><input type="button" value="结束游戏" id="over" ng-click="stopGame()"/></li>
+            <li>游戏时间：1分钟</li>
+            <li>地鼠出现的时间间隔： 1 秒</li>
+            <li>地鼠停留时间： 1秒</li>
+            <li>
+                <div id="times"></div>
+            </li>
+            <li>-------分数------</li>
+            <li>
+                <div id="score"></div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var strl="<li><img src='img/game/m1.jpg' name='image' onclick='clickMouse(this)'></li>";
+        for(var i=0;i<25;i++){
+            $('#ul')[0].innerHTML+=strl;
+        }
+    });
+
+    function clickMouse(a){
+        console.log(a);
+         var str2= a.src.substr(a.src.length-6,6);
+        console.log("str2:"+str2);
+        if(str2=="m2.jpg"){
+            a.src="img/game/m3.jpg";
+        }
+    };
+
+</script>

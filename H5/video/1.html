@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>capture screen</title>
+    <style>
+        img{width: 400px;}
+    </style>
+</head>
+<body>
+<video id="video" controls="controls" src="test.mp4" autoplay="autoplay"  width="440" height="260"></video>
+
+<canvas id="canvas" class="canvas"></canvas>
+
+<img id="rendering-img1" class="img">
+
+<img id="rendering-img2" class="img">
+
+<img id="rendering-img3" class="img">
+
+
+<script src="../../jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+
+    var video = document.getElementById("video");
+    var canvas = document.getElementById("canvas");
+    var interval = null;
+
+    getvideoprogress();
+
+    function getvideoprogress() {
+        setTimeout(function () {
+            // var vid = document.getElementById("video1");
+            var currentTime=video.currentTime.toFixed(1);
+            if(currentTime==2){
+                //触发
+                // return false;
+
+                // V.CaptureVideo(true, false);
+
+                V.CaptureVideo(true,'rendering-img1');
+
+                // return false;
+            }else if(currentTime==3){
+                console.log(123);
+                // V.CaptureVideo(true, false);
+
+                V.CaptureVideo(true,'rendering-img2');
+            }
+            // console.log(currentTime);
+            getvideoprogress();
+        }, 50);
+    }
+
+
+    //截取视频画面
+    var CaptureFirstFrame = function() {
+
+        this.CaptureVideo = function(img, id) {
+            //canvas 缩放比率
+            this.scale = 1;
+
+            //创建canvas元素
+            this.canvas = document.createElement("canvas");
+
+            //设置canvas画布大小
+            this.canvas.width = canvas.width = video.videoWidth * this.scale;
+            this.canvas.height = canvas.height = video.videoHeight * this.scale;
+
+            //设置canvas画布内容、位置
+            this.canvas.getContext('2d').drawImage(video, 0, 0, this.canvas.width, this.canvas.height);
+
+
+            //注：
+            /*
+             * canvas.toDataURL("image/png", 1) 方法可能会出错！！！
+             * 因为 【 如果视频文件所在的 域 和 当前index.html页面所在域不同，就会出现跨域传输的问题】，【及便是给img标签加上crossOrigin': 'anonymous' 也没用！】
+             * 所以 请将 视频文件 和 当前index.html页面放在同一个域中，才能正常运行。
+             */
+
+            if (img) {
+                $('#'+id).prop({
+                    'crossOrigin': 'anonymous',
+                    'src': this.canvas.toDataURL("image/png", 1)
+                });
+            };
+
+            // if (rsy) {
+            //     canvas.getContext('2d').drawImage(video, 0, 0, this.canvas.width, this.canvas.height);
+            // };
+            //
+            // if (bbg) {
+            //     $(document.body).css('background-image', 'url(' + this.canvas.toDataURL("image/png", 1) + ')');
+            // };
+        }
+    };
+
+    //打开全屏方法
+    // CaptureFirstFrame.prototype.openFullscreen = function(element) {
+    //     if (element.requestFullscreen) {
+    //         element.requestFullscreen();
+    //     } else if (element.mozRequestFullScreen) {
+    //         element.mozRequestFullScreen();
+    //     } else if (element.msRequestFullscreen) {
+    //         element.msRequestFullscreen();
+    //     } else if (element.webkitRequestFullscreen) {
+    //         element.webkitRequestFullScreen();
+    //     }
+    // };
+
+    var V = new CaptureFirstFrame();
+
+
+    function browserInfo(){
+        var userAgent = navigator.userAgent;
+        var isOpera = userAgent.indexOf("Opera") > -1;
+
+        if (userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera) {
+
+        }
+    }
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+﻿<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>panel</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="reset.css" type="text/css" />
+	<script src="http://www.jq22.com/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript" src="zUI.js"></script>
+	<style>
+	/*body{ background-color:#252525}*/
+		#demo{
+			width: 300px;
+			height: 100px;
+			border: 2px solid #1F1F1F;
+			margin: 100px auto;
+			overflow: hidden;
+		}
+		/*.box{*/
+			/*height:300px;*/
+			/*width:500px;*/
+		/*}*/
+		.zUIpanelScrollBox,.zUIpanelScrollBar{
+			width:10px;
+			top:4px;
+			right:2px;
+			border-radius:5px;
+			
+		}
+		.zUIpanelScrollBox{
+			background:black;opacity:0.1;
+			filter:alpha(opacity=10);
+		}
+		.zUIpanelScrollBar{
+			background:#fff;opacity:0.8;
+			filter:alpha(opacity=80);
+		}
+	</style>
+	<script>	
+		$(function(){
+			$("#demo").panel({iWheelStep:32});
+		});
+	</script>
+</head>
+<body>
+
+
+
+	<div id="demo">
+		<div class="box" style="background:#546B8B">滚动条在这里</div>
+		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio eos eveniet mollitia sit. Atque cupiditate incidunt maxime nesciunt obcaecati? Adipisci aliquam error fugiat modi natus perspiciatis quasi, recusandae ut voluptate?
+
+		Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam amet asperiores consequuntur corporis delectus doloremque fuga hic impedit iste itaque libero maxime pariatur quae sequi velit, veritatis vero voluptatem!
+
+		<!--<div>-->
+			<!--<div class="box" style="background:#546B8B">滚动条在这里</div>-->
+			<!--<div class="box" style="background:#5ACDE5">2</div>-->
+			<!--<div class="box" style="background:#483362">3</div>-->
+			<!--<div class="box" style="background:#723E4B">4</div>-->
+			<!--<div class="box" style="background:#546B8B">5</div>-->
+		<!--</div>-->
+	</div>
+
+<div>
+	<input type="checkbox" checked="0">
+
+	<input type="checkbox" checked="1">
+
+
+	<input type="checkbox" checked=false>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<div class="clear" style="height: 50px;"></div>
+
+        <!--将value值赋给option的value,name赋给中间的文本内容-->
+        <!--ng-model将数据绑定-->
+<select class="selPage" ng-options="v.value as v.name for v in data" ng-model="city">
+    <option value="">请选择</option>
+</select>
+<p>
+    {{city}}
+</p>
+
+
+        <div class="clear" style="height: 50px;"></div>
+
+
+        <!--可以直接写入表达式-->
+        <h2 ng-bind="99*2"></h2>
+
+        <div class="clear" style="height: 50px;"></div>
+
+
+
+        <div>
+           <input type="radio" ng-model="status" ng-value="1"/>  开启
+
+           <input type="radio" ng-model="status" ng-value="0"/>  关闭
+       </div>
+
+<!--ng-show里面也可以写表达式，一般情况下作为显示隐藏使用，双引号里面的内容为true就显示，为false就隐藏-->
+
+   <div ng-show="status==0">
+       <textarea cols="30" rows="5">
+           关闭后显示的元素
+       </textarea>
+   </div>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="swf" style="margin: 0 auto;text-align: center;">
+    <img src="/assets/img/default.jpg" height="180px" width="180px"
+         id="logoshow">
+</div>
+<div id="headview" style="text-align: center;margin: 0 auto;">
+    <input type="file" id="logo" name="logo" style="width: 180px;"
+           onchange="previewImage(this)">
+</div>
+
+
+<script>
+    function previewImage(file){
+        var div = document.getElementById('swf');
+        if (file.files && file.files[0]) {//HTML5
+            var img = document.getElementById('logoshow');
+            var reader = new FileReader();
+            reader.readAsDataURL(file.files[0]);
+            reader.onload = function (evt) {
+                img.src = evt.target.result;
+                img.style.width= "180px";
+            };
+        }
+        else //兼容IE，滤镜
+        {
+            alert("filter");
+            var sFilter = 'filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+            file.select();
+            file.blur();
+            var src = document.selection.createRange().text;
+            var img = document.getElementById('logoshow');
+            img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+            div.innerHTML = "<img id=logoshow style='margin:0px auto;width:180px;height:180px;" + sFilter + src + "\"'>";
+        }
+    }
+</script>
+
+</body>
+</html>

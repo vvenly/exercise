@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    #parent{
+      background: #aff;
+      width: 100%;
+      height: 800px;;
+    }
+    #affix{
+      width:210px;
+      height: 200px;
+      background: #afa;
+      float: left;
+    }
+    #right{
+      background: #aaf;
+      min-height: 300px;
+      margin-left: 210px;
+      /*float: left;*/
+
+    }
+  </style>
+</head>
+<body>
+  <h1>父容器宽度可变，左侧定宽，右侧占剩余全部</h1>
+  <div id="parent">
+    <div id="affix">左侧附加导航</div>
+    <!--左边的浮动，右边的不加浮动，只要加个margin-left:左侧的宽 即可-->
+    <div id="right">右侧主体内天</div>
+  </div>
+</body>
+</html>

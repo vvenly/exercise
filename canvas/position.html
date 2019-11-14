@@ -1,0 +1,33 @@
+<body>
+
+<canvas id="quad" width="1500" height="1000" style="background: antiquewhite"></canvas>
+
+<script>
+    function polygon(poly, context) {
+
+        // console.log(poly);
+        context.beginPath();
+        context.moveTo(poly[0], poly[1]);
+
+        for (var i = 2; i < poly.length; i += 2) {
+            context.lineTo(poly[i], poly[i + 1]);
+            console.log(poly[i], poly[i + 1]);
+        }
+        context.closePath();
+        context.fill();
+        context.stroke();
+    }
+
+    // 获得 canvas.context
+    var canvas = document.getElementById("quad");
+    var context = canvas.getContext("2d");
+    context.fillStyle = "white"; // 内部使用白色，如不指定，默认为黑色
+    context.strokeStyle = "#008"; // 深蓝色外边框
+    context.lineWidth = 2; // 2个像素宽
+
+    var poly = [0, 416, 529, 424, 639, 499, 52, 490, 152, 390];
+    polygon(poly, context);
+
+</script>
+
+</body>

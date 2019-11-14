@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>拖拽事件</title>
+    <style>
+        body,div{
+            padding:0;
+            margin:0;
+        }
+
+    </style>
+</head>
+<body>
+
+<div style="height:50px;"></div>
+
+
+<div style="text-align: center;">
+
+    <canvas id="myCanvas" width="400" height="400" style="border:1px solid #afa"></canvas>
+
+
+    <h4 id="content"></h4>
+</div>
+
+<div hidden>
+
+    Canvas 中的捕获事件，一般来说就是在鼠标移入或点击时的坐标是否属于我们的目标图形范围内，
+    所以主要是获取鼠标的x坐标 与 y坐标   并与 目标图形的坐标宽高等 做判断；
+
+    语法：
+
+    if(mouse.x > rect.x && mouse.x)
+
+
+</div>
+
+<script src="../tool.js"></script>
+<script src="../ball.js"></script>
+
+<script>
+    window.onload=function () {
+        let cnv = document.getElementById("myCanvas");
+        let ctx = cnv.getContext("2d");
+
+        let text = document.getElementById("content");
+
+        let ball= new Ball(cnv.width/2,cnv.height/2,20);
+        ball.fill(ctx);
+
+        let mouse=tools.getMouse(cnv);
+
+        let dx=0,dy=0;
+
+        //添加鼠标移入事件
+        cnv.addEventListener("mousedown",function () {
+            if(ball.checkMouse(mouse)){
+                dx=mouse.x-ball.x;
+                dy=mouse.y-ball.y;
+                document.addEventListener("mousemove",onMouseMove,false);
+                document.addEventListener("mouseup",onMouseUp,false);
+            }
+        },false);
+
+        function onMouseMove() {
+            ball.x=mouse.x-dx;
+            ball.y=mouse.y-dy;
+        }
+
+        function onMouseUp() {
+            document.removeEventListener('mouveup',onMouseUp,false);
+            document.removeEventListener("mousemove",onMouseMove,false);
+        }
+
+        (function drawFrame() {
+            window.requestAnimationFrame(drawFrame,cnv);
+
+            ctx.clearRect(0,0,cnv.width,cnv.height);
+
+            ball.fill(ctx);
+        })()
+
+
+    }
+
+
+</script>
+
+</body>
+</html>

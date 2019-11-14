@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>阴影</title>
+</head>
+<body>
+
+<div style="text-align: center;">
+
+    <canvas id="seventhC" width="300" height="300" style="border: 1px solid #fff123"></canvas>
+
+
+</div>
+
+<div hidden>
+    关于Canvas 阴影效果  分以下四种属性：
+
+    ctx.shadowBlur       设置阴影的模糊级别
+    ctx.shadowOffsetX    设置形状与阴影的水平距离。
+    ctx.shadowOffsetY    设置形状与阴影的垂直距离。
+    ctx.shadowColor      设置阴影的颜色
+
+    在CSS3 中也有阴影的效果，两种用起来效果基本相同。
+
+    阴影效果可以用在图形，文字还有图片里，巧妙的运用阴影可以做出很好的样式
+</div>
+
+<script>
+    window.onload=function () {
+        let cans = document.getElementById("seventhC");
+        let ctx = cans.getContext("2d");
+
+        //图形阴影
+        ctx.shadowOffsetX=0;
+        ctx.shadowOffsetY=0;
+        ctx.shadowColor="#f00";
+        ctx.shadowBlur=15;
+        ctx.fillStyle="#FFF500";
+        ctx.fillRect(30,20,70,70);
+
+        //文字阴影
+        ctx.shadowOffsetX=-5;   //将阴影设在左上角   需要设在右下角改成正整数即可
+        ctx.shadowOffsetY=-5;
+        ctx.shadowColor="#03DB90";
+        ctx.shadowBlur=15;
+        ctx.font="bold 30px KaiTi";
+        ctx.strokeStyle="#15A2FF";
+        ctx.strokeText("阴影文字",50,150);
+    };
+
+    //效果图：  23
+
+</script>
+
+</body>
+</html>

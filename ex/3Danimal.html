@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            margin:0;
+            padding:0;
+        }
+        #p1{
+            width: 500px;
+            height: 500px;
+            border: 1px solid #aaf;
+        }
+        #d1{
+            width:340px;
+            height:350px;
+            background: url("img/Demond.png");
+            margin:20px;
+            border: 1px solid #ddd;
+            /*animation: rotate-clockwise 1s infinite;*/
+        }
+        #auto:checked ~ #d1{
+            animation: rotate-clockwise 1s steps(10) infinite;
+        }
+
+        @keyframes rotate-clockwise {
+            0%{
+                background-position:-10px 0 ;
+            }
+
+            100%{
+                background-position:-3363px 0 ;
+            }
+        }
+
+
+
+
+        #p2{
+            width: 500px;
+            height: 500px;
+            border: 1px solid #aaf;
+        }
+        #d2{
+            width:340px;
+            height:350px;
+            background: url("img/sw.png");
+            margin:20px;
+            border: 1px solid #ddd;
+            /*animation: rotate-clockwise 1s infinite;*/
+        }
+        #auto2:checked ~ #d2{
+            animation: rotate-clockwise2 1s steps(15) infinite;
+        }
+
+        @keyframes rotate-clockwise2 {
+            0%{
+                background-position:-30px 0 ;
+            }
+
+            100%{
+                background-position:-5035px 0 ;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="p1">
+    <input type="checkbox" class="auto" id="auto" checked>
+
+    <label for="auto">Auto &#x21bb;</label>
+    <br/>
+
+    <span class="anticlockwise">&#x2190;</span>
+
+    <span class="clockwise">&#x2192;</span>
+
+    <div id="d1"></div>
+</div>
+
+
+<div id="p2">
+    <input type="checkbox" id="auto2">
+
+    <label for="auto2">Auto &#x21bb;</label>
+
+    <div id="d2"></div>
+</div>
+
+
+
+
+</body>
+</html>

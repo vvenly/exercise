@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas 线条</title>
+</head>
+<body>
+
+<div style="text-align: center;">
+
+    <canvas id="thirdlyC" width="800" height="600" style="border: 1px solid #ff00ff"></canvas>
+
+</div>
+
+<div hidden>
+    1、线条宽度
+    ctx.lineWidth= 整数值 ;
+     取值必须为整数，不写默认为1  ，单位默认是px ;
+
+    2、线帽
+    ctx.lineCap=属性值;
+    默认butt   另外还有round  和  square  这两种，设置为这两种值的时候  线条会自动增加一部分长度，就是线帽的所在位置;
+    （个人目测觉得square  和 butt 差距不大 只是加长了一点...   round类似于CSS 里面的边框倒角）
+
+    效果图：
+    8.jpg
+
+    3、线条之间的交接
+    ctx.lineJoin=属性值;
+    默认miter  另外还有round （圆角）  和  bevel（斜角） 可选
+
+    4、虚线实线
+    ctx.setLineDash(Array);
+    括号里的参数是一个数组，ctx.setLineDash([5,4]);  表示“5px实线”  “4px”的空白，这种用的较多；
+
+    还有一种是ctx.setLineDash([8,6,4,2]); 表示 “8px实线”  “6px”的空白 “4px实线”  “2px”的空白，
+    用的不多，了解即可。
+
+
+</div>
+
+
+<script>
+    let cans=document.getElementById("thirdlyC");
+    let ctx=cans.getContext("2d");
+
+
+    ctx.lineWidth=15;   //绘制一条高度为15px的直线
+    ctx.moveTo(120,30);
+    ctx.lineTo(300,30);
+    ctx.strokeStyle="#5DE8E0";
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.lineWidth=25;
+    ctx.lineCap="square";
+    ctx.moveTo(120,100);
+    ctx.lineTo(300,100);
+    ctx.strokeStyle="#8B48DE";
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.lineWidth=35;
+    ctx.lineCap="round";
+    ctx.moveTo(120,180);
+    ctx.lineTo(300,180);
+    ctx.strokeStyle="#E076F0";
+    ctx.stroke();
+
+
+    //另外 lineCap 只作用于开始处 和 结尾处  比如
+    ctx.beginPath();
+    ctx.lineWidth=10;
+    ctx.lineCap="round";
+    ctx.moveTo(410,180);
+    ctx.lineTo(610,180);
+    ctx.lineTo(410,300);
+    ctx.lineTo(610,300);
+    ctx.strokeStyle="#34AAFC";
+    ctx.stroke();
+
+    //效果图 ： 9
+
+    //想要线条连接处修改样式 用lineJoin   还是刚才那段代码
+    ctx.beginPath();
+    ctx.lineWidth=10;
+    ctx.lineCap="round";
+    ctx.moveTo(410,380);
+    ctx.lineTo(610,380);
+    ctx.lineTo(410,500);
+    ctx.lineTo(610,500);
+    ctx.lineJoin="round";      //只需在绘制完成前加一句即可；
+    ctx.strokeStyle="#34AAFC";
+    ctx.stroke();
+
+
+    //虚线实线
+    ctx.beginPath();
+    ctx.lineWidth=2;
+    ctx.strokeStyle="#FF4600";
+    ctx.setLineDash([5,4]);
+    ctx.moveTo(30,520);
+    ctx.lineTo(400,520);
+    ctx.stroke();
+
+    //效果图10
+
+</script>
+
+</body>
+</html>

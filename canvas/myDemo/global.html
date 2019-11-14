@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>rotate</title>
+</head>
+<body>
+
+
+<div style="text-align: center;">
+
+    <canvas id="myCanvas" width="300" height="200" style="border: 1px solid #fff123"></canvas>
+
+
+</div>
+
+<div hidden>
+    Canvas 设置透明度 ：
+    语法：  ctx.globalAlpha= 属性值;
+        //属性值是 0 - 1之间的数字。      同CSS一样的透明度属性值
+
+    不过fillStyle 或 strokeStyle  本身也可以自己设定透明值， 所以用到globalAlpha 并不多，
+
+    不过还是了解下，谁知道哪天会有什么反人类的要求会用到呢  (☄⊙ω⊙)☄
+
+
+
+</div>
+
+<script>
+    window.onload=function () {
+        let cans = document.getElementById("myCanvas");
+        let ctx = cans.getContext("2d");
+
+
+
+//        let text="要显示的字符串文本";
+//        ctx.font="bold 25px KaiTi";
+//        ctx.fillStyle="#7C0DFA";
+//        ctx.fillText(text,30,50);
+//
+//        ctx.globalAlpha=0.5;
+//        ctx.fillText(text,30,100);
+    //效果图 35
+
+        ctx.beginPath();
+        ctx.arc(100,50,25,0,360*Math.PI/180);
+        ctx.closePath();
+        ctx.fillStyle="#f00";
+        ctx.fill();      //绘制目标图像1
+
+        ctx.beginPath();
+        ctx.arc(200,50,25,0,360*Math.PI/180);
+        ctx.closePath();
+        ctx.fillStyle="#FFFC43";
+        ctx.fill();       //绘制目标图像2
+
+        ctx.globalCompositeOperation="destination-over";    //在源图像上方显示目标图像。
+//        ctx.globalCompositeOperation="xor";    //冲突的地方透明显示。
+        ctx.beginPath();
+        ctx.arc(150,110,75,0,360*Math.PI/180);
+        ctx.closePath();
+        ctx.fillStyle="#1FA2FF";
+        ctx.fill();    //绘制源图像
+
+        //36
+
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #d1{width: 200px;margin:100px auto;}
+
+        input{
+            width: 150px;height: 30px;
+            margin-bottom: 10px;
+        }
+
+        input:valid {
+            border-color: #2ED81C;
+        }
+
+        input:invalid  {
+            border-color: #e4393c;
+        }
+        #btn{
+
+        }
+
+        input:valid ~ #btn:after {
+            content: "输入正确，可提交"
+        }
+
+
+        input:invalid ~ #btn:after {
+            content: "填写内容不合规"
+        }
+
+    </style>
+</head>
+<body>
+
+
+<div id="d1">
+    <input type="text" name="name" placeholder="姓名" pattern="^[\u0391-\uFFE5]+$" required> <br>
+
+    <input type="text" name="tel" placeholder="手机号码" pattern="\d{11}" required>
+
+    <input type="text" name="tel" placeholder="电子邮箱" pattern="\w+@[a-zA-Z0-9]{2,}(.[a-zA-Z0-9]{2,3}){1,2}" required>
+
+    <button id="btn" type="submit"></button>
+
+</div>
+</body>
+</html>

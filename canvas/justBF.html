@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        body{overflow: hidden}
+        #d1{
+            margin: 50px 100px;
+        }
+        #d2{
+            position: relative;
+            width: 800px;margin: 50px auto;
+        }
+        #canvas{
+            border: 1px solid #0a8ed3;
+        }
+        #drawBoard{
+            display: none;
+            background: rgba(31,137,224,0.3);
+        }
+        #drawBoard{
+            position: absolute;
+            top:0;left: 0;
+        }
+        canvas{cursor: default;}
+    </style>
+</head>
+<body>
+
+
+<div id="d1">
+    <button id="areaEdit" onclick="Draw.startDraw()">区域编辑</button>
+    <button id="outEdit" onclick="Draw.endDraw()">退出区域编辑</button>
+</div>
+
+<div id="d2">
+    <canvas id="canvas" width="800" height="600"> </canvas>
+    <canvas id="drawBoard" width="800" height="600" onclick="Draw.drawIng(event)"></canvas>
+</div>
+
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+
+    var Draw={
+        // drawIng:false,
+        canvas:document.getElementById("canvas"),
+        board:document.getElementById("drawBoard"),
+        areaData: [],
+        startDraw:function () {
+            this.board.style.display="block";
+        },
+        drawIng:function(e){
+            e.stopPropagation();
+
+
+            var ctx=this.canvas.getContext("2d");
+
+            ctx.strokeStyle = "#0695FF";        //定义矩形的颜色
+            ctx.strokeRect(200,150,200,100);
+            // console.log(e);
+            // var x=e.clientX, y=e.clientY;
+            //
+            // this.areaData.push({"x":x,"y":y});
+            //
+            // console.log(this.areaData);
+        },
+        endDraw:function () {
+            this.board.style.display="none";
+        }
+    }
+
+
+</script>
+</body>
+</html>

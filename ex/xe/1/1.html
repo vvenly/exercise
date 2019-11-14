@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #d1{
+            width: 800px;
+            margin: 100px auto;
+        }
+        #cas{
+            background: #0ad0f0;
+        }
+    </style>
+</head>
+<body>
+<div data-v-4097739b="" class="q-btn-group row no-wrap inline q-btn-group-push"><button data-v-4097739b="" tabindex="0" type="button" class="q-btn inline relative-position q-btn-item non-selectable q-btn-rectangle q-btn-push q-focusable q-hoverable" style="font-size: 8px;"><div class="q-focus-helper"></div><div class="q-btn-inner row col items-center justify-center"><div>开始绘制</div></div></button><button data-v-4097739b="" tabindex="0" type="button" class="q-btn inline relative-position q-btn-item non-selectable q-btn-rectangle q-btn-push q-focusable q-hoverable" style="font-size: 8px;"><div class="q-focus-helper"></div><div class="q-btn-inner row col items-center justify-center"><div>清除选中</div></div></button><button data-v-4097739b="" tabindex="0" type="button" class="q-btn inline relative-position q-btn-item non-selectable q-btn-rectangle q-btn-push q-focusable q-hoverable" style="font-size: 8px;"><div class="q-focus-helper"></div><div class="q-btn-inner row col items-center justify-center"><div>清除所有</div></div></button></div>
+
+    <div id="d1">
+        <canvas id="cas" width="500" height="400"></canvas>
+    </div>
+
+    <script>
+
+        function addEvent(obj,type,handle){
+            try{  // Chrome、FireFox、Opera、Safari、IE9.0及其以上版本
+                obj.addEventListener(type,handle,false);
+            }catch(e){
+                try{  // IE8.0及其以下版本
+                    obj.attachEvent('on' + type,handle);
+                }catch(e){  // 早期浏览器
+                    obj['on' + type] = handle;
+                }
+            }
+        }
+
+        window.tools={};
+
+        window.tools.getMouse=function(element){
+            var mouse={x:0,y:0};
+
+            addEvent(element,"mousemove",function(e){
+                var x, y;
+                var e= e || window.event;
+
+                if(e.pageX || e.pageY){ //兼容做到ie9
+                    x=e.pageX;
+                    y=e.pageY;
+                }else{
+                    x=e.clientX+document.body.scrollLeft || document.documentElement.scrollLeft;
+                    y=e.clientY+document.body.scrollTop || document.documentElement.scrollTop;
+                }
+
+                x-=element.offsetLeft;
+                y-=element.offsetTop;
+
+                mouse.x=x;
+                mouse.y=y;
+            });
+
+            return mouse;
+        };
+
+
+        function drawCan() {
+            var cans = document.getElementById("cas");
+            var ctx = cans.getContext("2d");
+
+            var mouse=tools.getMouse(cans);
+
+            var currentData={
+                outCoords: [],
+                outPoints: 10,
+                dragIndex: 0,
+                isDragOut: !1,
+                isDrawOut: !1,
+                startPoint: {},
+                faceCoords: [],
+                areaList: [],
+                activeIndex: -1
+            };
+
+            cans.addEventListener("click",function (t) {
+                var i = getPosition(t);
+
+                currentData.outCoords.length < currentData.outPoints && currentData.isDrawOut && (this.drawDot(i),
+                    currentData.outCoords.push(i)),
+                currentData.outCoords.length === currentData.outPoints && (ctx.clearRect(0, 0, 500, 400),
+                    drawOutLine(),
+                    drawOutDot(),
+                    drawAreaList())
+            })
+        }
+
+        window.onload=function () {
+            drawCan();
+        }
+
+        function getPosition(t) {
+            var i = [t.offsetX, t.offsetY]
+                , e = i[0]
+                , a = i[1];
+            return {
+                x: e,
+                y: a
+            }
+        }
+
+        function drawOutLine() {
+            var e = this;
+            t = t || this.outCoords,
+                t.forEach(function(i, a) {
+                    0 === a ? (e.ctx.beginPath(),
+                        e.ctx.moveTo(t[0].x, t[0].y)) : a === t.length - 1 ? (e.ctx.lineTo(i.x, i.y),
+                        e.ctx.closePath()) : e.ctx.lineTo(i.x, i.y)
+                }),
+                this.ctx.strokeStyle = i ? "#f00" : "#000",
+                this.ctx.stroke()
+        }
+
+        function drawOutDot() {
+            var t = this;
+            this.outCoords.forEach(function(i, e) {
+                t.drawDot(i)
+            })
+        }
+
+        function drawAreaList() {
+            var t = this;
+            this.areaList.forEach(function(i, e) {
+                t.drawOutLine(i, e === t.activeIndex)
+            })
+        }
+    </script>
+</body>
+</html>

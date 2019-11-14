@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        body{overflow: hidden;margin: 0;padding: 0;}
+        #d1{
+            margin: 50px 100px;
+        }
+        #d2{
+            position: relative;
+            width: 800px;margin: 50px 100px;
+        }
+        #canvas{
+            border: 1px solid #0a8ed3;
+        }
+        #drawBoard{
+            display: none;
+            background: rgba(31,137,224,0.3);
+        }
+        #drawBoard{
+            position: absolute;
+            top:0;left: 0;
+        }
+        canvas{cursor: default;}
+    </style>
+</head>
+<body>
+
+
+<div id="d1">
+    <button id="areaEdit" onclick="Draw.startDraw()">区域编辑</button>
+    <button id="outEdit" onclick="Draw.endDraw()">退出区域编辑</button>
+</div>
+
+<div id="d2">
+    <canvas id="canvas" width="800" height="600"> </canvas>
+    <canvas id="drawBoard" width="800" height="600" onclick="Draw.drawIng(event)" onmousemove="Draw.drawMove(event)" oncontextmenu="Draw.endDraw()"></canvas>
+</div>
+
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+
+    var Draw={
+        // drawIng:false,
+        canvas:document.getElementById("canvas"),
+        ctx:"",
+        board:document.getElementById("drawBoard"),
+        areaData: [],
+        areaDataLength:0,
+        moveDraw:false,
+        marginX:100,
+        marginY:123,
+        startDraw:function () {
+            this.board.style.display="block";
+            // this.canvas.onmousemove=this.drawMove();
+        },
+        drawIng:function(e){
+            e.stopPropagation();
+            console.log(e);
+
+            this.ctx=this.canvas.getContext("2d");
+            var x=e.clientX-this.marginX, y=e.clientY-this.marginY;
+
+            this.areaData.push({"x":x,"y":y});
+
+            this.areaDataLength=this.areaData.length;
+
+            this.moveDraw=true;
+
+            // console.log(this.areaData);
+        },
+        drawMove:function(e){
+
+            if(this.moveDraw){
+                var x=e.clientX-this.marginX, y=e.clientY-this.marginY;
+
+                // var area=this.areaData.length;
+
+                this.areaData[this.areaDataLength]={"x":x,"y":y};
+
+
+                this.drawFn();
+
+
+                // console.log(area);
+                console.log(this.areaData);
+            }
+
+        },
+        endDraw:function () {
+
+            this.moveDraw=false;
+
+            this.areaData=[];
+
+            return false;
+            // this.ctx.closePath();
+        },
+        drawFn:function () {
+
+            this.ctx.lineWidth=2;
+
+            var area=this.areaData;
+
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+            this.ctx.beginPath();
+
+            this.ctx.moveTo(area[0].x, area[0].y);
+
+            for (var i = 1; i < this.areaData.length; i ++) {
+                this.ctx.lineTo(area[i].x, area[i].y);
+                // console.log(poly[i], poly[i + 1]);
+            }
+
+            this.ctx.closePath();
+
+            this.ctx.stroke();
+        }
+    }
+    
+    
+</script>
+</body>
+</html>

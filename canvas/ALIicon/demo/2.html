@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>IconFont Demo</title>
+  <link rel="stylesheet" href="iconfont.css">
+
+</head>
+<body>
+
+<div style="" id="d1">
+
+  <span id="s1"> &#9734;</span>
+
+  <span id="s2">&#9731;</span>
+
+  <span id="s3">&#10057;</span>
+
+  <span id="s4">&#9818;</span>
+
+  <span id="s5">&#10083;</span>
+
+
+</div>
+
+
+  <div class="main">
+
+    <div class="tab-container">
+      <div class="content unicode" style="display: block;">
+          <ul class="icon_lists dib-box">
+          
+            <li class="dib">
+              <span class="icon iconfont" id="dc1">&#xe60d;</span>
+                <div class="name">司机排班</div>
+                <div class="code-name">&amp;#xe60d;</div>
+
+              </li>
+          
+            <li class="dib">
+              <span class="icon iconfont">&#xe604;</span>
+                <div class="name">司机-01</div>
+                <div class="code-name" id="dc2">&amp;#xe604;</div>
+              </li>
+          
+            <li class="dib">
+              <span class="icon iconfont">&#xe626;</span>
+                <div class="name">值班</div>
+                <div class="code-name">&amp;#xe626;</div>
+              </li>
+          
+            <li class="dib">
+              <span class="icon iconfont">&#xe60c;</span>
+                <div class="name">值班</div>
+                <div class="code-name">&amp;#xe60c;</div>
+              </li>
+          
+          </ul>
+
+          </div>
+      </div>
+
+    </div>
+  </div>
+
+  <canvas id="canvas"  width="500" height="500"></canvas>
+  <script>
+
+  function iconFont(id) {
+      return document.getElementById(id).textContent;
+  }
+  var canvas = document.getElementById("canvas");
+  var ctx = canvas.getContext("2d");
+
+  // var icon1 = iconFont("s1"),
+  //     icon2 = iconFont("s2"),
+  //     icon3 = iconFont("s3"),
+  //     icon4 = iconFont("s4"),
+  //     icon5 = iconFont("s5");
+
+  var icon1 = iconFont("dc1");
+
+  ctx.fillStyle = '#1ABFFF';      //样式1
+
+  ctx.font = '48px IconFont';  //  !!!设置字体
+  //  绘制内容
+  ctx.fillText(icon1, 10, 50);
+  // ctx.fillText(icon2, 100, 100);
+  //
+  // ctx.fillStyle = '#FF989B';
+  // ctx.fillText(icon3, 200, 100);
+  //
+  // ctx.strokeStyle = 'red';    //样式2
+  // ctx.strokeText(icon5, 10, 150);
+  // ctx.strokeText(icon5, 30, 450);
+
+  </script>
+</body>
+</html>

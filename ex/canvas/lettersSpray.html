@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>字母喷射</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #canvas{
+            background:#032150;
+            width:100%;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="canvas"></canvas>
+
+    <script>
+        window.requestAnimFrame=(function () {
+            return window.requestAnimationFrame       ||
+                    window.webkitRequestAnimationFrame ||
+                    window.mozRequestAnimationFrame   ||
+                    function (callback) {
+                        window.setTimeout(callback,1000/40);
+                    }
+        })();
+
+        //命名空间
+        var Canvas={};
+
+        Canvas.anim={
+            init:function () {
+                var canvas=document.getElementById("canvas");
+                canvas.width=window.innerWidth;
+                canvas.height=window.innerHeight;
+                this.ctx=canvas.getContext("2d");
+                this.cw=canvas.width;
+                this.ch=canvas.height;
+                this.particles=[];
+                this.letters="ABCDEFGHIJKLMNOPQRSTUVWXYZqazwsxedcrfvtgbyhnujmikolp";
+                this.maxParticles=100;
+            },
+            render:function () {
+                this.fadeCanvas();
+
+                var particle={
+                    x:this.cw/2,
+                    y:this.ch,
+                    xSpeed:(Math.random()*20)-10,
+                    ySpeed:(Math.random()*20)-10,
+                    size:10,
+                    character:
+                        this.letters[Math.floor(Math.random()*this.letters.length)],
+                    color:[155,100,50,.7]
+                };
+                this.particles.push(particle);
+                this.tidyParticles();
+                this.drawParticles();
+            },
+            //绘制
+            drawParticles :function(){
+                var particleCount=this.particles.length;
+                for(var i=0;i<particleCount;i++){
+                    var particle=this.particles[i];
+                    var h=particle.color[0],
+                        s=particle.color[1]+'%',
+                        l=particle.color[2]+'%',
+                        a=particle.color[3];
+
+                    var c=this.ctx;
+                    var hsla='hsla('+h+','+s+','+l+','+a+')';
+                    c.font="12px snas-serif";
+                    c.fillStyle=hsla;
+                    c.fillText(particle.character,particle.x,particle.y);
+
+                    particle.x+=particle.xSpeed;
+                    particle.y+=particle.ySpeed;
+                    particle.y*=0.98; //只移动x方向；
+                    particle.size*=0.5;
+                    particle.color[2]*=0.99;
+                    particle.color[0]+=1;
+                    if(particle.color[0]>253){
+                        particle.color[2]=100;
+                    }
+                }
+            },
+            //判断创建最大字母的个数(去掉白色字体)
+            tidyParticles:function () {
+                if(this.particles.length>this.maxParticles-5){
+                    this.particles.shift();
+                }
+            },
+            //背景覆盖
+            fadeCanvas:function () {
+                this.ctx.fillStyle="rgba(0,0,0,.5)";
+                this.ctx.fillRect(0,0,this.cw,this.ch);
+            }
+        };
+
+        Canvas.anim.init();
+        Canvas.anim.render();
+
+        (function animloop() {
+            requestAnimFrame(animloop);
+            Canvas.anim.render();
+        })();
+    </script>
+</body>
+</html>

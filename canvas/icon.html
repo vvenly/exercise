@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            width: 800px;
+            margin: 100px auto 20px;
+            border: 1px solid #ccc;
+            font-size: 30px;padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<!--这个主要用的是Unicode编码 ，从兼容性上来讲还是很强大的，不需要引入任何的CSS 或 js 文件-->
+<!--因为canvas必须要IE9 以上才支持，所以画布里的东西兼容性也在IE9以上才行， -->
+<!--div里面的文字 是任何浏览器都可以使用的-->
+<div style="" id="d1">
+
+    <span id="s1"> &#9734;</span>
+
+    <span id="s2">&#9731;</span>
+
+    <span id="s3">&#10057;</span>
+
+    <span id="s4">&#9818;</span>
+
+    <span id="s5">&#10083;</span>
+
+
+</div>
+
+<div>
+    <canvas id="canvas" width="1000"></canvas>
+</div>
+
+右键搜狗输入法， 点击弹出框上的符号大全； 登录站长的转码工具页面进行转码： http://tool.chinaz.com/tools/unicode.aspx  ,
+或者也可以上网 搜索 “符号大全” 什么的，把符号复制到转码工具里面就行，然后点击ASCII 转 Unicode ，就能获取想要的Unicode码了
+
+<script>
+    function iconFont(id) {
+        return document.getElementById(id).textContent;
+    }
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+
+    var icon1 = iconFont("s1"),
+        icon2 = iconFont("s2"),
+        icon3 = iconFont("s3"),
+        icon4 = iconFont("s4"),
+        icon5 = iconFont("s5");
+
+    ctx.fillStyle = '#1ABFFF';      //样式1
+
+    ctx.font = '48px FontAwesome';  //  !!!设置字体， 字体可以随意，不一定非要用FontAwesome
+    //  绘制内容
+    ctx.fillText(icon1, 10, 50);
+    ctx.fillText(icon2, 70, 50);
+
+
+    ctx.strokeStyle = '#FF5055';    //样式2
+    ctx.strokeText(icon1, 170, 50);
+    ctx.strokeText(icon2, 240, 50);
+
+
+    ctx.strokeStyle = '#0000CC';    //样式3
+    ctx.lineWidth=3;
+    ctx.fillStyle = '#FFFF66';
+    ctx.strokeText(icon3, 340, 50);
+    ctx.strokeText(icon4, 410, 50);
+    ctx.strokeText(icon5, 480, 50);
+    ctx.fillText(icon3, 340, 50);
+    ctx.fillText(icon4, 410, 50);
+    ctx.fillText(icon5, 480, 50);
+
+
+</script>
+</body>
+</html>

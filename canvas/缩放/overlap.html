@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<canvas id="dataCtx" width="1200" height="800"></canvas>
+
+<script>
+    var planData1=[
+        {"pixX1": "66", "pixX2": "426", "pixY1": "110.24", "pixY2": "264.64","xz":0},
+        {"pixX1": "328", "pixX2": "723", "pixY1": "130", "pixY2": "420.00","xz":0},
+        {"pixX1": "198.94", "pixX2": "528.00", "pixY1": "310.64", "pixY2": "562.69","xz":0},
+        {"pixX1": "758", "pixX2": "988", "pixY1": "110.21", "pixY2": "264.64","xz":0},
+        {"pixX1": "990", "pixX2": "1090", "pixY1": "530", "pixY2": "630.00","xz":0},
+        {"pixX1": "438", "pixX2": "583", "pixY1": "150", "pixY2": "280.00","xz":0},
+        {"pixX1": "438", "pixX2": "583", "pixY1": "150", "pixY2": "280.00","xz":0},
+        {"pixX1": "438", "pixX2": "583", "pixY1": "150", "pixY2": "280.00","xz":0},
+        {"pixX1": "438", "pixX2": "583", "pixY1": "150", "pixY2": "280.00","xz":0},
+        {"pixX1": "438", "pixX2": "583", "pixY1": "150", "pixY2": "280.00","xz":0},
+        {"pixX1": "438", "pixX2": "583", "pixY1": "150", "pixY2": "280.00","xz":0},
+        {"pixX1": "438", "pixX2": "583", "pixY1": "150", "pixY2": "280.00","xz":0},
+        {"pixX1": "438", "pixX2": "583", "pixY1": "150", "pixY2": "280.00","xz":0},
+        {"pixX1": "438", "pixX2": "583", "pixY1": "150", "pixY2": "280.00","xz":0},
+        {"pixX1": "438", "pixX2": "583", "pixY1": "150", "pixY2": "280.00","xz":0},
+        {"pixX1": "438", "pixX2": "583", "pixY1": "150", "pixY2": "280.00","xz":0},
+        {"pixX1": "438", "pixX2": "583", "pixY1": "150", "pixY2": "280.00","xz":0},
+        {"pixX1": "438", "pixX2": "583", "pixY1": "150", "pixY2": "280.00","xz":0},
+        {"pixX1": "438", "pixX2": "583", "pixY1": "150", "pixY2": "280.00","xz":0},
+        {"pixX1": "438", "pixX2": "583", "pixY1": "150", "pixY2": "280.00","xz":0},
+        {"pixX1": "438", "pixX2": "583", "pixY1": "150", "pixY2": "280.00","xz":0},
+        {"pixX1": "438", "pixX2": "583", "pixY1": "150", "pixY2": "280.00","xz":0},
+        {"pixX1": "438", "pixX2": "583", "pixY1": "150", "pixY2": "280.00","xz":0},
+        {"pixX1": "438", "pixX2": "583", "pixY1": "150", "pixY2": "280.00","xz":0},
+        {"pixX1": "438", "pixX2": "583", "pixY1": "150", "pixY2": "280.00","xz":0},
+        {"pixX1": "438", "pixX2": "583", "pixY1": "150", "pixY2": "280.00","xz":0},
+        {"pixX1": "438", "pixX2": "583", "pixY1": "150", "pixY2": "280.00","xz":0},
+        {"pixX1": "438", "pixX2": "583", "pixY1": "150", "pixY2": "280.00","xz":0},
+        {"pixX1": "438", "pixX2": "583", "pixY1": "150", "pixY2": "280.00","xz":0},
+        {"pixX1": "438", "pixX2": "583", "pixY1": "150", "pixY2": "280.00","xz":0},
+    ];
+    var canvas=document.getElementById("dataCtx");
+    var ctx=canvas.getContext('2d');
+    var overlapList = {}
+
+    function draw() {
+        var plan=planData1;
+
+        var x1,x2,y1,y2,yw;
+
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+
+        for(var i=0;i<plan.length;i++){
+            ctx.strokeStyle="rgba(95,125,38,0.8)";  //上行线
+
+            x1=+plan[i].pixX1
+            x2=+plan[i].pixX2
+            xw=x2-x1;
+            y1=+plan[i].pixY1
+            y2=+plan[i].pixY2
+            yw=y2-y1;
+
+            ctx.lineWidth=6;
+            ctx.strokeRect(x1,y1,xw,yw);
+        }
+    }
+
+    draw();
+
+    ctx.fillStyle="red";
+
+
+    function isOverlap (r1, r2) {
+
+        var x1 = Math.max(+r1.pixX1, +r2.pixX1);    //两个矩形的x1 对比谁大取谁；
+
+        var x2 = Math.min(+r1.pixX2, +r2.pixX2);    //x1对比，取小
+
+        var y1 = Math.max(+r1.pixY1, +r2.pixY1);    //
+
+        var y2 = Math.min(+r1.pixY2, +r2.pixY2);
+
+
+        var w = x2 - x1;
+        var h = y2 - y1;
+
+        var bool = x1 <= x2 && y1 <= y2;
+        // console.log(x1, y1 ,x2 ,  y2, w, h)
+        if (bool) {
+            ctx.fillRect(x1, y1, w, h);
+        }
+        return bool
+    }
+
+    console.time('t1')
+    for(var i=0;i<planData1.length;i++){
+        for(var j=i+1;j<planData1.length;j++){
+            var bool = isOverlap(planData1[i], planData1[j]);
+            if (bool) {
+                overlapList[i] = planData1[i]
+                overlapList[j] = planData1[j]
+            }
+        }
+    }
+    console.timeEnd('t1')
+    console.log(overlapList)
+
+</script>
+</body>
+</html>

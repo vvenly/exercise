@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+%xx 转汉字，url获取使用
+
+v-else
+
+
+<script>
+//     1、window.location.href(设置或获取整个 URL 为字符串)
+//
+    var test = window.location.href;
+    console.log(test);
+//     返回：http://i.cnblogs.com/EditPosts.aspx?opt=1
+//
+//         2、window.location.protocol(设置或获取 URL 的协议部分)
+//
+//     var test = window.location.protocol;
+//     alert(test);
+//     返回：http:
+//
+//         3、window.location.host(设置或获取 URL 的主机部分)
+//
+//     var test = window.location.host;
+//     alert(test);
+//     返回：i.cnblogs.com
+//
+//     4、window.location.port(设置或获取与 URL 关联的端口号码)
+//
+//     var test = window.location.port;
+//     alert(test);
+//     返回：空字符(如果采用默认的80端口(update:即使添加了:80)，那么返回值并不是默认的80而是空字符)
+//
+//     5、window.location.pathname(设置或获取与 URL 的路径部分（就是文件地址）)
+//     var test = window.location.pathname;
+//     alert(test);
+//     返回：/EditPosts.aspx
+//
+//     6、window.location.search(设置或获取 href 属性中跟在问号后面的部分)
+//
+//     var test = window.location.search;
+//     alert(test);
+//     返回：?opt=1
+//
+//         PS：获得查询（参数）部分，除了给动态语言赋值以外，我们同样可以给静态页面，并使用javascript来获得相信应的参数值。
+//
+// 7、window.location.hash(设置或获取 href 属性中在井号“#”后面的分段)
+//
+//     var test = window.location.hash;
+//     alert(test);
+//     返回：空字符(因为url中没有)
+
+
+//url 中部分内容转义
+    var en="%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6";
+
+    console.log(decodeURI(en));
+
+    //对应的函数： encodeURI()
+
+    var de="转义字符";
+    console.log(encodeURI(de));
+
+
+</script>
+
+</body>
+</html>

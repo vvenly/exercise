@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>元素居中</title>
+    <style>
+        #d1{
+            width:300px;
+            height:100px;
+            background: red;
+            margin:20px auto;
+        }
+
+        #d2{
+            text-align: center;
+        }
+
+        #d2>div{
+            display: inline-block;
+            width:300px;
+            height:100px;
+            background: #FFFC15;
+        }
+
+        #d3{
+            position: fixed;
+            top:60%;
+            left:50%;
+            transform: translate(-50%);
+            width:300px;
+            height:100px;
+            background: #B948FF;
+        }
+
+        #d4{
+            width: 800px;
+            height:200px;
+            border: 2px solid #156FFF;
+        }
+
+        #d4>div{
+            position: relative;
+            top:50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            width:300px;
+            height:100px;
+            background: #00FFF7;
+        }
+    </style>
+
+
+</head>
+<body>
+
+    <div id="d1"></div>
+    <div id="d2">
+        <div></div>
+    </div>
+
+    <div id="d3"></div>
+
+    <div id="d4" style="">
+        <div></div>
+    </div>
+
+</body>
+</html>

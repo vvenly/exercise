@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+
+    var f=true;
+    window.mileageShow=function (num) {
+
+        var mileage= "";
+
+        var meter,km;
+        num=num*1000;
+        if (num.toString().indexOf("-")==0){
+            num=num.toString().substr(1,num.toString().length-1);
+            f=false;
+        }
+        if(num >= 0){
+
+            meter=Math.floor(num%1000000);km=Math.floor(num/1000000);
+            // var meter=num%1000,km=Math.floor(num/1000);
+            meter=meter/1000;
+            if( meter>=10 && meter<100){
+                meter="0"+meter;
+            }else if(meter<10){
+                meter="00"+meter;
+            }
+        }
+        if(f){
+            mileage="<b>DK </b>"+km+" + "+meter;
+        }else {
+            if(km==0){
+                mileage="<b>DK </b>"+-meter;
+            }else {
+                mileage="<b>DK </b>"+-km+" + "+meter;
+            }
+
+        }
+        return mileage;
+
+    };
+
+    document.writeln(mileageShow(-123.3256))
+
+</script>
+
+</body>
+</html>

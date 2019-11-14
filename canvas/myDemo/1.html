@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas</title>
+    <style>
+        #firstC{
+            width:500px;
+            height:300px;
+            border:1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<div hidden>
+    先说一下提前需要准备的和需要知道的内容：
+
+    Canvas是一门纯JavaScript操作的技术，截止目前为止，暂时只支持到2D图形，
+    HTML5 主要的2个2D图形技术 就是 Canvas 和 SVG ;
+    两者大致区别如下：
+    1、Canvas 是用JavaScript 操作动态生成的，  SVG 则是使用XML静态描述生成的;
+    2、Canvas 基于位图 简单来说就是图片放大会影响到显示的效果，造成不好的影响，SVG 基于矢量图 图形放大不会影响到显示效果。
+    3、发生修改事件的时候，canvas必须重绘，SVG不需要。
+
+    以下网址有详细解说：
+    http://www.w3school.com.cn/html5/html_5_canvas_vs_svg.asp
+
+    其实并一定Canvas 或 SVG 哪个更好，只是分别适用的场合不同，比如Canvas做应用或游戏的较多，SVG做大型地图的较多;
+
+    <hr>
+
+    需要声明的是：
+    Canvas 是一个行内块元素  需要的属性一般是三个：  id , width , height 。
+    width和height 在默认情况下分别是   宽300px  高150px;
+    另外要注意一点！！！！！！！！！！！！！
+    虽然也可以在CSS中定义Canvas的宽和高，但是严重不建议使用，定义在CSS中的宽高 在我们使用JS  操作Canvas时是获取不到的，获取的是默认存在的宽300  与高150，
+    而在实际开发中，这两个属性经常会被用到！！！！！！！！！！！！！！！
+
+    Canvas 是HTML5 后才有的，所以在兼容性上对于IE9以下的浏览器不兼容，   实在需要兼容的话可以在页面顶部引入 excanvas.js 就行了
+
+    <!--[if IE]>
+
+        <script src="excanvas.js"></script>
+
+    <![endif]-->
+
+    （看名字就知道是专门为低版本IE准备的 - -）;
+
+    不过这个虽然可以兼容，但是效果也不是很好， 尤其一些功能也不能全部使用，并且Canvas必须是静态写在页面中的，通过JS创建的也不能用，所以不是很推荐。
+</div>
+
+
+<canvas id="firstC" width="" height=""></canvas>
+
+
+
+<script>
+
+//    Canvas 开始绘制图形必先写的两句话：
+    let cans=document.getElementById("firstC");   //1、获取Canvas对象
+    let cxt=cans.getContext("2d");          //2、获取上下文环境对象
+
+    console.log(cans.width);
+
+
+
+  //  3、开始绘制想要的图形
+
+
+</script>
+</body>
+</html>

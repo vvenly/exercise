@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="time_css/mobiscroll.css" rel="stylesheet">
+    <link href="time_css/mobiscroll_002.css" rel="stylesheet">
+    <link href="time_css/mobiscroll_003.css" rel="stylesheet">
+    <style>
+        #d1{position: relative;}
+
+    </style>
+</head>
+<body>
+<div id="d1" style="width:300px;margin:100px auto;">
+
+    <label id="label1">时间1
+
+        <input type="text" class="appDateTime"/>
+
+    </label>
+
+
+
+    <br/>    <br/>    <br/>
+
+    <label id="label2">时间2
+        <input id="in2" type="text" class="appDateTime"/>
+    </label>
+
+
+
+    <br/>    <br/>    <br/>
+
+    <label id="label3">修改时间
+        <input id="in3" type="text" class="appDateTime" value="2018-06-26"  onmousedown="setTime(this)"/>
+    </label>
+
+
+
+</div>
+
+
+<script src="js/jquery-1.12.4.min.js"></script>
+<script src="time_js/mobiscroll_002.js"></script>
+<script src="time_js/mobiscroll_004.js"></script>
+<script src="time_js/mobiscroll.js"></script>
+<script src="time_js/mobiscroll_003.js"></script>
+<script src="time_js/mobiscroll_005.js"></script>
+
+<script>
+    var currentHour="";
+
+    $("#label1").mouseenter(function(){
+        currentHour=8;
+    });
+
+    $("#label2").mouseenter(function(){
+        currentHour=18;
+    });
+
+    window.updateYear=0;
+    function setTime(that) {
+        var val=$(that).val();
+        if($(that).val())
+        console.log($(that).val().substring(0,4));
+
+        updateYear=$(that).val().substring(0,4);
+    }
+
+    $(function () {
+        var currYear = (new Date()).getFullYear();
+        //var month=(new Date()).setHours(8);
+        var opt={};
+        opt.date = {preset : 'date'};
+        opt.datetime = {preset : 'datetime'};
+        opt.time = {preset : 'time'};
+        opt.default = {
+            theme: 'android-ics light', //皮肤样式
+            display: 'modal', //显示方式
+            mode: 'scroller', //日期选择模式
+            dateFormat: 'yyyy-mm-dd',
+            lang: 'zh',
+            showNow: true,
+            nowText: "今天",
+            startYear: currYear - 10, //开始年份
+            endYear: currYear + 10 //结束年份
+        };
+
+        $("#appDate").mobiscroll($.extend(opt['date'], opt['default']));
+        var optDateTime = $.extend(opt['datetime'], opt['default']);
+        var optTime = $.extend(opt['time'], opt['default']);
+
+
+
+        $(".appDateTime").mobiscroll(optDateTime).datetime(optDateTime);
+        $("#appTime").mobiscroll(optTime).time(8);
+
+    });
+
+
+    var a="111";
+    var b=111;
+    console.log(a+b  +" - - - - - - - - - - - - "+ eval(a+b));
+
+
+</script>
+</body>
+</html>

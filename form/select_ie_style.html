@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #d1{
+            width:300px;
+            margin: 100px auto;
+            padding: 20px;
+        }
+        .ul{
+            display: none;
+            list-style: none;
+            margin: -2px 0 0;
+            padding: 5px 0;
+            border: 1px solid #0ad0f0;
+            border-top: 0;
+        }
+        .ul li>a{
+            display: block;
+            padding: 2px 5px;
+            border: 1px solid transparent;
+            color: #000;
+            text-decoration: none;
+        }
+        .ul li>a:hover{
+            border: 1px solid #83B7D3;
+            border-radius: 3px;
+            background-image: linear-gradient(#68daff, #19baf2,#68daff);
+            color: #fff;
+        }
+        #selected{
+            position: relative;
+            border: 1px solid #0ad0f0;
+            border-radius: 5px;
+            padding: 5px 10px;
+        }
+        .bg1{
+            position: absolute;
+            top:12px;
+            right:5px;
+            border-width: 6px;
+            border-style: solid;
+            border-color: #02a2ff transparent transparent transparent;
+        }
+    </style>
+</head>
+<body>
+
+<div id="d1">
+    <div id="selected">
+        <span id="content" data-id="">-请选择-</span>
+        <b class="bg1"></b>
+    </div>
+    <ul class="ul">
+        <li><a href="javascript:;" data-id="1">选项一</a></li>
+        <li><a href="javascript:;" data-id="2">选项二</a></li>
+        <li><a href="javascript:;" data-id="3">选项三</a></li>
+        <li><a href="javascript:;" data-id="4">选项四</a></li>
+        <li><a href="javascript:;" data-id="5">选项五</a></li>
+    </ul>
+</div>
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#selected").click(function(){
+            $(".ul").toggle();
+        });
+    });
+
+    $(".ul li>a").click(function () {
+        $("#content").html($(this).html())
+                     .attr("data-id",$(this).attr("data-id"));
+
+        $(".ul").css("display","none");
+    })
+</script>
+</body>
+</html>

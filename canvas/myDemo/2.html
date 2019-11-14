@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas矩形</title>
+
+    <style>
+        body{
+            color:#f00;
+        }
+
+        #secondC{
+         border: 1px solid #caf;
+         margin:50px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div hidden>
+    开始绘制图形之前有一点需要说一下，Canvas 采用的坐标系是W3C的坐标系  ：
+    X轴 正方向  向右;
+    Y轴 正方向  向下;
+
+    Canvas 左上角的坐标是  X  :0   ;  Y : 0           虽然写负数不会报错，但是Canvas 默认超出部分是不显示的;
+
+    如图所示：
+
+    <img src="2.jpg" alt="">
+</div>
+
+
+<div style="text-align: center;">
+
+    <canvas id="secondC" width="800" height="800"></canvas>
+
+</div>
+
+
+<div hidden>
+    本章需要用到的API（关注点放在 . 后面就行 ^_^）:
+
+    1、直线
+    ctx.moveTo(x1,y1);
+
+    ctx.lineTo(x2,y2);    //可重复
+
+    ctx.stroke();
+
+    2、矩形
+    （描边矩形）
+    ctx.strokeStyle= 属性值;
+    ctx.strokeRect(x,y,width,height);
+    ！！！需要注意的是 strokeStyle  必须写在 strokeRect之前   否则无效
+
+    （填充矩形）
+    ctx.fillStyle= 属性值;
+    ctx.fillRect(x,y,width,height);
+    ！！！同上  需要注意的是 fillStyle  必须写在 fillRect   否则无效
+    另外strokeStyle 与 fillStyle 是属性，  strokeRect 与 fillRect 是方法。这个要区别一下;
+    不太理解的可以在控制台 console.log()  输出看一下就大概懂了！  （建议使用Chrome）
+
+
+    let cans=document.getElementById("firstC");   //1、获取Canvas对象
+    let ctx=cans.getContext("2d");          //2、获取上下文环境对象
+
+    console.log(ctx);
+
+
+    关于 strokeStyle  和 fillStyle 属性值其实一般有以下几种，
+
+    ctx.strokeStyle="#0695FF";
+
+    ctx.strokeStyle="red";
+
+    ctx.fillStyle="rgb(255,255,255)";
+
+    ctx.fillStyle="rgba(255,255,255,0.8)";
+
+
+    3、  还是  矩形  - -
+
+    ctx.rect(x,y,width.height);   (用的不多，大概说下)
+
+    与 strokeRect 和 fillRect 不同， 它每次在绘制完后需要单独再调用一次 stroke() 或 fill() ，才能显示;
+
+    并且,在不做任何处理的情况下！，在同一个Canvas 下 ，fill()方法 会把之前所有没有填充的图形全部填充了，需要稍微注意下！
+
+    （Canvas 是基于“状态” 绘制的 图形，每一次stroke() 或 fill() 都会检测下代码的所有状态，同一路径下设定的全部绘制 ;
+
+    解决方法 ：  可以用beginPath()  等  重开路径，  后面再补充）
+
+
+    4、 清空矩形
+    ctx.c
+
+
+
+
+</div>
+
+
+
+
+
+<script>
+
+    //    Canvas 开始绘制图形必先写的两句话：
+    let cans=document.getElementById("secondC");   //1、获取Canvas对象
+    let ctx=cans.getContext("2d");          //2、获取上下文环境对象
+
+
+    //  3、开始绘制想要的图形   （可以想象自己虚拟拿了一个画笔再操作）
+    ctx.moveTo(100,50);     //将画笔move(移动)到想要开始画的坐标位置   从画笔X轴 坐标100  Y轴坐标50开始画
+    ctx.lineTo(700,50);      //画到停止的坐标位置    一直画到X轴 坐标700  Y轴坐标50 停止
+    ctx.stroke();           //最后一步  确定，显示
+
+
+    ///效果图
+
+    ctx.strokeStyle = "#F00";       //定义画笔的颜色
+    ctx.moveTo(100,100);     //拿起画笔 移动，重新绘制 从画笔X轴 坐标100  Y轴坐标100开始画
+    ctx.lineTo(700,100);      //画到停止的坐标位置  一直画到X轴 坐标700  Y轴坐标100  lineTo个人感觉就是一直一直在画，没有把画笔抬起来过
+    ctx.lineTo(700,400);      //继续画到X轴 坐标700  Y轴坐标400
+    ctx.lineTo(100,400);      //继续画到X轴 坐标100  Y轴坐标400
+    ctx.lineTo(100,100);      //继续画到X轴 坐标100  Y轴坐标100
+    ctx.stroke();             //完成，可以显示了
+//
+//    ///效果图
+//
+//
+//
+//    //描边矩形   (画矩形可以考虑用这个，将上面7句话才能显示的效果 2句话就能搞定)
+//    ctx.strokeStyle = "#0695FF";        //定义矩形的颜色
+//    ctx.strokeRect(200,150,200,150);    //从X轴 坐标200  Y轴坐标150开始，画个宽为200 高为150 的长方形
+//
+//    ///效果图
+//
+//
+////    //填充矩形
+//    ctx.fillStyle="#FF9BFA";
+//    ctx.fillRect(200,500,200,100);
+
+      //两个矩形叠加
+//    ctx.fillStyle="rgba(255,155,250,0.5)";
+//    ctx.fillRect(500,500,100,100);
+//
+//    ctx.fillStyle="rgba(95,211,255,0.5)";
+//    ctx.fillRect(550,550,100,100);
+
+//
+    //rect()
+    ctx.strokeStyle="#f00";             //描边矩形
+    ctx.rect(50,600,100,100);
+    ctx.stroke();
+
+    ctx.fillStyle="#52F0FC";             //填充矩形
+    ctx.rect(160,610,50,50);
+    ctx.fill();
+//
+//    //效果图 3.jpg
+//
+//    //清空矩形
+    ctx.clearRect(200,150,200,100);   //清空从X轴 坐标200  Y轴坐标150开始，宽为200 高为100 的地方 ;
+
+
+</script>
+
+</body>
+</html>

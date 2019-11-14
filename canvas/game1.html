@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            text-align: center;
+            padding: 100px 0;
+        }
+        canvas{
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <canvas width="270" height="180" id="cans"></canvas>
+</div>
+
+<script src="tool.js"></script>
+<script src="ball.js"></script>
+<script>
+    function $$(id) {
+        return document.getElementById(id);
+    }
+
+    window.onload=function () {
+        var cns=$$("cans");
+        var ctx=cns.getContext('2d');
+
+        var ball=new Ball(cns.width/2,cns.height/2);
+        var mouse=tools.getMouse(cns);
+
+        var targetX=cns.width/2;
+        var spring =0.0005;
+        var vx=0,vy=0,friction=0.95;
+
+        var gravity=1;
+
+        (function frame() {
+            window.requestAnimationFrame(frame);
+            ctx.clearRect(0,0,cns.width,cns.height);
+
+            var ax=(mouse.x-ball.x)*spring,
+                ay=(mouse.y-ball.y)*spring;
+
+            vx+=ax;
+            vy+=ay;
+
+            vy+=gravity;
+            vx+=friction;
+            vy+=friction;
+            ball.x+=vx;
+            ball.y+=vy;
+            ball.fill(ctx);
+
+            ctx.beginPath();
+            ctx.moveTo(ball.x,ball.y);
+            ctx.lineTo(mouse.x,mouse.y);
+            ctx.stroke();
+            ctx.closePath();
+        })()
+    }
+</script>
+</body>
+</html>

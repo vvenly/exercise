@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+    <script src="jquery-1.12.4.min.js"></script>
+</head>
+<body>
+<input type="text" id="search"/>
+<div id="content">
+    <li data="gj1">钢筋1</li>
+    <li data="sn22">水泥22</li>
+    <li data="sz333">沙子333</li>
+    <li data="mb444">木板444</li>
+    <li data="gg5555">钢轨5555</li>
+</div>
+<script>
+    $('#search').bind('input propertychange', function(){
+        var sLen=$('#search').val().length;
+        $("#content li").each(function(){
+            var lData=$(this).attr("data");
+            if(sLen==0){
+                $(this).css("display","block");
+            }
+            if(lData.length<sLen){
+                $(this).css("display","none");
+            }
+            if($('#search').val()==lData.substr(0, sLen) || $('#search').val()==$(this).html().substr(0, sLen)){
+                $(this).css("display","block");
+            }else{
+                $(this).css("display","none");
+            }
+        });
+    });
+</script>
+</body>
+</html>

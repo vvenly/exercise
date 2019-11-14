@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <style>
+        #equipmentAdd{
+            width:800px;
+            border: 2px solid #f2f2f2;
+            border-radius: 5px;
+            height:800px;
+            margin:10px auto;
+        }
+        .add_title{
+            background: #14A4FF;
+            text-align: center;
+            margin:0;
+            padding: 8px;
+            font-size: 16px;
+            color:#fff;
+        }
+        #equipmentAdd label{
+            display: block;
+            margin:10px;
+        }
+
+        #add_images{
+            width:100%;
+            border: 1px dashed #b2b2b2;
+            border-radius: 5px;
+        }
+        #add_images>div{
+            width:626px;
+            margin:10px auto;
+        }
+    </style>
+</head>
+<body>
+
+<div id="equipmentAdd">
+    <h4 class="add_title">添加设备信息</h4>
+
+    <label>
+        <p class="text-center">设备名称</p>
+        <input type="text" class="form-control">
+    </label>
+
+    <label>
+        <p class="text-center">设备详情</p>
+        <textarea name="" id="" cols="30" rows="6" class="form-control"></textarea>
+    </label>
+
+
+    <p class="text-center" style="font-weight: 700">相关图片</p>
+
+    <div style="margin:10px;">
+        <div id="add_images">
+            <div>
+                <p>宝贝图片大小不能超过1M，为使避免图片上传出现问题，请尽量选择完毕图片后再上传</p>
+                <img src="img/imgadd.png" id="add_image1">
+                <img src="img/imgadd.png" id="add_image2">
+                <img src="img/imgadd.png" id="add_image3">
+                <img src="img/imgadd.png" id="add_image4">
+                <img src="img/imgadd.png" id="add_image5">
+            </div>
+
+        </div>
+    </div>
+
+    <div>
+        <input id="add_images1" type="file">
+        <input id="add_images2" type="file">
+        <input id="add_images3" type="file">
+        <input id="add_images4" type="file">
+        <input id="add_images5" type="file">
+    </div>
+
+    <script>
+        $("#add_image1").click(function () {
+            $("#add_images1").click(
+                console.log($(this))
+            );
+        })
+    </script>
+</div>
+
+</body>
+</html>

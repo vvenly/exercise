@@ -1,0 +1,826 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="http://wp.ltrailways.com/css/app.css">
+    <link rel="stylesheet" href="http://wp.ltrailways.com/css/workpoint/cyy-a1-a2.css">
+    <link rel="stylesheet" href="http://wp.ltrailways.com/css/workpoint/cyy-a3-a4.css">
+
+    <script src="http://wp.ltrailways.com/js/app.js"></script>
+    <title>施工请点列表</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color: #030d24;
+            font-family: "Microsoft YaHei";
+        }
+        .zh-table-position{
+            position: relative;
+            left: 5%;
+            top: 10px;
+            width: 90%;
+        }
+        .zh-table{
+            border: 1px solid silver;
+            color: #ececec;
+            vertical-align: center;
+            background-color: #11213d;
+            margin-bottom: 0;
+        }
+        .zh-table-text{
+            text-align: center;
+            line-height: 36px !important;
+        }
+        .paging{
+            text-align: center;
+        }
+        .zh-position{
+            position: absolute;
+            top: 30px;
+            right: 120px;
+            color: #fff;
+        }
+        .zh-h1{
+            line-height: 1em;
+            text-align: center;
+            margin-top: 0;
+            padding-top: 15px;
+            color: #f9f9ff;
+            font-weight:bold;
+            font-size: 40px;
+        }
+        .zh-logout-indent{
+            text-indent: 330px;
+        }
+        .zh_center{
+            text-align: center;
+        }
+        .zh_danger{
+            color: #ff0000;
+        }
+        .zh_black{
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div style="height: 100px;">
+        <h1 class="zh-h1">施工请点信息</h1>
+        <h4 style="color:silver;text-align: center;">广州地铁14号线全线 -- <small>中铁九局集团电务工程有限公司</small></h4>
+        <div class="zh-position">
+            <a class="btn btn-primary" href="http://wp.ltrailways.com/2785" role="button">图表</a>
+            <button type="button" class="btn" style="background-color: #c50000" data-toggle="modal" data-target="#zh_logout">退出</button>
+
+            <div class="modal fade" id="zh_logout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 850px;margin: 100px auto">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #c50000;border-radius: 6px 6px 0 0">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="zoom: 2">&times;</button>
+                <h3 class="modal-title" id="myModalLabel" style="text-align: center;">退出登陆</h3>
+            </div>
+            <div class="modal-body zh_black">
+                <h3 class="zh_center">当前登陆用户：</h3>
+                <h4 class="zh-logout-indent">账&emsp;号：jjdw_admin_gh</h4>
+                <h4 class="zh-logout-indent">姓&emsp;名：高航</h4>
+                <h3 class="zh_danger zh_center">您确定要退出登陆吗?</h3>
+            </div>
+            <div class="modal-footer">
+                <form action="http://wp.ltrailways.com/logout" method="post">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="jOoMRqdyiZvz7lHXgwJfMYvKVjyXilKCeVbselGO">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">返回请点</button>
+                    <button type="submit" class="btn" style="background-color: #c50000">退出登陆</button>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>        </div>
+    </div>
+    <div class="zh-table-position">
+        <table class="table zh-table" id="zh_table">
+
+            <thead>
+            <tr>
+                <th class="zh-table-text">作业令号</th>
+                <th class="zh-table-text">作业编号</th>
+                <th class="zh-table-text">开始里程</th>
+                <th class="zh-table-text">结束里程</th>
+                <th class="zh-table-text">开始时间</th>
+                <th class="zh-table-text">结束时间</th>
+                <th class="zh-table-text">状态</th>
+                <th class="zh-table-text">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+                        <tr>
+                <td class="zh-table-text">(2018)字第(2.23)-12</td>
+                <td class="zh-table-text">A1-5-12</td>
+                <td class="zh-table-text">DK 52 + 55</td>
+                <td class="zh-table-text">DK 56 + 14</td>
+                <td class="zh-table-text">2018-03-23 13:56:00</td>
+                <td class="zh-table-text">2018-03-23 16:01:00</td>
+                <td class="zh-table-text">
+                                                <span style="color: #909090;">作废</span>
+                                            </td>
+                <td class="zh-table-text">
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#zh_table_1" value="450" @click="get_info">详情</button>
+                                                        </td>
+            </tr>
+
+                        <tr>
+                <td class="zh-table-text">(2018)字第(3.23)-</td>
+                <td class="zh-table-text">A3-5-12</td>
+                <td class="zh-table-text">DK 15 + 123</td>
+                <td class="zh-table-text">DK 62 + 55</td>
+                <td class="zh-table-text">2018-03-23 14:19:00</td>
+                <td class="zh-table-text">2018-03-23 20:19:00</td>
+                <td class="zh-table-text">
+                                                <span style="color: #feff43;">未审批</span>
+                                            </td>
+                <td class="zh-table-text">
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#zh_table_2" value="448" @click="get_info">详情</button>
+                                                                <button class="btn btn-default" data-toggle="modal" data-target="#zh_invalid" value="419" @click="get_info">作废</button>
+                                    </td>
+            </tr>
+                        <tr>
+                <td class="zh-table-text">(2018)字第(3.23)-12</td>
+                <td class="zh-table-text">A4-5-12</td>
+                <td class="zh-table-text">DK 12 + 12</td>
+                <td class="zh-table-text">DK 55 + 33</td>
+                <td class="zh-table-text">2018-03-23 14:20:00</td>
+                <td class="zh-table-text">2018-03-23 16:20:00</td>
+                <td class="zh-table-text">
+                                                <span style="color: #feff43;">未审批</span>
+                                            </td>
+                <td class="zh-table-text">
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#zh_table_2" value="420" @click="get_info">详情</button>
+                                                                <button class="btn btn-default" data-toggle="modal" data-target="#zh_invalid" value="420" @click="get_info">作废</button>
+                                    </td>
+            </tr>
+                        <tr>
+                <td class="zh-table-text">(2018)字第(3.23)-12</td>
+                <td class="zh-table-text">A1-5-12</td>
+                <td class="zh-table-text">DK 22 + 14</td>
+                <td class="zh-table-text">DK 25 + 1</td>
+                <td class="zh-table-text">2018-03-23 14:38:00</td>
+                <td class="zh-table-text">2018-03-27 14:38:00</td>
+                <td class="zh-table-text">
+                                                <span style="color: #feff43;">未审批</span>
+                                            </td>
+                <td class="zh-table-text">
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#zh_table_1" value="427" @click="get_info">详情</button>
+                                                                <button class="btn btn-default" data-toggle="modal" data-target="#zh_invalid" value="427" @click="get_info">作废</button>
+                                    </td>
+            </tr>
+                        <tr>
+                <td class="zh-table-text">(2018)字第(3.23)-</td>
+                <td class="zh-table-text">A2-5-是</td>
+                <td class="zh-table-text">DK 14 + 1</td>
+                <td class="zh-table-text">DK 15 + 1</td>
+                <td class="zh-table-text">2018-03-23 14:40:00</td>
+                <td class="zh-table-text">2018-03-23 16:40:00</td>
+                <td class="zh-table-text">
+                                                <span style="color: #feff43;">未审批</span>
+                                            </td>
+                <td class="zh-table-text">
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#zh_table_1" value="428" @click="get_info">详情</button>
+                                                                <button class="btn btn-default" data-toggle="modal" data-target="#zh_invalid" value="428" @click="get_info">作废</button>
+                                    </td>
+            </tr>
+                        </tbody>
+        </table>
+        <!-- 模态框（Modal） -->
+        <script src="jquery-1.12.4.min.js"></script>
+        <script src="jquery.PrintArea.min.js"></script>
+        <script>
+
+            $("#btnPrint").click(function(){
+                $("#printArea").printArea();
+            });
+
+
+        function printdiv(printpage){
+//            var headstr="<html><head><title></title></head><body>";
+//            // var headstr="<html><head><title></title></head><body>"
+//            var footstr="</body>";
+//            var newstr=document.all.item(printpage).innerHTML;
+//            var oldstr=document.body.innerHTML;
+//            document.body.innerHTML=headstr+newstr+footstr;
+//            window.print();
+//            document.body.innerHTML=oldstr;
+//            return false;
+            // location.reload();
+            $("#zh_table_1").printArea();
+        }
+        // location.reload();
+
+    // $(".cy_close").click(function(){
+    //
+    // })
+
+        </script>
+        <style media="screen">
+          #my_img{
+            display: none;
+          }
+        </style>
+<div class="modal fade" id="zh_table_1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 100%;margin: 0 auto">
+        <div class="modal-content">
+            <div class="modal-body">
+                <!-- 详情一table start -->
+                <div id="div_print">
+                  <div id="wrapp">
+                    <table id="cyy_tab" class="" cellspacing="0" cellpadding="0" style="margin-top: -30px;margin-bottom: 30px">
+                        <caption>执行区及施工作业许可证</caption>
+                        <button style="position:relative;top:40px;left:1740px;" type="button" data-dismiss="modal" class="cy_close btn btn-danger"> 关闭 </button>
+                        <tr id="tab_bor">
+                            <td id="tab_bor" style="border-left:solid 1px #000" class="bh zx">作业编号</td>
+                            <td id="tab_bor" align="center" class="bh a1-ser" colspan="2">
+                            </td>
+                            <td id="tab_bor" colspan="9" align="center" class="zx">轨行区及施工作业许可证</td>
+                        </tr>
+
+                        <tr>
+                            <td id="tab_bor" class="bh zx" style="border-left:solid 1px #000">作业令号</td>
+                            <td id="tab_bor" colspan="2" align="center" class="zylh a1-num">
+
+                            </td>
+                            <td id="tab_bor" class="tit" align="center" style="border-right:none"><div class="my_cb">承包商：</div></td>
+                            <td id="tab_bor" class="a1-company" colspan="2">
+
+                            </td>
+                            <td id="tab_bor" class="" align="center" style="border-right:none;width: 70px;">
+                                <div class="my_lx">
+                                    联系人：
+                                </div></td>
+                            <td id="tab_bor" class="lx a1-apply-user-name">
+
+                            </td>
+                            <td id="tab_bor" align="center" style="border-right:none">
+                                <div class="tit tim_tit">
+                                    联系电话：
+                                </div>
+                            </td>
+                            <td id="tab_bor" class="tel a1-apply-user-phont">
+
+                            </td>
+                            <td id="tab_bor" class="tit my_tit" align="center"  style="border-right:none"><div class="my_rq">日期:</div></td>
+                            <td id="tab_bor" class="lx tim a1-apply-time">
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td id="tab_bor" colspan="3" rowspan="2" align="center" style="border-left:solid 1px #000">工作内容</td>
+                            <td id="tab_bor" colspan="2" align="center">工作地点 （上下行线）</td>
+
+                            <td id="tab_bor" rowspan="2" align="center" style="width:210px">计划运</br>行径路</td>
+                            <td id="tab_bor" rowspan="2" colspan="2" align="center">列车编组</br>(由上行方向端开始)</td>
+                            <td id="tab_bor" colspan="4" rowspan="2" align="center">
+                                <div class="work_tim">
+                                    工作时间
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td id="tab_bor" align="center">
+                                <div class="you">
+                                    由
+                                </div>
+                            </td>
+                            <td id="tab_bor" align="center">
+                                <div class="you">
+                                    至
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td id="tab_bor" colspan="3" style="border-left:solid 1px #000;line-height: 64px;text-align: center" class="a1-content">
+
+                            </td>
+                            <td id="tab_bor" align="center" class="a1-from">
+
+
+                            </td>
+                            <td id="tab_bor" align="center" class="a1-end">
+
+                            </td>
+                            <td id="tab_bor" align="center"  class="zylh a1-path-plan">
+
+                            </td>
+                            <td id="tab_bor" colspan="2" align="center"  class="zylh a1-train-group">
+
+                            </td>
+                            <td id="tab_bor" rowspan="2" align="center">计</br>划</td>
+                            <td id="tab_bor" colspan="3" align="center"  class="zylh a1-from-time">
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td id="tab_bor" colspan="3" style="border-left:solid 1px #000;">
+                                <div style="height:64px">
+
+                                </div>
+                            </td>
+                            <td id="tab_bor"></td>
+                            <td id="tab_bor"></td>
+                            <td id="tab_bor"></td>
+                            <td id="tab_bor" colspan="2"></td>
+
+                            <td id="tab_bor" colspan="3" align="center"  class="zylh a1-end-time">
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td id="tab_bor" colspan="3" style="border-left:solid 1px #000;">
+                                <div style="height:64px">
+
+                                </div>
+                            </td>
+                            <td id="tab_bor"></td>
+                            <td id="tab_bor"></td>
+                            <td id="tab_bor"></td>
+                            <td id="tab_bor" colspan="2"></td>
+                            <td id="tab_bor" rowspan="2" align="center">实</br>际</td>
+                            <td id="tab_bor" colspan="3" align="center" class="zylh">开始：
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td id="tab_bor" colspan="3" style="border-left:solid 1px #000">
+                                <div style="height:64px">
+
+                                </div>
+                            </td>
+                            <td id="tab_bor"></td>
+                            <td id="tab_bor"></td>
+                            <td id="tab_bor"></td>
+                            <td id="tab_bor" colspan="2"></td>
+
+                            <td colspan="3" align="center" class="zylh">完成：
+
+                            </td>
+                        </tr>
+
+                        <tr style="border:none">
+                            <td align="center" style="border-left:solid 1px #000">车辆类型</td>
+                            <td align="center">车号</td>
+                            <td align="center">装载重量</td>
+                            <td id="tab_bor" rowspan="5" align="center">保</br>护</br>措</br>施</td>
+                            <td colspan="5" class="rule">1:防护员及防护标准安排</br>
+                                <span class="a1-guarder-and-guard-icon"></span>
+
+                            </td>
+                            <td  colspan="4" align="center" style="border:solid 1px #000">其他信息</td>
+                        </tr>
+
+                        <tr style="border:none">
+                            <td style="border-top:solid 1px #000;border-left:solid 1px #000" id="a1_train_type_0"></td>
+                            <td style="border-top:solid 1px #000;" id="a1_train_num_0"></td>
+                            <td style="border-top:solid 1px #000;" id="a1_train_weight_0"></td>
+                            <td colspan="5" class="rule"> 2：道岔设置：</br>
+                                <span class="a1-turnout-option"></span>
+
+                            </td>
+                            <td colspan="4" rowspan="3" align="center"></br></br>（此项填写运输及施工的相关条件是否满足条件）</td>
+                        </tr>
+
+                        <tr style="border:none">
+                            <td style="border-top:solid 1px #000;border-left:solid 1px #000" id="a1_train_type_1"></td>
+                            <td style="border-top:solid 1px #000" id="a1_train_num_1"></td>
+                            <td style="border-top:solid 1px #000" id="a1_train_weight_1"></td>
+                            <td colspan="5" class="rule">3：行车速度：</br>
+                                <span class="a1-speed"></span>
+
+                            </td>
+                        </tr>
+
+                        <tr style="border:none">
+                            <td style="border-top:solid 1px #000;border-left:solid 1px #000" id="a1_train_type_2"></td>
+                            <td style="border-top:solid 1px #000" id="a1_train_num_2"></td>
+                            <td style="border-top:solid 1px #000" id="a1_train_weight_2"></td>
+                            <td colspan="5" class="rule">4：电力安排：</br>
+                                <span class="a1-outage-plan"></span>
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="border-top:solid 1px #000;border-left:solid 1px #000" id="a1-train-type-3"></td>
+                            <td style="border-top:solid 1px #000" id="a1-train-num-3"></td>
+                            <td style="border-top:solid 1px #000" id="a1-train-weight-3"></td>
+                            <td id="tab_bor" colspan="5" class="rule">5：其他</br>
+                                <span class="a1-else"></span>
+
+                            </td>
+                            <td id="tab_bor" colspan="4" class="rule_in" style="border-top:solid 1px #000;">监理确认并签字：</td>
+                        </tr>
+
+                        <tr style="border-top:solid 1px #000;border-bottom:none">
+                            <td id="tab_bor" colspan="3" rowspan="2" class="tex_top" style="border-left:solid 1px #000">承运人签名（章）：</td>
+                            <td colspan="3" class="tex_top">调度批准：</td>
+                            <td colspan="3" class="tex_top">消点：</td>
+                            <td class="tex_top" colspan="4">调度注销：</td>
+                        </tr>
+
+                        <tr>
+                            <td id="tab_bor" colspan="3" class="bot_righ">批准人：</td>
+                            <td id="tab_bor"  colspan="3" class="bot_righ">工作负责人:</td>
+                            <td id="tab_bor"  class="bot_righ" colspan="4">批准人：</td>
+                        </tr>
+                        <tr style="border-bottom:none;border-left:none;border-right:none">
+                            <td style="border-left:none;border-right:none;text-indent:50px" colspan="13">3、本表一项作业填写一次，作业中间有中断的时间须另行填写。注：1、本表一式三份：一份留存；一份承运方；一份交工程运输办公室。2、凡施工中在轨道附近装设支架有可能造成超限的，需在其他信息栏内注明，并另附示意图说明限界。3、本表一项作业填写一次，作业中间有中断的时间须另行填写。</td>
+                        </tr>
+                        <!-- 签名章start -->
+                        <div id="my_img" style="">
+                          <div style="position:absolute;top:750px;left:410px">
+                            <img src="name.png" alt="" style="width:74px;height:32px">
+                          </div>
+                          <div style="position:absolute;top:480px;left:800px">
+                            <img src="aaa.png" alt="" style="width:200px;height:200px">
+                          </div>
+                        </div>
+                        <!-- 签名章end -->
+                    </table>
+
+                  </div>
+                </div>
+                <!-- 打印按钮 -->
+                  <button class="" type="button" style="position:relative;top:-821px;left:1672px;"  onClick="printdiv('div_print');">打印</button>
+                <!-- 详情一table end -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"> -->
+<script language="javascript">
+// 详情二打印js
+//貌似要jq 1.6版本以上才支持prop函数
+  $(document).ready(function(){
+    var print_click = "print"; //打印的按钮的id
+    $("#" + print_click).bind("click", function(){
+      var print_id = "print_content"; //要打印的div的id
+      var k = $("#" + print_id).prop("outerHTML");
+      $("body *").hide();
+      $("body").append(k);
+      window.print();
+      $("body *").show();
+      $("body #" + print_id + ":last").remove()
+    })
+  })
+
+$(".DY").onclick(function() {
+      $("#my_img").css('display','block');
+      $("#cyy_cl").css('display','none');
+  });
+</script>
+<style media="screen">
+  #my_img{
+    display: none;
+  }
+</style>
+        <!-- 模态框（Modal） -->
+<div class="modal fade" id="zh_table_2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 100%;margin: 0 auto">
+        <div class="modal-content">
+            <div class="modal-body">
+                <!-- 详情二table start -->
+                <div id="print_content">
+                  <div id="wrapp2" style="width:90%">
+                      <table id="collapse2" style="width:100%;height:100%">
+                          <button style="position:relative;left:1500px;" type="button" data-dismiss="modal" id="cyy_cl"class="btn btn-danger"> 关闭 </button>
+
+                          <tr class="bor">
+                              <td align="center" class="title_cen bor">作业编号</td>
+                              <td align="center" class="a3-ser">
+
+                              </td>
+
+                              <td class="company bor" align="center" rowspan="2">
+                                  <div>
+                                      广州地铁集团公司建设事业总部进</br>场作业许可证
+                                  </div>
+                              </td>
+
+                          </tr>
+
+                          <tr class="bor">
+                              <td align="center" class="title_cen bor">作业令号</td>
+                              <td align="center" class="a3-num">
+
+                              </td>
+                          </tr>
+
+                          <tr class="bor">
+                              <td colspan="3" class="title">1.申请</td>
+                          </tr>
+                          <tr class="bor">
+                              <td colspan="3">
+                                  <p id="tex">兹申请允许持证人（主站）
+
+                                      <span class="a3-card-holder"></span>，
+                                      辅站及负责人
+
+                                      <span class="a3-principal"></span>。
+                                  </p>
+                                  <p id="tex">单位
+
+                                      <span class="a3-company"></span>
+                                      联系电话
+                                      <span class="a3-principal-phone"></span>
+
+                                      带领
+
+                                      (&emsp;&emsp;)
+                                      人进行以下工作：</p>
+                                  <p id="tex">A区域/车辆：
+                                      <span class="a3-from"></span> ~ <span class="a3-end"></span>
+
+
+
+
+                                  <p id="tex">B工作内容</p>
+                                  <p id="tex" class="a3-content" style="height: 70px;">
+
+                                  </p>
+                                  <p id="tex">C安全措施及注意事项：<br><br><br></p>
+                                  <p class="my_line a3-safety-measures-and-notes" id="tex" style="height: 70px;">
+
+
+
+
+
+                                  </p>
+                                  <p id="tex">开始于
+                                      <span class="a3-from-time"></span>
+
+                                      ；	结束于
+                                      <span class="a3-end-time"></span>
+
+                                  </p>
+                                  <p id="tex" style="text-indent:20px">
+                                    本单位及本人谨此声明：愿意在规定时间内完成上述工作，并确保本人属下员工遵守上述安全措施，同时本人或本人属
+                                      下员工不会试图损坏其它单位的设备，在其它区域或车辆上工作。<br><br><br></p>
+                                  <p id="tex" style="padding-top:30px"><span style="float:left">工点负责人（签名）</span><span style="display:block;width:300px;float:right">&emsp;&emsp;年&emsp;&emsp; 月&emsp;&emsp;日&emsp;&emsp;时&emsp;&emsp;分</span></p>
+                              </td>
+                          </tr>
+
+                          <tr class="bor">
+                              <td colspan="3" class="title">2.批准</td>
+                          </tr>
+                          <tr class="bor">
+                              <td colspan="3">
+                                  <p id="tex" style="text-indent:20px">兹批准此许可证生效，或按红笔修改的执行。<br><br><br></p>
+                                  <p id="tex" style="padding-top:30px"><span style="float:left">批准人（签名）</span><span style="display:block;width:300px;float:right">&emsp;&emsp;年&emsp;&emsp; 月&emsp;&emsp;日&emsp;&emsp;时&emsp;&emsp;分</span></p>
+                              </td>
+                          </tr>
+
+                          <tr class="bor">
+                              <td colspan="3" class="title">3.撤消</td>
+                          </tr>
+                          <tr class="bor">
+                              <td colspan="3">
+                                  <p id="tex" style="text-indent:20px">本人谨此声明：⑴ 此进场作业许可证所述工作现已完成，本人及属下员工已经撤离，安全措施已经撤除，并已被告之在轨道区域/车辆上工作已不再安全。⑵ 完成情况及所有故障/损坏已经书面呈报。<br><br><br></p>
+                                  <p id="tex" style="padding-top:30px"><span style="float:left">工点负责人（签名）</span><span style="display:block;width:300px;float:right">&emsp;&emsp;年&emsp;&emsp; 月&emsp;&emsp;日&emsp;&emsp;时&emsp;&emsp;分</span></p>
+                              </td>
+                          </tr>
+
+                          <tr class="bor">
+                              <td colspan="3" class="title">4.注销</td>
+                          </tr>
+                          <tr class="bor">
+                              <td colspan="3">
+                                  <p id="tex" style="text-indent:20px">此许可证已经原批准人或联合办公室经理同意注销。<br><br><br></p>
+                                  <p id="tex" style="padding-top:30px"><span style="float:left">工点负责人（签名）</span><span style="display:block;width:300px;float:right">&emsp;&emsp;年&emsp;&emsp; 月&emsp;&emsp;日&emsp;&emsp;时&emsp;&emsp;分</span></p>
+                              </td>
+                          </tr>
+                          <!-- 签名章start -->
+                          <div id="my_img" style="">
+                            <div style="position:absolute;top:955px;left:170px">
+                              <img src="name.png" alt="" style="width:74px;height:32px">
+                            </div>
+                            <div style="position:absolute;top:880px;left:200px">
+                              <img src="aaa.png" alt="" style="width:200px;height:200px">
+                            </div>
+                          </div>
+                          <!-- 签名章end -->
+                      </table>
+                  </div>
+                </div>
+                <!-- 详情二table end -->
+                <!-- 打印按钮 -->
+                <button id="print" class="DY btn btn-info" type="button" style="position:relative;top:-1372px;left:1672px;">打印</button>
+
+            </div>
+
+
+
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+    <div class="modal fade" id="zh_close" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 850px;margin: 100px auto">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #cbb956;border-radius: 6px 6px 0 0">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="zoom: 2">&times;</button>
+                <h3 class="modal-title" id="myModalLabel" style="text-align: center;color: #fff;">请求销点</h3>
+            </div>
+            <div class="modal-body zh_black">
+                <h3 class="zh_center">当前施工请点：</h3>
+                <h4 class="zh-logout-indent">作业编号：<span id="close_ser"></span></h4>
+                <h4 class="zh-logout-indent">作业令号：<span id="close_num"></span></h4>
+                <h3 class="zh_danger zh_center">您确定要销点吗?</h3>
+            </div>
+            <div class="modal-footer">
+                <form action="http://wp.ltrailways.com/close/2785" method="post">
+                    <input type="hidden" value="" id="close_wp_id" name="id">
+                    <input type="hidden" value="" id="close_company_id" name="company_id">
+                    <input type="hidden" name="_token" value="jOoMRqdyiZvz7lHXgwJfMYvKVjyXilKCeVbselGO">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">返回列表</button>
+                    <button type="submit" class="btn btn-warning">确认销点</button>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>        <div class="modal fade" id="zh_invalid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 850px;margin: 100px auto">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: silver;border-radius: 6px 6px 0 0">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="zoom: 2">&times;</button>
+                <h3 class="modal-title" id="myModalLabel" style="text-align: center;color: #fff;">作废请点</h3>
+            </div>
+            <div class="modal-body zh_black">
+                <h3 class="zh_center">当前施工请点：</h3>
+                <h4 class="zh-logout-indent">作业编号：<span id="invalid_ser"></span></h4>
+                <h4 class="zh-logout-indent">作业令号：<span id="invalid_num"></span></h4>
+                <h3 class="zh_danger zh_center">您确定要作废吗?</h3>
+            </div>
+            <div class="modal-footer">
+                <form action="http://wp.ltrailways.com/invalid/2785" method="post" style="color: #fff;">
+                    <input type="hidden" value="" id="invalid_wp_id" name="id">
+                    <input type="hidden" value="" id="invalid_company_id" name="company_id">
+                    <input type="hidden" name="_token" value="jOoMRqdyiZvz7lHXgwJfMYvKVjyXilKCeVbselGO">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">返回列表</button>
+                    <button type="submit" class="btn" style="background-color: silver;">确认作废</button>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>        <div class="paging">
+
+        </div>
+    </div>
+</body>
+<script>
+    var url = "wp.ltrailways.com";
+    var v_table = new Vue({
+        el:'#zh_table',
+        date:{
+            url:url
+        },
+        methods:{
+            get_info:function (e) {
+                var wp_id = e.target.value
+
+                $.ajax({
+                    dataType: "json",
+                    type: "get",
+                    url: "http://" + url + "/show_info/" + wp_id,
+                    success:function(data) {
+                        var wp = data.data;
+                        console.log(wp,wp.appoint_type);
+
+                        if(wp.status == 0){
+                            $("#invalid_ser").html(wp.serial_num);
+                            $("#invalid_num").html(wp.seq_number);
+                            $("#invalid_wp_id").val(wp.id);
+                            $("#invalid_company_id").val(wp.company_id);
+                        }
+
+                        if(wp.status == 1){
+                            $("#close_ser").html(wp.serial_num);
+                            $("#close_num").html(wp.seq_number);
+                            $("#close_wp_id").val(wp.id);
+                            $("#close_company_id").val(wp.company_id);
+                        }
+
+                        if(wp.appoint_type == 0 || wp.appoint_type == 1){
+                            $(".a1-ser").html(wp.serial_num);
+                            $(".a1-num").html(wp.seq_number);
+                            $(".a1-company").html(wp.proposer.company);
+                            $(".a1-apply-user-name").html(wp.proposer.name);
+                            $(".a1-apply-user-phont").html(wp.proposer.phone);
+                            $(".a1-apply-time").html(getMyDate(wp.apply_time * 1000));
+                            $(".a1-content").html(wp.content);
+                            switch (wp.line){
+                                case 0:
+                                    $(".a1-from").html("正线左线 DK " + Math.floor(wp.from / 1000) + " + " + Math.ceil((wp.from / 1000 - Math.floor(wp.from / 1000)) * 1000));
+                                    $(".a1-end").html("正线左线 DK " + Math.floor(wp.end / 1000) + " + " + Math.ceil((wp.end / 1000 - Math.floor(wp.end / 1000)) * 1000));
+                                    break;
+                                case 1:
+                                    $(".a1-from").html("正线右线 DK " + Math.floor(wp.from / 1000) + " + " + Math.ceil((wp.from / 1000 - Math.floor(wp.from / 1000)) * 1000));
+                                    $(".a1-end").html("正线右线 DK " + Math.floor(wp.end / 1000) + " + " + Math.ceil((wp.end / 1000 - Math.floor(wp.end / 1000)) * 1000));
+                                    break;
+                                case 2:
+                                    $(".a1-from").html("出入段线 DK " + Math.floor(wp.from / 1000) + " + " + Math.ceil((wp.from / 1000 - Math.floor(wp.from / 1000)) * 1000));
+                                    $(".a1-end").html("出入段线 DK " + Math.floor(wp.end / 1000) + " + " + Math.ceil((wp.end / 1000 - Math.floor(wp.end / 1000)) * 1000));
+                                    break;
+                                case 3:
+                                    $(".a1-from").html("车辆段线 DK " + Math.floor(wp.from / 1000) + " + " + Math.ceil((wp.from / 1000 - Math.floor(wp.from / 1000)) * 1000));
+                                    $(".a1-end").html("车辆段线 DK " + Math.floor(wp.end / 1000) + " + " + Math.ceil((wp.end / 1000 - Math.floor(wp.end / 1000)) * 1000));
+                                    break;
+                            }
+                            $(".a1-path-plan").html(wp.safeguard.path_plan);
+                            $(".a1-train-group").html(wp.safeguard.train_group);
+                            $(".a1-from-time").html("开始：" + getMyDate(wp.from_time * 1000));
+                            $(".a1-end-time").html("完成：" + getMyDate(wp.end_time * 1000));
+                            $(".a1-guarder-and-guard-icon").html("&emsp;&emsp;" + wp.safeguard.guarder_and_guard_icon);
+                            $(".a1-turnout-option").html("&emsp;&emsp;" + wp.safeguard.turnout_option);
+                            $(".a1-speed").html("&emsp;&emsp;" + wp.safeguard.speed);
+                            $(".a1-outage-plan").html("&emsp;&emsp;" + wp.safeguard.outage_plan);
+                            $(".a1-else").html("&emsp;&emsp;" + wp.safeguard.other);
+
+                            if(wp.traininfo.length){
+                                for(var i = 0;i < wp.traininfo.length;i++){
+                                    $("#a1_train_type_" + i).html(wp.traininfo[i].train_type)
+                                    $("#a1_train_num_" + i).html(wp.traininfo[i].train_num)
+                                    $("#a1_train_weight_" + i).html(wp.traininfo[i].train_weight)
+                                }
+                            }
+                        }else if(wp.appoint_type == 2 || wp.appoint_type == 3){
+                            $(".a3-ser").html(wp.serial_num);
+                            $(".a3-num").html(wp.seq_number);
+                            $(".a3-company").html(wp.proposer.company);
+                            $(".a3-apply-user-name").html(wp.proposer.name);
+                            $(".a3-apply-user-phont").html(wp.proposer.phone);
+                            $(".a3-apply-time").html(getMyDate(wp.apply_time * 1000));
+                            $(".a3-content").html("&emsp;&emsp;" + wp.content);
+                            $(".a3-card-holder").html(wp.card_holder.name);
+                            $(".a3-principal").html(wp.principal.name);
+                            $(".a3-principal-phone").html(wp.principal.phone);
+                            $(".a3-safety-measures-and-notes").html("&emsp;&emsp;" + wp.safeguard.notes);
+                            $(".a3-from-time").html("开始：" + getMyDate(wp.from_time * 1000));
+                            $(".a3-end-time").html("完成：" + getMyDate(wp.end_time * 1000));
+                            switch (wp.line){
+                                case 0:
+                                    $(".a3-from").html("正线左线 DK " + Math.floor(wp.from / 1000) + " + " + Math.ceil((wp.from / 1000 - Math.floor(wp.from / 1000)) * 1000));
+                                    $(".a3-end").html("正线左线 DK " + Math.floor(wp.end / 1000) + " + " + Math.ceil((wp.end / 1000 - Math.floor(wp.end / 1000)) * 1000));
+                                    break;
+                                case 1:
+                                    $(".a3-from").html("正线右线 DK " + Math.floor(wp.from / 1000) + " + " + Math.ceil((wp.from / 1000 - Math.floor(wp.from / 1000)) * 1000));
+                                    $(".a3-end").html("正线右线 DK " + Math.floor(wp.end / 1000) + " + " + Math.ceil((wp.end / 1000 - Math.floor(wp.end / 1000)) * 1000));
+                                    break;
+                                case 2:
+                                    $(".a3-from").html("出入段线 DK " + Math.floor(wp.from / 1000) + " + " + Math.ceil((wp.from / 1000 - Math.floor(wp.from / 1000)) * 1000));
+                                    $(".a3-end").html("出入段线 DK " + Math.floor(wp.end / 1000) + " + " + Math.ceil((wp.end / 1000 - Math.floor(wp.end / 1000)) * 1000));
+                                    break;
+                                case 3:
+                                    $(".a3-from").html("车辆段线 DK " + Math.floor(wp.from / 1000) + " + " + Math.ceil((wp.from / 1000 - Math.floor(wp.from / 1000)) * 1000));
+                                    $(".a3-end").html("车辆段线 DK " + Math.floor(wp.end / 1000) + " + " + Math.ceil((wp.end / 1000 - Math.floor(wp.end / 1000)) * 1000));
+                                    break;
+                            }
+                        }
+                    },
+                    error:function(){
+                        console.log("请求后台失败！" + wp_id);
+                    }
+                })
+            }
+        }
+    })
+    function getMyDate(str){
+        var oDate = new Date(str),
+            oYear = oDate.getFullYear(),
+            oMonth = oDate.getMonth()+1,
+            oDay = oDate.getDate(),
+            oHour = oDate.getHours(),
+            oMin = oDate.getMinutes(),
+            oSen = oDate.getSeconds(),
+            oTime = oYear + '-' + getzf(oMonth) + '-' + getzf(oDay) + ' ' + getzf(oHour) + ':' + getzf(oMin) + ':' +getzf(oSen);
+        return oTime;
+    };
+    //补0操作
+    function getzf(num){
+        if(parseInt(num) < 10){
+            num = '0' + num;
+        }
+        return num;
+    }
+</script>
+
+
+</html>

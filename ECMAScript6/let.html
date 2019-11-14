@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div>
+    <span>111</span>
+
+    <input type="text" onblur="abc(this)">
+</div>
+
+<script src="jquery-1.12.4.min.js"></script>
+<script>
+    function abc(n) {
+        let parentElement=$(n).siblings("span");
+        if(n.val()){
+            console.log(parentElement);
+        }else{
+
+        }
+
+    }
+
+
+</script>
+
+</body>
+</html>

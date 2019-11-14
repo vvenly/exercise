@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+    function drawRoundedRect(ctx, x, y, width, height, r, fill, stroke) {
+        ctx.save(); ctx.beginPath(); // draw top and top right corner
+        ctx.moveTo(x + r, y);
+        ctx.arcTo(x + width, y, x + width, y + r, r); // draw right side and bottom right corner
+        ctx.arcTo(x + width, y + height, x + width - r, y + height, r); // draw bottom and bottom left corner
+        ctx.arcTo(x, y + height, x, y + height - r, r); // draw left and top left corner
+        ctx.arcTo(x, y, x + r, y, r);
+        if (fill) { ctx.fill(); }
+        if (stroke) { ctx.stroke(); }
+        ctx.restore();
+    }
+
+    //倒角矩形
+</script>
+</body>
+</html>

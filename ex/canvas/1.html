@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            width:100%;
+            height:100%;
+            background: #1A1F25;
+        }
+        body,div,p,h1,h2,h3,h4,h5,h6{
+            margin:0;padding:0;
+        }
+        #canvas-fa{
+            text-align: center;
+            background: #1A1F25;
+            color:#fff;
+            padding-top:25px;
+            position: relative;
+        }
+        #myCanvas{
+            position: absolute;
+            bottom:20px;
+            left: 50%;
+            transform: translate(-50%,0);
+            border: 2px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<div id="canvas-fa">
+    <p style="font-size: 25px;">施工形象进度图</p>
+
+    <div style="margin:25px 0 50px;">
+        <canvas id="myCanvas1" width="1650" height="250"></canvas>
+    </div>
+
+
+    <canvas id="myCanvas" width="1650" height="400"></canvas>
+
+    <canvas></canvas>
+</div>
+
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+    var canvasParent=document.getElementById("canvas-fa").width(window.innerWidth).height(window.innerHeight-40);
+    canvasParent.width=window.innerWidth;
+    canvasParent.height=window.innerHeight-40
+//    $("#canvas-fa").width(window.innerWidth).height(window.innerHeight-40);
+    var ctx=document.getElementById("myCanvas");
+    var ctext=ctx.getContext("2d");
+    ctext.font="15px Microsoft Yahei";
+    ctext.fillStyle="#fff";
+    ctext.fillText("底砟摊铺",10,25);
+    ctext.fillText("铺架",10,65);
+    ctext.fillText("卸一遍砟",10,105);
+    ctext.fillText("卸二遍砟",10,145);
+    ctext.fillText("卸三遍砟",10,185);
+    ctext.fillText("K车补砟",10,225);
+    ctext.fillText("机养一遍",10,265);
+    ctext.fillText("机养二遍",10,305);
+    ctext.fillText("机养三遍",10,345);
+    ctext.fillText("长轨换铺",10,385);
+//    ctext.fillText("单元焊",10,425);
+//    ctext.fillText("锁定焊及",10,460);
+//    ctext.fillText("应力放散",10,475);
+//    ctext.fillText("桥面系",10,505);
+
+    ctext.font="12px Microsoft Yahei";
+    var l20=15,r20=35;
+    for(var t2=0;t2<10;t2++){
+        ctext.fillText("左线",87,l20);
+        ctext.fillText("右线",87,r20);
+        l20+=40;
+        r20+=40;
+    }
+
+    //左边两条竖线
+    ctext.moveTo(80,0);
+    ctext.lineTo(80,401);
+    ctext.lineTo(120,401);
+    ctext.lineTo(120,0);
+    ctext.strokeStyle="#fff";
+    ctext.stroke();
+
+    //大字横线
+    ctext.moveTo(80,20);
+    ctext.lineTo(1651,20);
+    ctext.lineTo(1651,40);
+    ctext.lineTo(-1,40);
+    ctext.lineTo(-1,80);
+    ctext.lineTo(1651,80);
+    ctext.lineTo(1651,120);
+    ctext.lineTo(-1,120);
+    ctext.lineTo(-1,160);
+    ctext.lineTo(1651,160);
+    ctext.lineTo(1651,200);
+    ctext.lineTo(-1,200);
+    ctext.lineTo(-1,240);
+    ctext.lineTo(1651,240);
+    ctext.lineTo(1651,280);
+    ctext.lineTo(-1,280);
+    ctext.lineTo(-1,320);
+    ctext.lineTo(1651,320);
+    ctext.lineTo(1651,360);
+    ctext.lineTo(-1,360);
+//    ctext.lineTo(-1,400);
+//    ctext.lineTo(1651,400);
+//    ctext.lineTo(1651,440);
+//    ctext.lineTo(-1,440);
+//    ctext.lineTo(-1,480);
+//    ctext.lineTo(1651,480);
+    ctext.stroke();
+
+    //左右线横线
+    ctext.moveTo(80,60);
+    ctext.lineTo(1651,60);
+    ctext.lineTo(1651,100);
+    ctext.lineTo(80,100);
+    ctext.lineTo(80,140);
+    ctext.lineTo(1651,140);
+    ctext.lineTo(1651,180);
+    ctext.lineTo(80,180);
+    ctext.lineTo(80,220);
+    ctext.lineTo(1651,220);
+    ctext.lineTo(1651,260);
+    ctext.lineTo(80,260);
+    ctext.lineTo(80,300);
+    ctext.lineTo(1651,300);
+    ctext.lineTo(1651,340);
+    ctext.lineTo(80,340);
+    ctext.lineTo(80,380);
+    ctext.lineTo(1651,380);
+//    ctext.lineTo(1651,420);
+//    ctext.lineTo(80,420);
+//    ctext.lineTo(80,460);
+//    ctext.lineTo(1651,460);
+//    ctext.lineTo(1651,500);
+//    ctext.lineTo(80,500);
+    ctext.stroke();
+
+    //左线填充数据
+    ctext.fillStyle="#33B0F2";
+    ctext.fillRect(121,1,100,18);//x起始点 ，y起始点，水平宽度，垂直高度
+    ctext.fillRect(200,41,200,18);
+    ctext.fillRect(270,81,610,18);
+    ctext.fillRect(260,121,510,18);
+    ctext.fillRect(170,161,710,18);
+
+    //右线线填充数据
+    ctext.fillStyle="#FF0000";
+    ctext.fillRect(250,21,500,18);
+    ctext.fillRect(150,61,300,18);
+    ctext.fillRect(200,101,250,18);
+    ctext.fillRect(210,141,350,18);
+    ctext.fillRect(190,181,380,18);
+
+</script>
+<script>
+    var cans=document.getElementById("myCanvas1");
+    var cansText=cans.getContext("2d");
+
+    cansText.moveTo(131,100);
+    cansText.lineTo(1650,100);
+    cansText.strokeStyle="#fff";
+    cansText.lineWidth = 6;
+    cansText.stroke();
+
+    cansText.moveTo(131,150);
+    cansText.lineTo(1650,150);
+    cansText.stroke();
+
+    cansText.lineWidth = 1;
+    cansText.moveTo(143,100);
+    cansText.lineTo(143,200);
+    cansText.stroke();
+    cansText.moveTo(1638,100);
+    cansText.lineTo(1638,200);
+    cansText.stroke();
+
+    img = new Image();
+    img.src="../img/a1a.png";
+    img.onload = function(){
+        cansText.drawImage(img,125,13,40,85);
+        cansText.drawImage(img,920,13,40,85);
+    };
+
+    cansText.font="14px Microsoft Yahei";
+    cansText.fillStyle="#fff";
+    var ori="起点DK0+303",des="终点DK47+584";
+    var origin=ori.split("");
+    for(var o=0;o<origin.length;o++){
+        cansText.fillText(origin[o],130,115+15*o);
+    }
+
+    var destination=des.split("");
+    for(var n=0;n<destination.length;n++){
+        cansText.fillText(destination[n],1639,115+15*n);
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>hangge.com</title>
+
+    <style>
+        canvas {
+            cursor: pointer;
+            border: 1px solid black;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<canvas id="canvas" width="360" height="300">
+</canvas>
+
+<div>
+    <button onclick="addRandomCircle()">添加圆圈</button>
+</div>
+
+
+<script src="../tool.js"></script>
+<script>
+
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+
+
+
+    // 这个方法用来储存每个圆圈对象
+    function rectDraw(x, y) {
+        this.x = x;
+        this.y = y;
+        this.isSelected = false;
+    }
+
+    // 保存画布上所有的方块
+    window.rectArr = [
+        {"x1":20,"y1":50,"x2":20+50,"y2":50+70},
+        {"x1":100,"y1":150,"x2":100+80,"y2":150+70},
+        {"x1":120,"y1":70,"x2":120+70,"y2":70+60}
+    ];
+
+    //        var canvas;
+//    var context;
+
+
+
+    window.onload = function() {
+        var mouse=tools.getMouse(canvas);
+
+        drawRect();
+
+        canvas.addEventListener("click",function(){
+
+            var mx=mouse.x,my=mouse.y,arr;
+
+            console.log("当前坐标为："+mouse.x+ ","+mouse.y);
+            for(var i=0;i<rectArr.length;i++){
+
+                arr=rectArr[i];
+                if(mx>arr.x1 && mx < arr.x2 && my>arr.y1  && my < arr.y2){
+                    console.log("选中的X轴坐标 ： "+arr.x1);
+                }
+            }
+
+        },false);
+
+        setArr();
+
+//        canvas.onmousemove = onMouseMove;
+    };
+
+
+    function setArr() {
+        var arr=[],obj;
+
+        for(var i=0;i<5;i++){
+            for(var n=0;n<5;n++){
+                obj={"x1":20+n,"y1":50+i,"x2":20+50,"y2":50+70};
+
+                arr.push(obj);
+            }
+        }
+
+        console.log(arr);
+    }
+
+    //“添加圆圈”按钮点击
+//    function addRandomCircle() {
+//        // 为圆圈计算一个随机大小和位置
+//
+//
+////        var radius = randomFromTo(10, 60);
+////        var x = randomFromTo(0, canvas.width);
+//        var y = randomFromTo(0, canvas.height);
+////
+////        // 为圆圈计算一个随机颜色
+////        var colors = ["green", "blue", "red", "yellow", "magenta", "orange", "brown",
+////            "purple", "pink"];
+////        var color = colors[randomFromTo(0, 8)];
+////
+////        // 创建一个新圆圈
+//        var circle = new rectArr(x, y, radius, color);
+//
+//        // 把它保存在数组中
+//        rect.push(circle);
+//
+//        // 重新绘制画布
+//        drawRect();
+//    }
+
+    //绘制圆圈
+    function drawRect() {
+
+
+        ctx.fillStyle="#FF9BFA";
+        ctx.fillRect(20,50,50,70);
+//        obj={"x":20,"y":50,"x2":20+50,"y2":50+70};
+
+        ctx.fillStyle="#FAA";
+        ctx.fillRect(100,150,80,70);
+//        obj={"x":100,"y":150,"x2":100+80,"y2":150+70};
+
+
+        ctx.fillStyle="#FF0";
+        ctx.fillRect(120,70,70,60);
+//        obj={"x":120,"y":70,"x2":120+70,"y2":70+60};
+
+
+
+//        rectArr.push(obj);
+
+        console.log(rectArr);
+
+
+
+//        for(var i=0;i<rectArr.length;i++){
+//
+//        }
+
+
+
+
+
+
+
+        // 清除画布，准备绘制
+//            context.clearRect(0, 0, canvas.width, canvas.height);
+
+        // 遍历所有圆圈
+//            for(var i=0; i<circles.length; i++) {
+//                var circle = circles[i];
+//
+//                // 绘制圆圈
+//                context.globalAlpha = 0.85;
+//                context.beginPath();
+//                context.arc(circle.x, circle.y, circle.radius, 0, Math.PI*2);
+//                context.fillStyle = circle.color;
+//                context.strokeStyle = "black";
+//
+//                if (circle.isSelected) {
+//                    context.lineWidth = 5;
+//                }
+//                else {
+//                    context.lineWidth = 1;
+//                }
+//                context.fill();
+//                context.stroke();
+//            }
+    }
+
+//    //绘制tooltip提示文字
+//    function drawToolTip(txtLoc, x, y) {
+//        context.save();
+//        var padding = 3;
+//        var font = "16px arial";
+//        ctx.font = font;
+//        ctx.textBaseline = 'bottom';
+//        ctx.fillStyle = 'yellow';
+//
+//        //绘制ToolTip背景
+//        var width = ctx.measureText(txtLoc).width;
+//        var height = parseInt(font, 10);
+//        ctx.fillRect(x, y-height, width+padding*2, height+padding*2);
+//
+//        //绘制ToolTip文字
+//        ctx.fillStyle = '#000';
+//        ctx.fillText(txtLoc, x+padding, y+padding);
+//
+//        ctx.restore();
+//    }
+//var mx=mouse.x-29,my=mouse.y+5,val,fromWidth,endWidth;
+
+//    console.log("当前坐标为："+mx+ ","+my);
+//    //当前选中的圆圈
+//    var previousSelectedCircle;
+//
+//    //鼠标移动事件
+//    function onMouseMove(e) {
+//        // 清除之前选择的圆圈
+//        if (previousSelectedCircle != null) {
+//            previousSelectedCircle.isSelected = false;
+//            previousSelectedCircle = null;
+//        }
+//
+//        // 取得画布上被单击的点
+//        var clickX = e.pageX - canvas.offsetLeft;
+//        var clickY = e.pageY - canvas.offsetTop;
+//
+//        // 查找被单击的圆圈
+//        for(var i=circles.length-1; i>=0; i--) {
+//            var circle = circles[i];
+//            //使用勾股定理计算这个点与圆心之间的距离
+//            var distanceFromCenter = Math.sqrt(Math.pow(circle.x - clickX, 2)
+//                + Math.pow(circle.y - clickY, 2))
+//            // 判断这个点是否在圆圈中
+//            if (distanceFromCenter <= circle.radius) {
+//                previousSelectedCircle = circle;
+//
+//                //选择新圆圈
+//                circle.isSelected = true;
+//
+//                //停止搜索
+//                break;
+//            }
+//        }
+//
+//        //更新显示，重绘圆圈
+//        drawRect();
+//        //如果当前鼠标位置有圆圈，还要显示tip
+//        if(previousSelectedCircle != null){
+//            drawToolTip("颜色：" + previousSelectedCircle.color, clickX, clickY);
+//        }
+//    }
+//
+//    //在某个范围内生成随机数
+//    function randomFromTo(from, to) {
+//        return Math.floor(Math.random() * (to - from + 1) + from);
+//    }
+</script>
+</body>
+</html>

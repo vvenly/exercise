@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="../jquery-1.12.4.min.js"></script>
+
+</head>
+<body>
+
+<h4>工具提示（Tooltip）插件 - 锚</h4>
+这是一个 <a href="#" class="tooltip-test" data-toggle="tooltip" title="默认的 Tooltip">默认的 Tooltip</a>.
+这是一个 <a href="#" class="tooltip-test" data-toggle="tooltip" data-placement="left" title="左侧的 Tooltip">左侧的 Tooltip</a>.
+这是一个 <a href="#" data-toggle="tooltip" data-placement="top" title="顶部的 Tooltip">顶部的 Tooltip</a>.
+这是一个 <a href="#" data-toggle="tooltip" data-placement="bottom" title="底部的 Tooltip">底部的 Tooltip</a>.
+这是一个 <a href="#" data-toggle="tooltip" data-placement="right" title="右侧的 Tooltip">右侧的 Tooltip</a>
+<br>
+<h4>工具提示（Tooltip）插件 - 按钮</h4>
+<button type="button" class="btn btn-default" data-toggle="tooltip"  title="默认的 Tooltip"> 默认的 Tooltip</button>
+<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="左侧的 Tooltip">左侧的 Tooltip
+</button>
+<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="顶部的 Tooltip">顶部的 Tooltip
+</button>
+<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="底部的 Tooltip">底部的 Tooltip
+</button>
+<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="右侧的 Tooltip">右侧的 Tooltip</button>
+
+<table>
+    <tbody id="table1"></tbody>
+</table>
+
+<script>
+    $(function () { $("[data-toggle='tooltip']").tooltip(); });
+
+    for(var i=0;i<10;i++){
+        table1.innerHTML+=`
+        <tr>
+            <td style="padding:10px;" data-toggle="tooltip" data-placement="bottom" title="一号公司一号公司一号公司	一号公司一号公司一号公司	">asdfasdfsdf</td>
+            <td>gfhdfghdfgh</td>
+        </tr>
+                        `
+    }
+</script>
+<script src="js/bootstrap.js"></script>
+
+</body>
+</html>

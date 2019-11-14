@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>hangge.com</title>
+
+    <style>
+        canvas {
+            cursor: pointer;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+
+
+<div id="d1">
+    😉 😺
+</div>
+
+<canvas id="canvas" width="360" height="300"></canvas>
+
+
+<script src="jquery-1.12.4.min.js"></script>
+<script>
+
+    console.log(document.getElementById("d1"));
+    console.log($("#d1"));
+
+    function iconFont(id) {
+        return document.getElementById(id).innerText;
+    }
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+
+    var icon1 = iconFont("d1");
+        // icon2 = iconFont("s2"),
+        // icon3 = iconFont("s3"),
+        // icon4 = iconFont("s4"),
+        // icon5 = iconFont("s5");
+
+
+
+    ctx.fillStyle = '#1ABFFF';      //样式1
+
+    ctx.font = '48px FontAwesome';  //  !!!设置字体， 字体可以随意
+    //  绘制内容
+    ctx.fillText(icon1, 10, 50);
+    // ctx.fillText(icon2, 70, 50);
+
+</script>
+
+</body>
+</html>

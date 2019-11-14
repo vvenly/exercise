@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        canvas{
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="dataCtx" width="1200" height="800"></canvas>
+
+<script>
+    var planData1=[
+        {"planId":"1a23xcv","pixX1": "66", "pixX2": "426", "pixY1": "60.24", "pixY2": "264.64","xz":0,
+            "configs":[
+                // {"planId":"1a23xcv","pixX1": "66", "pixX2": "426", "pixY1": "60.24", "pixY2": "264.64"},
+                {"planId":"2a23xcv","pixX1": "76", "pixX2": "456", "pixY1": "110.24", "pixY2": "300.64"},
+                {"planId":"3a23xcv","pixX1": "36", "pixX2": "526", "pixY1": "140.24", "pixY2": "284.64"},
+                {"planId":"4a23xcv","pixX1": "96", "pixX2": "626", "pixY1": "180.24", "pixY2": "364.64"},
+            ]},
+        {"planId":"2a23xcv","pixX1": "76", "pixX2": "456", "pixY1": "110.24", "pixY2": "300.64","xz":0,
+            "configs":[
+                // {"planId":"2a23xcv","pixX1": "76", "pixX2": "456", "pixY1": "110.24", "pixY2": "300.64"},
+                {"planId":"1a23xcv","pixX1": "66", "pixX2": "426", "pixY1": "60.24", "pixY2": "264.64"},
+                {"planId":"3a23xcv","pixX1": "36", "pixX2": "526", "pixY1": "140.24", "pixY2": "284.64"},
+                {"planId":"4a23xcv","pixX1": "96", "pixX2": "626", "pixY1": "180.24", "pixY2": "364.64"}
+                ]},
+        {"planId":"3a23xcv","pixX1": "36", "pixX2": "526", "pixY1": "140.24", "pixY2": "284.64","xz":0,
+            "configs":[
+                // {"planId":"3a23xcv","pixX1": "36", "pixX2": "526", "pixY1": "140.24", "pixY2": "284.64"},
+                {"planId":"1a23xcv","pixX1": "66", "pixX2": "426", "pixY1": "60.24", "pixY2": "264.64"},
+                {"planId":"2a23xcv","pixX1": "76", "pixX2": "456", "pixY1": "110.24", "pixY2": "300.64"},
+                {"planId":"4a23xcv","pixX1": "96", "pixX2": "626", "pixY1": "180.24", "pixY2": "364.64"}
+                ]},
+        {"planId":"4a23xcv","pixX1": "96", "pixX2": "626", "pixY1": "180.24", "pixY2": "364.64","xz":0,
+            "configs":[
+                // {"planId":"4a23xcv","pixX1": "96", "pixX2": "626", "pixY1": "180.24", "pixY2": "364.64"},
+                {"planId":"1a23xcv","pixX1": "66", "pixX2": "426", "pixY1": "60.24", "pixY2": "264.64"},
+                {"planId":"2a23xcv","pixX1": "76", "pixX2": "456", "pixY1": "110.24", "pixY2": "300.64"},
+                {"planId":"3a23xcv","pixX1": "36", "pixX2": "526", "pixY1": "140.24", "pixY2": "284.64"},
+                ]},
+        // {"pixX1": "990", "pixX2": "1090", "pixY1": "530", "pixY2": "630.00","xz":0,
+        //     "configs":[{"planId":"1a23xcv","pixX1": "66", "pixX2": "426", "pixY1": "110.24", "pixY2": "264.64"}]},
+        // {"pixX1": "438", "pixX2": "583", "pixY1": "150", "pixY2": "280.00","xz":0,
+        //     "configs":[{"planId":"1a23xcv","pixX1": "66", "pixX2": "426", "pixY1": "110.24", "pixY2": "264.64"}]},
+    ];
+
+
+    var canvas=document.getElementById("dataCtx");
+    var ctx=canvas.getContext('2d');
+
+    function draw() {
+        var plan=planData1;
+
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+
+        for(var i=0;i<plan.length;i++){
+            ctx.strokeStyle="rgba(95,125,38,0.8)";
+
+            x1=+plan[i].pixX1;
+            x2=+plan[i].pixX2;
+            xw=x2-x1;
+            y1=+plan[i].pixY1;
+            y2=+plan[i].pixY2;
+            yw=y2-y1;
+
+            ctx.lineWidth=6;
+            ctx.strokeRect(x1,y1,xw,yw);
+        }
+    }
+
+    draw();
+
+    console.log(ctx);
+    ctx.strokeStyle="#ff0";
+    ctx.fillStyle="rgba(150,150,150,0.3)";
+    function isOverlap (r1, r2) {
+        var xMin = Math.min(+r1.pixX2, +r2.pixX2);
+        var xMax = Math.max(+r1.pixX1, +r2.pixX1);
+        var yMin = Math.min(+r1.pixY2, +r2.pixY2);
+        var yMax = Math.max(+r1.pixY1, +r2.pixY1);
+
+        var w = xMin - xMax;
+        var h = yMin - yMax;
+
+        var bool = xMax <= xMin && yMax <= yMin;
+        // console.log(xMax, yMax ,xMin ,  yMin, w, h)
+        if (bool) {
+            ctx.fillRect(xMax, yMax, w, h);
+
+            ctx.lineWidth=1;
+            ctx.strokeRect(xMax, yMax, w, h);
+        }
+        // return bool
+    }
+
+
+    function configDraw() {
+        var con=[];
+        var num=1;
+        for(var i=0;i<planData1.length;i++){
+
+            con=planData1[i].configs;
+
+            for(var j=0;j<con.length;j++){
+
+                num=(j+1==con.length)?0:j+1;
+
+                isOverlap(con[j], con[num]);
+            }
+        }
+    }
+
+    configDraw();
+
+</script>
+</body>
+</html>

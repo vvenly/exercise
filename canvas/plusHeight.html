@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div style="text-align: center">
+    <br><br>
+    <canvas id="myCanvas" width="500" height="300"></canvas>
+
+    <img id="imgId" src="" alt="">
+
+
+    <br><br>
+
+    <button id="picBtn">pic</button>
+</div>
+
+
+
+<script>
+    let cans = document.getElementById("myCanvas");
+    let ctx = cans.getContext("2d");
+
+    //        cans.style.height= 300+200+"px";
+    //
+    //        console.log(cans.height);
+
+    ctx.fillText("测试文字",50,50);
+
+    ctx.strokeStyle="#f00";             //描边矩形
+    ctx.rect(50,100,100,100);
+    ctx.stroke();
+
+    cans.style.display="none";
+
+
+    window.onload=function () {
+
+
+        document.getElementById("imgId").src = cans.toDataURL("image/png");
+
+//        picBtn.onclick=function () {
+////            window.location=cans.toDataURL("image/png");
+//
+//            cans.style.display="none";
+//
+//            document.getElementById("imgId").src = cans.toDataURL("image/png");
+//        }
+    }
+
+</script>
+
+</body>
+</html>

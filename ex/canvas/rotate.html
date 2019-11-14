@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body,div,p{
+            margin:0;
+            padding:0;
+        }
+        #d1{
+            width:600px;
+            margin:100px auto;
+            background: #aaf;
+            text-align: center;
+        }
+        #c1{
+            background: #aff;
+        }
+    </style>
+</head>
+<body>
+
+<div id="d1">
+
+    <canvas id="c1" width="500" height="500"></canvas>
+</div>
+
+
+
+<script>
+    var cans=document.getElementById("c1");
+    var cansText=cans.getContext("2d");
+
+    var arr=["B","D","C","7","8","9","1"];
+    cansText.font="25px Microsoft Yahei";
+
+    for(var i=0;i<arr.length;i++){
+//        cansText.translate(60,235);
+
+        cansText.fillText(arr[i],100,30*i);
+        cansText.rotate(180*Math.PI/6);
+    }
+</script>
+</body>
+</html>

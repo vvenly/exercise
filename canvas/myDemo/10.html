@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>状态</title>
+</head>
+<body>
+
+
+<div style="text-align: center;">
+
+    <br><br><br><br><br>
+
+    <canvas id="myCanvas" width="500" height="300" style="border: 1px solid #fff123"></canvas>
+
+    <div>
+        <button id="btn">再添加一只蝴蝶</button>
+    </div>
+
+
+</div>
+
+<div>
+
+</div>
+
+<div hidden>
+
+    clip() 从原始画布中剪切任意形状和尺寸。
+    clip()可以将某个基本图形设定为“剪切区域”， 一旦剪切了某个区域，则所有之后的绘图都会被限制在被剪切的区域内（不能访问画布上的其他区域）。
+    可以在使用 clip() 方法前通过使用 save() 方法对当前画布区域进行保存，并在以后的任意时间对其进行恢复（通过 restore() 方法）。
+
+    另外，clip()不支持strokeRect() 和 ctx.fillRect() 这两个方法;
+    如果一定要用的话请用 rect() 代替。
+
+    如果设定了“剪切区域”后，还想在区域外面在 继续绘图，这时候就需要用到 状态 save()  和 restore();
+
+    save()          保存当前环境的状态
+    restore()	    返回之前保存过的路径状态和属性
+    这两种一般情况下也都是配对使用的;
+
+    Canvas 状态的保存和恢复 一般用于在图形或图片被裁减 或 变形时使用，或者当部分属性改变的时候使用，例如：fillStyle 、strokeStyle、 font 等；
+
+</div>
+
+<script>
+    window.onload=function () {
+        let cans = document.getElementById("myCanvas");
+        let ctx = cans.getContext("2d");
+
+//        ctx.strokeStyle="#9317F5";
+//        ctx.lineWidth="3";
+//        ctx.rect(30,30,300,200);
+//        ctx.stroke();
+//
+//        ctx.clip();   //将上面定义的矩形作为一个绘图区域， 后面绘制的图形再大不会超出这个区域
+//
+//        ctx.beginPath();
+//        ctx.arc(200,200,75,0,360*Math.PI/180);
+//        ctx.closePath();
+//        ctx.fillStyle="#FF89C9";
+//        ctx.fill();
+
+        //效果图：29
+
+        //save()
+        ctx.save();   //将状态保存起来
+        ctx.beginPath();
+        ctx.arc(150,150,110,0,360*Math.PI/180);
+        ctx.closePath();
+        ctx.strokeStyle="#15399B";
+        ctx.stroke();
+
+        ctx.clip();     //定义剪切的图形，超出部分不显示
+
+        let pic=new Image();
+        pic.src="img/img5.png";
+        pic.onload=function () {
+            ctx.drawImage(pic,50,10);
+        };
+
+        btn.onclick=function () {
+            ctx.restore();      //在这恢复到定义剪切前的状态， 继续绘制
+
+            let img=new Image();
+            img.src="img/img4.png";
+            img.onload=function () {
+                ctx.drawImage(img,220,100);
+            }
+        }
+
+
+
+    }
+</script>
+
+</body>
+</html>

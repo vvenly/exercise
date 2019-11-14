@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #d1{
+            margin: 50px 100px;
+        }
+        #d2{
+            position: relative;
+            width: 800px;margin: 50px auto;
+        }
+        #canvas{
+            border: 1px solid #0a8ed3;
+        }
+        #areaCanvas{
+            background: rgba(31,137,224,0.3);
+        }
+
+        #areaCanvas{
+            position: absolute;
+            top:0;left: 0;
+        }
+    </style>
+
+</head>
+<body>
+
+<div id="d1">
+    <button id="areaEdit" onclick="areaDraw.areaEdit()">区域编辑</button>
+    <button id="outEdit" onclick="areaDraw.endDraw()">退出区域编辑</button>
+</div>
+
+<div id="d2">
+    <canvas id="canvas" style="cursor: default;" width="800" height="600"> </canvas>
+    <canvas id="spotCanvas" style="cursor: default;"> </canvas>
+    <canvas id="areaCanvas" style="cursor: default;display:none;" width="800" height="600"> </canvas>
+</div>
+
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+
+    var canvas = document.getElementById("canvas"); // 用于存放地图
+    var spotCanvas = document.getElementById("spotCanvas"); // 用于存放数据
+    var pandiv = document.getElementById("pandiv");
+    var popup = $("#popup"); // 弹窗
+    var cxt = canvas.getContext("2d");
+    var cxt2 = spotCanvas.getContext("2d");
+    var yWidth = 0, yHeight = 0 // 地图原大小
+    var width_scale = 1, length_scale = 1; // 地图宽、高相对比值(像素：米)
+    var areaList = [] // 特殊区域列表
+    var isPathSearch = false // 轨迹搜索
+    var pathList = [] // 轨迹列表
+
+    function mousewheel(event) {
+
+        event.wheelDelta = event.wheelDelta ? event.wheelDelta : (event.deltaY * (-40));
+
+        if (event.wheelDelta > 0) {
+            if (imgScale > 10 ) { return }
+            // 放大
+            imgScale *= 1.1;
+            imgX = imgX - ((event.clientX -imgX) * 0.1);
+            imgY = imgY - ((event.clientY -imgY) * 0.1)
+        } else {
+            if (imgScale == 0.3) { return }
+            // 缩小
+            imgScale /= 1.1;
+            if (imgScale < 0.3) { imgScale = 0.3 }
+            imgX = imgX + ((event.clientX -imgX) / 11);
+            imgY = imgY + ((event.clientY -imgY) / 11)
+        }
+
+        drawImage();
+        return false;
+    }
+
+    function drawImage() {
+        var bbox = canvas.getBoundingClientRect();
+        cxt.clearRect(-200, -200, canvas.width * 2, canvas.height * 2);
+        cxt.drawImage(img, imgX, imgY, img.width * imgScale, img.height * imgScale);
+        // drawSpot();
+        // drawStation();
+        drawArea();
+        areaDraw.isAreaEdit && areaDraw.drawArea()
+        $(".scaleBox").html("当前比例："+(parseInt(imgScale*1000)/10)+"%")
+    }
+
+    function drawSpot() {
+        var size = imgScale > 1 ? (8 * imgScale) : 8
+        cxt2.clearRect(-200, -200, spotCanvas.width * 2, spotCanvas.height * 2);
+        if (!isPathSearch) {
+            // 绘制所有人员信息
+            for (var key in spotList) {
+                if (spotList.hasOwnProperty(key)) {
+                    var item = spotList[key];
+                    if (activeSpot && activeSpot.num == item.num) {
+                        activeSpot = item
+                    }
+                    if (item.status == 0) { continue }
+                    if (locationId == item.id) {
+                        var _size = size * 3
+                        cxt2.drawImage(locationIcon, changAaxisX(item.x) - _size/2, changAaxisY(item.y) -_size/2, _size, _size);
+                    } else {
+                        cxt2.beginPath();
+                        cxt2.fillStyle = "red";
+                        cxt2.arc(changAaxisX(item.x), changAaxisY(item.y), size, 0, Math.PI * 2);
+                        cxt2.fill();
+                    }
+                }
+            }
+            upPopupSite()
+        } else {
+            // 绘制指定人员轨迹
+            cxt2.strokeStyle = '#FFFFCC'
+            cxt2.lineWidth = 1
+            for (var i = 0, len = pathList.length; i < len; i++) {
+                cxt2.fillStyle = i == 0 ? "#fff" : (i == len - 1 ? "#f00" : "#FFCC00")
+                cxt2.beginPath()
+                var item = pathList[i]
+                cxt2.arc(changAaxisX(item.x), changAaxisY(item.y), 4, 0, Math.PI * 2);
+                cxt2.closePath();
+                cxt2.fill();
+            }
+
+            cxt2.beginPath()
+            for (var i = 0, len = pathList.length; i < len; i++) {
+                var item = pathList[i]
+                var x = changAaxisX(item.x)
+                var y = changAaxisY(item.y)
+                if (i === 0) {
+                    cxt2.moveTo(x, y)
+                } else if (i === (len - 1)) {
+                    cxt2.lineTo(x, y)
+                    // cxt2.closePath()
+                } else {
+                    cxt2.lineTo(x, y)
+                }
+            }
+
+            cxt2.stroke()
+            if (pathData.isPlay) {
+                pathData.pathBasemap = cxt2.getImageData(0,0,spotCanvas.width,spotCanvas.height)
+                pathData.playStep(true)
+            }
+        }
+    }
+
+    function drawArea() {
+        for (var j = 0; j<areaList.length; j++) {
+            var area = areaList[j]
+            cxt.beginPath()
+            for (var i = 0, len = area.coordinate.length; i < len; i++) {
+                var item = area.coordinate[i];
+                var x = changAaxisX(item.x)
+                var y = changAaxisY(item.y)
+                if (i === 0) {
+                    cxt.moveTo(x, y)
+                } else if (i === (len - 1)) {
+                    cxt.lineTo(x, y)
+                    cxt.closePath()
+                } else {
+                    cxt.lineTo(x, y)
+                }
+            }
+            cxt.strokeStyle = area.type == 1 ? '#0f0' : '#f00'
+            cxt.stroke()
+            cxt.fillStyle = area.type == 1 ? "rgba(0,255,0,0.1)" : "rgba(255,0,0,0.1)";
+            cxt.fill();
+        }
+    }
+
+    // 转换x坐标(map(物理坐标)->window)
+    // bool(map(像素)->window)
+    function changAaxisX(x, bool) {
+        var pro = img.width / yWidth;
+        return imgX + x * pro * imgScale * (bool ? 1 : width_scale)
+    }
+    // 转换y坐标(map->window)
+    function changAaxisY(y, bool) {
+        var pro = img.width / yWidth;
+        return imgY + y * pro * imgScale * (bool ? 1 : length_scale)
+    }
+
+
+
+    var areaDraw = (function() {
+        var that = null
+        var Draw = function() {
+            this.isAreaEdit = false
+            this.drawIng = false // 是否正在绘制
+            this.canvas = null
+            this.cxt = null
+            this.areaCoords = [] // 区域坐标
+            this.maxPoints = 10 // 最大定点数量
+            this.areaType = 0
+            this.activeId = 0
+
+            this.init()
+        }
+
+        Draw.prototype = {
+            init: function() {
+                this.canvas = document.getElementById("areaCanvas")
+                this.ctx = this.canvas.getContext("2d");
+                this.canvas.onclick = this.click
+                this.canvas.oncontextmenu = this.contextmenu
+                this.canvas.onmousemove = this.mousemove
+                this.canvas.onmousewheel = this.canvas.onwheel = mousewheel
+                that = this
+            },
+            areaEdit: function() {
+                this.canvas.style.display = 'block';
+                // this.canvas.width = $(window).width()
+                // this.canvas.height = $(window).height()
+                this.isAreaEdit = true
+                // $('#areaEdit').hide()
+                // $('#outEdit, #safeArea, #dangeArea, #remarks').show()
+            },
+            // 开始绘制
+            startDraw: function(type) {
+                this.areaType = type
+                this.drawIng = true
+                this.cancel()
+            },
+            // 退出绘制
+            endDraw: function() {
+                this.canvas.style.display = 'none'
+                this.isAreaEdit = false
+                $('#areaEdit').show()
+                $('#outEdit, #safeArea, #dangeArea, #remarks').hide()
+                this.cancel()
+            },
+            // 转换坐标x (bool存在 物理 米->窗口，否则反之)
+            changAaxisX: function(e, bool) {
+                var pro = img.width / yWidth;
+                if (bool) { return imgX + e * pro * imgScale * width_scale }
+                return (e.clientX - imgX) / (pro * imgScale * width_scale)
+            },
+            // 转换坐标y
+            changAaxisY: function(e, bool) {
+                var pro = img.width / yWidth;
+                if (bool) { return imgY + e * pro * imgScale * length_scale}
+                return (e.clientY - imgY) / (pro * imgScale * length_scale)
+            },
+            // 点击事件
+            click: function(e) {
+
+                e.stopPropagation();
+                if (!that.drawIng) { return }
+                that.areaCoords.push({
+                    x: that.changAaxisX(e),
+                    y: that.changAaxisY(e)
+                })
+                that.drawArea()
+            },
+            // 右击事件
+            contextmenu: function(e) {
+                e && e.preventDefault()
+                if (that.drawIng) {
+                    that.drawIng = false
+                    if (that.areaCoords.length < 3) {
+                        that.ctx.clearRect(0, 0, that.canvas.width, that.canvas.height)
+                        return
+                    }
+                    that.drawArea(that.areaCoords)
+                    $('#saveArea').show().css({left: e.clientX + 20, top: e.clientY})
+                    $('#cancelArea').show().css({left: e.clientX + 20, top: e.clientY + 35})
+                } else {
+                    var coords = {x: that.changAaxisX(e), y: that.changAaxisY(e)}
+                    for (var j = 0; j<areaList.length; j++) {
+                        var area = areaList[j]
+                        if (that.rayCasting(coords, area.coordinate) == 'in') {
+                            $('#deleteArea').show().css({left: e.clientX + 20, top: e.clientY})
+                            $('#cancelArea').show().css({left: e.clientX + 20, top: e.clientY + 35})
+                            that.activeId = area.id
+                            break;
+                        }
+                    }
+                }
+                return false
+            },
+            // 鼠标移动事件
+            mousemove: function(e) {
+                if (!that.drawIng) { return }
+                that.drawArea(that.areaCoords.concat([{x: that.changAaxisX(e), y: that.changAaxisY(e)}]))
+            },
+            // 绘制选择区域
+            drawArea: function(tmpCoords) {
+                tmpCoords = tmpCoords || this.areaCoords
+                this.ctx.clearRect(0, 0, that.canvas.width, that.canvas.height)
+                if (!tmpCoords.length) return
+                tmpCoords.forEach((item, index) => {
+                    var x = this.changAaxisX(item.x, true)
+                    var y = this.changAaxisY(item.y, true)
+                    if (index === 0) {
+                        this.ctx.beginPath()
+                        this.ctx.moveTo(x, y)
+                    } else if (index === (tmpCoords.length - 1)) {
+                        this.ctx.lineTo(x, y)
+                        this.ctx.closePath()
+                    } else {
+                        this.ctx.lineTo(x, y)
+                    }
+                })
+                this.ctx.strokeStyle = '#fff'
+                this.ctx.stroke()
+                this.drawDot(tmpCoords)
+            },
+            // 绘制区域定点
+            drawDot: function(tmpCoords) {
+                let l = 2
+                this.ctx.fillStyle = '#e4393c'
+                tmpCoords.forEach((item) => {
+                    this.ctx.fillRect(this.changAaxisX(item.x, true) - l, this.changAaxisY(item.y, true) - l, l * 2, l * 2)
+                })
+            },
+
+            // 区域保存
+            saveArea: function() {
+                $.ajax({
+                    type: "POST",
+                    url: "/api/plane_positioning/plane_positioning_map_section/add",
+                    dataType: "json",
+                    data: {
+                        project_id: projectId,
+                        "name": "区域",
+                        "type": that.areaType,
+                        "plane_positioning_map_id": window.currentType,
+                        "coordinate": JSON.stringify(that.areaCoords)
+                    },
+                    success: function () {
+                        that.cancel()
+                        getAreaList()
+                    }
+                })
+            },
+            // 区域删除
+            deleteArea: function() {
+                $.ajax({
+                    type: "POST",
+                    url: "/api/plane_positioning/plane_positioning_map_section/delete",
+                    dataType: "json",
+                    data: {
+                        "id": that.activeId
+                    },
+                    success: function () {
+                        that.cancel()
+                        getAreaList()
+                    }
+                })
+            },
+            // 取消
+            cancel: function() {
+                $('#saveArea, #cancelArea, #deleteArea').hide()
+                that.areaCoords.length = 0
+                that.ctx.clearRect(0, 0, that.canvas.width, that.canvas.height)
+            },
+
+            // 判断点 是否在区域内
+            // p 点 坐标
+            // poly 区域坐标集合
+            rayCasting (p, poly) {
+                var px = p.x,
+                    py = p.y,
+                    flag = false
+
+                for (var i = 0, l = poly.length, j = l - 1; i < l; j = i, i++) {
+                    var sx = poly[i].x,
+                        sy = poly[i].y,
+                        tx = poly[j].x,
+                        ty = poly[j].y
+
+                    // 点与多边形顶点重合
+                    if ((sx === px && sy === py) || (tx === px && ty === py)) {
+                        return 'on'
+                    }
+
+                    // 判断线段两端点是否在射线两侧
+                    if ((sy < py && ty >= py) || (sy >= py && ty < py)) {
+                        // 线段上与射线 Y 坐标相同的点的 X 坐标
+                        var x = sx + (py - sy) * (tx - sx) / (ty - sy)
+
+                        // 点在多边形的边上
+                        if (x === px) {
+                            return 'on'
+                        }
+
+                        // 射线穿过多边形的边界
+                        if (x > px) {
+                            flag = !flag
+                        }
+                    }
+                }
+
+                // 射线穿过多边形边界的次数为奇数时点在多边形内
+                return flag ? 'in' : 'out'
+            }
+
+        }
+
+        return new Draw()
+    })()
+</script>
+</body>
+</html>

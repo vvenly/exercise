@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图表</title>
+    <link href="../css/bootstrapYs.min.css" rel="stylesheet" media="screen" />
+    <link href="../css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+    <style>
+        body{background: #F0F0F0;zoom: 1;overflow: scroll;}
+        #bodyDiv{position: absolute;top:0;left:0;width: 1860px;height: 900px;margin-bottom: 20px;}
+        #titleMain{width: 1500px;height: 800px;background: url("../img/bg1.jpg") no-repeat;background-size:cover;margin: 50px 100px;}
+    </style>
+    <script src="../js/jQuery-3.3.1.min.js"></script>
+    <script src="../js/bootstrap.js"></script>
+    <script src="../js/bootstrap_datetimepicker.min.js"></script>
+</head>
+<body>
+    <div id="bodyDiv">
+
+        <div id="titleMain">
+            <!--<canvas id="timeCtx" width="1620" height="777"></canvas>-->
+                <div id="d3">
+                    <!--<canvas id="backstageCtx" width="1785" height="9030"></canvas>-->
+                    <canvas id="dataCtx" width="1500" height="800"></canvas>
+                </div>
+        </div>
+    </div>
+
+
+    <!--<div class="control-group">-->
+        <!--<label class="control-label">选择查询时间</label>-->
+        <!--<div class="controls input-append date form_datetime" data-date-format="yyyy-MM-dd">-->
+            <!--<input style="width: 120px;border: 1px solid #0065CC;" id="timeKey" size="16" type="text" readonly>-->
+            <!--<span style="display: none;" class="add-on"><i class="icon-remove"></i></span>-->
+            <!--<span style="display: none;" class="add-on"><i class="icon-calendar"></i></span>-->
+            <!--<button id="" class="btn btn-primary" onclick="planAjax()">查询</button>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <div class="modal fade" id="myModal-update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: 350px;display: none;">
+        <div class="modal-dialog modelBg">
+            <div class="modal-content modal-del">
+                <div class="modal-body" style="text-align: center;padding: 20px 30px;">
+                    <div>
+                        <h5 style="margin: 10px 0 20px;font-size: 19px;">当前修改计划信息</h5>
+                        <p>线别：下行线</p>
+                        <p>车站： <span id="update_startSta"></span> 至 <span id="update_endSta"></span></p>
+                        <p>里程： <span id="update_startMil"></span> 至 <span id="update_endMil"></span></p>
+                        <p>时间： <span id="update_startTime"></span> 至 <span id="update_endTime"></span></p>
+                    </div>
+                    <h5 id="out_alert_msg" style="margin-top: 20px;" class="sub_message">确定数据修改正确？</h5>
+                </div>
+                <div class="modal-footer" style="text-align: center;background: #E8EAF0">
+
+                    <button type="button" class="btn btn-danger" id="all-del-btn" onclick="subData(1)">是，确认提交</button> &nbsp; &nbsp;
+
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">否，返回修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="../js/can_data.js"></script>
+    <script>
+
+        $('.form_datetime').datetimepicker({
+            language:  'zh-CN',
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+        var drawMain={
+            colorB:"#0076D3",
+            colorC:"#CECECE",
+            color0:"#4B4B4B",
+            circleColor:"#f00",
+            canM:"",
+            mtx:"",
+            cursorY1:0,
+            cursorX1:0,
+            cursorY2:0,
+            cursorX2:0,
+            circleDraw:function(x,y){
+                var ctx=this.mtx;
+                ctx.beginPath();
+                ctx.arc(x,y,c_radius,0,360*Math.PI/180);
+                ctx.closePath();
+                ctx.fillStyle=this.circleColor;
+                ctx.fill();
+                // ctx.stroke();
+            },
+            drawData:function () {
+
+                var ctx=this.mtx;
+                var that=this;
+
+                ctx.clearRect(0,0,that.canM.width,that.canM.height);
+
+                var plan=planData1;
+
+                // console.log(planData1);
+                var planL=plan.length;
+                var x1=0,y1=0,x2=0,y2=0,xw,yw;
+
+                for(var i=0;i<planL;i++){
+                    ctx.fillStyle="#f00";
+
+                    x1=Number(plan[i].pixX1);
+                    y1=Number(plan[i].pixY1);
+
+                    if(plan[i].xz == 1){
+                        ctx.fillStyle="rgba(54,214,180,1)";
+                    }
+
+                    this.circleDraw(x1,y1);
+
+                    ctx.globalCompositeOperation="lighter";
+                }
+            },
+
+            paintbrush:function () {
+                this.canM=document.getElementById('dataCtx');
+                this.mtx=this.canM.getContext('2d');
+
+                this.drawData();
+
+                // this.drawData(planS);
+
+                this.canM.onmousedown=function (e) {
+
+                    var gapX=marLeft-dataCanvas.scrollLeft()-bodyDiv.scrollLeft(),gapY=marTop-dataCanvas.scrollTop()-bodyDiv.scrollTop();
+                    var x= e.clientX-gapX; var y=e.clientY-gapY;
+
+                    SelectedShape(drawMain.mtx,x,y,gapX,gapY);
+
+                    // console.log(2,x);
+
+                    // console.log("y1 : ", y);
+                }
+
+
+                // this.canM.onmouseup=function(){
+                //     this.canM.onmousemove = null;
+                //     this.canM.onmouseup = null;
+                // }
+
+
+                // brushCtx.onmouseup = function(){
+                //     brushCtx.onmousemove = null;
+                //     brushCtx.onmouseup = null;
+                // };
+            }
+        };
+
+        $(document).ready(function () {
+            // staAjax();
+            // lineAjax();
+
+            // drawMain.timeTitle();
+            drawMain.paintbrush();
+
+            // setTimeout(function () {
+            //     drawMain.backstage();
+            //     // planAjax();
+            // },200);
+
+        });
+
+        function isInteger(obj) {return parseInt(obj, 10) === obj;}
+
+        function subData(type) {
+            var ele=$("#out_alert_msg");
+            // ele.html("数据提交中……");
+            // var dataArr=[],
+            //     obj={
+            //     "planId": "6b3214aa5eab4dfaabe515d479021e77", "lineId":"84ed62acf18b424fb9ebc29c74990181","x1Pix":"264.00","x2Pix":"1098.02","y1Pix":"2221.53","y2Pix":"2334.95","time":"2019-05-07","isView":"01"}
+            var time=$("#timeKey").val();
+
+            sub_data.time=time;
+
+            console.log(JSON.stringify(sub_data));
+
+            if(!type){
+
+            }else if(type){
+                sub_data.isShow="01";
+            }
+
+
+            // for(var j=0,length=planData1.length;j<length;j++){
+            //     obj={
+            //         "lineId":planData1[j].lineId,
+            //         "planId":planData1[j].planId,
+            //         "x1Pix" :Number(planData1[j].pixX1).toFixed(2),"x2Pix":Number(planData1[j].pixX2).toFixed(2),
+            //         "y1Pix":Number(planData1[j].pixY1).toFixed(2),"y2Pix":Number(planData1[j].pixY2).toFixed(2),
+            //         "time":time
+            //     };
+            //     dataArr[j]=obj;
+            //
+            //     planData1[j].xz=0;
+            // }
+
+            $.ajax({
+                type: "POST",
+                url: "http://47.99.211.157:8081/epvase/subway/pix/updateInfo",
+                contentType: "application/json;charset=UTF-8",
+                data:JSON.stringify(sub_data),
+                // dataType : "application/json",
+                success: function (json) {
+                    // ele.html("数据提交中……");
+
+                    if(json.code==0){
+                        if(!type){
+                            // console.log(321);
+                            var data=json.data;
+                            $("#update_startSta").html(data.applyStartStationName);
+                            $("#update_endSta").html(data.applyEndStationName);
+
+                            $("#update_startMil").html(mileageShow(data.applyTrackLineStartMil));
+                            $("#update_endMil").html(mileageShow(data.applyTrackLineEndMil));
+
+                            $("#update_startTime").html(timeFmt(data.applyWorkStartTime));
+                            $("#update_endTime").html(timeFmt(data.applyWorkEndTime));
+                        }else{
+                            ele.html("修改成功");
+
+                            setTimeout(function () {
+                                $("#myModal-update").modal('hide');
+                                planAjax();
+                                ele.html("确定数据修改正确？");
+
+                                $("#subBtn").prop("disabled",true);
+                                // location.reload(window.location.href);
+                            },800)
+                        }
+
+                    }else{
+                        ele.css("display","block").html("网络错误，请刷新后重试");
+                    }
+                },
+                error: function () {
+                    console.log("请求失败");
+                }
+            })
+        }
+
+        $('.v_date').datetimepicker({
+            language:  'zh-CN',
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+    </script>
+
+</body>
+</html>

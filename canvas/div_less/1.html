@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body,div{margin: 0;padding: 0;}
+        #d1{width: 1000px;height: 700px;background: #afa;}
+    </style>
+</head>
+<body>
+
+
+<div id="d1">
+    
+</div>
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script src="../tool.js"></script>
+
+<script>
+
+    var dns=tools.getMouse(document.getElementById("d1"));
+
+    $("#d1").mousedown(function (e) {
+
+
+        console.log(mousePos(e))
+
+    });
+
+    function mousePos(e) {
+        var mouse={};
+        var x, y;
+        //在IE中 event对象是作为window对象的一个属性存在
+        var e= e || window.event;
+
+        //兼容做到ie9
+        if(e.pageX || e.pageY){
+            x=e.pageX;
+            y=e.pageY;
+        }else{
+            x=e.clientX+document.body.scrollLeft || document.documentElement.scrollLeft;
+            y=e.clientY+document.body.scrollTop || document.documentElement.scrollTop;
+        }
+
+        mouse.x=x;
+        mouse.y=y;
+
+        return mouse;
+
+
+    }
+
+    function drawLine(x,y) {
+
+    }
+</script>
+</body>
+</html>

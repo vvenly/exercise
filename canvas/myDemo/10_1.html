@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>状态</title>
+</head>
+<body>
+
+
+<div style="text-align: center;">
+
+    <br><br><br><br><br>
+
+    <canvas id="seventhC" width="500" height="300" style="border: 1px solid #fff123"></canvas>
+
+
+
+</div>
+
+<div>
+
+</div>
+
+<div hidden>
+    Canvas最重要的两个概念，一个是路径，另一个就是状态了。
+    要知道，Canvas 是基于“状态”来绘制的，每次绘制（fill() 或 stroke() ）的时候都会检查一次程序中所有的“状态”，
+    如果当前状态没有任何手动的改变，那么就会一直持续下去。
+
+    clip() 从原始画布中剪切任意形状和尺寸。
+    clip()可以将某个基本图形设定为“剪切区域”， 一旦剪切了某个区域，则所有之后的绘图都会被限制在被剪切的区域内（不能访问画布上的其他区域）。
+    可以在使用 clip() 方法前通过使用 save() 方法对当前画布区域进行保存，并在以后的任意时间对其进行恢复（通过 restore() 方法）。
+
+    另外，clip()不支持strokeRect() 和 ctx.fillRect() 这两个方法;
+    如果一定要用的话请用 rect() 代替。
+
+    如果设定了“剪切区域”后，还想在区域外面在 继续绘图，这时候就需要用到 状态 save()  和 restore();
+
+    save()          保存当前环境的状态
+    restore()	    返回之前保存过的路径状态和属性
+    这两种一般情况下也都是配对使用的;
+
+    Canvas 状态的保存和恢复 一般用于在图形或图片被裁减 或 变形时使用，或者当部分属性改变的时候使用，例如：fillStyle 、strokeStyle、 font 等；
+
+    Canvas在以下状态改变的时候可以使用save() 来保存当前状态    并在需要结束的时候用restore()  恢复到保存前的状态;
+    包含：
+    填充效果： fillStyle、
+    描边效果：strokeStyle 、
+    线条效果：lineCap,lineWidth等、
+    文本效果：font、textAlign等、
+    阴影效果： shadowBlur 、 shadowColor等 、
+    全局属性：globalAlpha 、globalCompositeOperation
+
+    需要注意的是save() 只能用来保存“状态”， 不能保存“图形”，也不是更新路径，
+    对于Canvas 来说 只有一个！上下文环境， 对于路径和状态 这两种一定要好好区分开
+
+</div>
+
+<script>
+    window.onload=function () {
+        let cans = document.getElementById("seventhC");
+        let ctx = cans.getContext("2d");
+
+////        ctx.save();
+//        ctx.strokeStyle = "#0695FF";
+//        ctx.strokeRect(0,0,200,150);
+////        ctx.restore();
+//
+//        ctx.strokeStyle = "#18E4ED";
+//        ctx.translate(80,80);
+//        ctx.strokeRect(0,0,200,150);
+
+
+        //直线
+
+
+        //利用状态设置“夸行取颜色"
+
+        ctx.lineWidth="5";
+        ctx.strokeStyle="#B946C6";
+        ctx.save();
+
+        ctx.strokeRect(10,50,200,10);
+
+        ctx.strokeStyle="#0695FF";
+        ctx.strokeRect(10,100,200,10);
+
+        ctx.restore();
+
+        ctx.strokeRect(10,150,200,10);  //最后一句取得是第一次设置的颜色
+
+
+        //效果图 30
+//        ctx.moveTo(10,150);
+//        ctx.lineTo(200,150);
+//        ctx.stroke();
+//
+//        let text="状态改变式";
+//        ctx.font="bold 25px KaiTi";
+//
+//        ctx.fillStyle="#B946C6";
+//        ctx.save();
+//        ctx.fillText(text,50,50);
+//
+//        ctx.fillStyle="#0695FF";
+//        ctx.fillText(text,50,100);
+//
+//        ctx.restore();
+//        ctx.fillText(text,50,150)
+
+    }
+</script>
+
+</body>
+</html>

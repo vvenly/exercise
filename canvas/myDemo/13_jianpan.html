@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>键盘事件</title>
+</head>
+<body>
+
+
+<div style="text-align: center;">
+
+    <canvas id="myCanvas" width="300" height="300" style="border: 1px solid #1F6FFF"></canvas>
+
+
+</div>
+
+<div hidden>
+    键盘事件
+    在Canvas中  鼠标事件分为以下两种：
+    1、键盘按下 : keydown
+    2、键盘松开 : keyup;
+
+    keyCode值对应表：  31
+
+    语法：
+    window.addEventListener(type, fn, false);
+
+    type指的是事件类型， 也就是keydown  或者  keyup ;
+
+    addEventListener()  属于W3C标准  在IE9以上的都支持;
+    (每次提到IE 都有想再倡导下 全民地址IE ……ಠ╭╮ಠ)
+
+
+
+
+
+</div>
+
+<!--<script src="../tool.js"></script>-->
+
+<script>
+    window.onload=function () {
+        let cans = document.getElementById("myCanvas");
+        let ctx = cans.getContext("2d");
+
+        drawPic(50 , 50);
+
+        let x=50,y=50,key=getKey();
+
+        window.addEventListener("keydown",function (e) {
+            ctx.clearRect(0,0,cans.width,cans.height);
+
+            //根据键盘的keyCode值，设定重新绘图的坐标并绘制新的图片
+            switch (key.direction){
+                case "up":
+                    y-=2;
+                    drawPic(x,y);
+                    break;
+                case "down":
+                    y+=2;
+                    drawPic(x,y);
+                    break;
+                case "left":
+                    x-=2;
+                    drawPic(x,y);
+                    break;
+                case "right":
+                    x+=2;
+                    drawPic(x,y);
+                    break;
+                default:
+                    drawPic(x,y);
+            }
+        },false);
+
+
+
+        function drawPic(x,y) {
+            let image=new Image();
+            image.src="img/img23.jpg";
+
+            //必须在图片加载完后才能绘制
+            image.onload=function () {
+                ctx.drawImage(image,x,y);
+            }
+        }
+
+        function getKey(){
+            let key={};
+
+            window.addEventListener("keydown",function(e){
+
+                let keys=e.keyCode;
+
+                if(keys== 38 ||keys==87){
+                    key.direction="up";
+                }else if(keys==39 || keys==68){
+                    key.direction="right";
+                }else if(keys==40 || keys ==83){
+                    key.direction="down";
+                }else if(keys==37 || keys ==65){
+                    key.direction="left";
+                }else{
+                    key.direction="";
+                }
+            },false);
+
+
+
+            return key;
+
+        }
+
+    };
+
+
+
+    //效果图  32
+
+
+</script>
+
+</body>
+</html>

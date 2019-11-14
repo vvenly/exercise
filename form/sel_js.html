@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            width:150px;
+            margin: 100px auto;
+        }
+        select{
+            width: 80%;
+        }
+    </style>
+</head>
+<body>
+
+    <div>
+        <select name="" id="S1" onchange="testSel()">
+            <option value="" data-id=""> -请选择- </option>
+            <option value="01" data-id="11"> 选项一 </option>
+            <option value="02" data-id="22"> 选项二 </option>
+            <option value="03" data-id="33"> 选项三 </option>
+            <option value="04" data-id="44"> 选项四 </option>
+            <option value="05" data-id="55"> 选项五 </option>
+        </select>
+    </div>
+
+
+
+    <script src="../jquery-1.12.4.min.js"></script>
+    <script>
+        function testSel() {
+            var val=$("#S1").val(),    //选中option的value 值
+                id=$("#S1 option:selected").attr("data-id"),    //选中option的属性data-id 值
+                currentIndex=$("#S1").get(0).selectedIndex,    //选中option 的索引序号
+                text=$("#S1 option:selected").text();       //选中option的 文本
+
+            console.log(text);
+        }
+
+
+    </script>
+</body>
+</html>

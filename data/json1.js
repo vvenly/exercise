@@ -1,0 +1,17 @@
+var obj=[
+    {"videoFrontEquipmentId":"0884ecfb4e15428aa689e4235ab9e482","videoFrontEquipmentCd":"VFEC000152",
+        "borderGroupNo":0,"xValue":363.11,"yValue":233.44,"orderNo":0,"setTime":"2019-11-06 18:27:27"},
+
+    {"videoFrontEquipmentId":"0884ecfb4e15428aa689e4235ab9e482","videoFrontEquipmentCd":"VFEC000152",
+        "borderGroupNo":0,"xValue":212.11,"yValue":361.44, "orderNo":1,"setTime":"2019-11-06 18:27:27"},
+
+    {"videoFrontEquipmentId":"0884ecfb4e15428aa689e4235ab9e482","videoFrontEquipmentCd":"VFEC000152",
+        "borderGroupNo":0,"xValue":428.11,"yValue":450.44,"orderNo":2,"setTime":"2019-11-06 18:27:27"},
+
+    {"videoFrontEquipmentId":"0884ecfb4e15428aa689e4235ab9e482","videoFrontEquipmentCd":"VFEC000152",
+        "borderGroupNo":0,"xValue":574.11,"yValue":282.44,"orderNo":3,"setTime":"2019-11-06 18:27:27"},
+
+    {"videoFrontEquipmentId":"0884ecfb4e15428aa689e4235ab9e482","videoFrontEquipmentCd":"VFEC000152",
+        "borderGroupNo":0,"xValue":363.11,"yValue":233.44,"orderNo":4,"setTime":"2019-11-06 18:27:27"},
+
+    {"videoFrontEquipmentId":"0884ecfb4e15428aa689e4235ab9e482","videoFrontEquipmentCd":"VFEC000152","borderGroupNo":1,"xValue":638,"yValue":394,"orderNo":0,"setTime":"2019-11-06 18:27:27"},{"videoFrontEquipmentId":"0884ecfb4e15428aa689e4235ab9e482","videoFrontEquipmentCd":"VFEC000152","borderGroupNo":1,"xValue":374,"yValue":193,"orderNo":1,"setTime":"2019-11-06 18:27:27"},{"videoFrontEquipmentId":"0884ecfb4e15428aa689e4235ab9e482","videoFrontEquipmentCd":"VFEC000152","borderGroupNo":1,"xValue":284,"yValue":326,"orderNo":2,"setTime":"2019-11-06 18:27:27"},{"videoFrontEquipmentId":"0884ecfb4e15428aa689e4235ab9e482","videoFrontEquipmentCd":"VFEC000152","borderGroupNo":1,"xValue":529,"yValue":106,"orderNo":3,"setTime":"2019-11-06 18:27:27"},{"videoFrontEquipmentId":"0884ecfb4e15428aa689e4235ab9e482","videoFrontEquipmentCd":"VFEC000152","borderGroupNo":1,"xValue":70,"yValue":341,"orderNo":4,"setTime":"2019-11-06 18:27:27"},{"videoFrontEquipmentId":"0884ecfb4e15428aa689e4235ab9e482","videoFrontEquipmentCd":"VFEC000152","borderGroupNo":1,"xValue":568,"yValue":252,"orderNo":5,"setTime":"2019-11-06 18:27:27"},{"videoFrontEquipmentId":"0884ecfb4e15428aa689e4235ab9e482","videoFrontEquipmentCd":"VFEC000152","borderGroupNo":1,"xValue":638,"yValue":394,"orderNo":6,"setTime":"2019-11-06 18:27:27"},{"videoFrontEquipmentId":"0884ecfb4e15428aa689e4235ab9e482","videoFrontEquipmentCd":"VFEC000152","borderGroupNo":2,"xValue":246,"yValue":320,"orderNo":0,"setTime":"2019-11-06 18:27:27"},{"videoFrontEquipmentId":"0884ecfb4e15428aa689e4235ab9e482","videoFrontEquipmentCd":"VFEC000152","borderGroupNo":2,"xValue":341,"yValue":374,"orderNo":1,"setTime":"2019-11-06 18:27:27"},{"videoFrontEquipmentId":"0884ecfb4e15428aa689e4235ab9e482","videoFrontEquipmentCd":"VFEC000152","borderGroupNo":2,"xValue":520,"yValue":456,"orderNo":2,"setTime":"2019-11-06 18:27:27"},{"videoFrontEquipmentId":"0884ecfb4e15428aa689e4235ab9e482","videoFrontEquipmentCd":"VFEC000152","borderGroupNo":2,"xValue":178,"yValue":389,"orderNo":3,"setTime":"2019-11-06 18:27:27"},{"videoFrontEquipmentId":"0884ecfb4e15428aa689e4235ab9e482","videoFrontEquipmentCd":"VFEC000152","borderGroupNo":2,"xValue":401,"yValue":207,"orderNo":4,"setTime":"2019-11-06 18:27:27"},{"videoFrontEquipmentId":"0884ecfb4e15428aa689e4235ab9e482","videoFrontEquipmentCd":"VFEC000152","borderGroupNo":2,"xValue":246,"yValue":320,"orderNo":5,"setTime":"2019-11-06 18:27:27"}]

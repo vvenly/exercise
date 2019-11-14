@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            margin:0;
+            padding:50px;
+            font-family: "微软雅黑";
+        }
+        #d1{
+            width:100%;
+            border:1px solid #ddd;
+        }
+        /*#ca1{*/
+            /*width:100%;*/
+            /*height:500%;*/
+        /*}*/
+    </style>
+</head>
+<body>
+
+<div id="d1">
+    <p>施工形象进度图</p>
+    <canvas id="ca1" width="1000" height="500">
+
+    </canvas>
+</div>
+
+
+<script>
+    var ctx = ca1.getContext('2d');
+
+    ctx.lineJoin =  'round';
+    ctx.beginPath();
+    ctx.moveTo(100,300);
+    ctx.lineTo(500,300);
+    ctx.lineTo(500-20,300-20);
+    ctx.moveTo(500,300);
+    ctx.lineTo(500-20,300+20);
+
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = '#000';
+    ctx.stroke();
+</script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图表</title>
+    <link href="{{ m_asset('assets/data_pro/css/bootstrap.min.css') }}" rel="stylesheet"/>
+    <style>
+        body{background: #F0F0F0;zoom: 1;overflow: scroll;}
+        #bodyDiv{position: absolute;top:0;left:0;width: 1920px;height: 980px;margin-bottom: 20px;}
+        body,p,div{padding: 0;margin: 0;}
+        #titleMain{
+            width: 100%;height:753px;margin: 133px 35px 0;overflow-y: auto;
+        }
+        #timeCtx{position:absolute;top:110px;left:215px;}
+        /*#cnsBor{position:fixed;top:131px;left:254px;border: 1px solid #000;width: 1585px;height: 756px;font-size:16px;}*/
+
+        #otherBtn{position: relative;top:20px;left: 20px; z-index: 2000;}
+        /*#otherBtn{zoom: 2000;}*/
+        #titleMain #d3{position: absolute;top:130px;left:35px;height:756px;z-index: 1000;overflow-y: scroll;}
+        #dataCtx{position: absolute;top:1px;left: 201px;}
+
+    </style>
+</head>
+<body>
+<div id="bodyDiv">
+    <div id="titleMain">
+        <canvas id="timeCtx" width="1620" height="850"></canvas>
+
+        <div id="d3">
+            <canvas id="backstageCtx" width="1785" height="3040"></canvas>
+            <canvas id="dataCtx" width="1584" height="3040"></canvas>
+        </div>
+
+
+    </div>
+</div>
+
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script src="c1.js"></script>
+<script>
+
+    var drawMain={
+        rectSX:200,
+        rectSY:100,
+        colorB:"#0076D3",
+        colorC:"#CECECE",
+        color0:"#4B4B4B",
+        // Py:1500/(564500.2-170118.5),
+        dataRect:[],
+        hourPx:65,
+        canM:"",
+        mtx:"",
+        cursorY1:0,
+        cursorX1:0,
+        cursorY2:0,
+        cursorX2:0,
+        // cavWidth:0,
+        // cavHeight:2880,
+        timeTitle:function(){
+
+            var canvas=document.getElementById('timeCtx');
+            var ctx=canvas.getContext('2d');
+
+            ctx.strokeRect(20,20,canvas.width-37,755);
+
+            var n1=0;
+            for(var i=0;i<25;i++){
+                n1=(i===6)?n1=-18:n1;
+                ctx.font="17px Microsoft YaHei";
+                if(n1+18<10){
+                    ctx.fillText(n1+18,i*66+14,15);
+                }else{
+                    ctx.fillText(n1+18,i*66+10,15);
+                }
+                n1++;
+            }
+        },
+        backstage:function () {
+            var canvas=document.getElementById('backstageCtx');
+            var ctx=canvas.getContext('2d');
+
+            var x1=this.rectSX;y1=this.rectSY;
+
+            //station
+            var station=stationData.data;
+            var staLength=station.length;
+            console.log(staLength);
+            var posY;
+            for(var s=0;s<staLength;s++){
+                ctx.font="19px Microsoft YaHei";
+                ctx.fillStyle="#0043F8";
+
+                posY=station[s].centerPix;
+
+                ctx.fillText(station[s].stationName,50,posY);
+                this.lineDraw(ctx,x1,posY,1820,posY);
+                // console.log(posY);
+
+                ctx.font="13px Microsoft YaHei";
+                ctx.fillText(mileageShow(station[s].centerMil),50,posY+20);
+            }
+
+            //trackLine
+            var tx2=ctx.measureText(lineData.data[0].endMil).width+7;
+            this.trackLine(ctx,2880-tx2*1.7,15,lineData.data[0].endMil);
+            this.trackLine(ctx,1,15,lineData.data[0].startMil);
+
+
+            //timeLine
+            // ctx.rotate(0);
+            var lineSpace=11;
+            for(var i=0;i<150;i++){
+                if(isInteger(i/6)){
+                    this.lineDraw(ctx,x1+lineSpace*i,0,x1+lineSpace*i,canvas.height,1,this.color0);
+                }else{
+                    this.lineDraw(ctx,x1+lineSpace*i,0,x1+lineSpace*i,canvas.height,1,this.colorC);
+                }
+            }
+        },
+        lineDraw:function(ctx, x1, y1, x2, y2, lw, lc){
+            ctx.beginPath();
+            var lh = lw || 1;
+            var color = lc || this.colorB;
+            ctx.lineWidth = lh;
+            ctx.strokeStyle = color;
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+        },
+        trackLine:function(ctx,x,y,pos){
+            ctx.save();
+            ctx.translate(195,0);
+            ctx.rotate(90 * Math.PI/180);
+            // ctx.rotate(0);
+            ctx.font="14px Microsoft YaHei";
+            // var mil=(!pos)?"DK 0+000" : mileageShow(pos);
+            ctx.fillText(mileageShow(pos),x,y);
+            // ctx.fillText("里程："+mileageShow(pos),x-120,y);
+            ctx.restore();
+        },
+        drawData:function () {
+
+            var that=this;
+
+            that.mtx.clearRect(0,0,that.canM.width,that.canM.height);
+            var plan=planData1;
+            var planL=plan.length;
+            var x1=0,y1=0,x2=0,y2=0,xw,yw;
+
+            for(var i=0;i<planL;i++){
+                for (var j=0; j < plan[i].spacetime.length; j++) {
+                    that.mtx.fillStyle="rgba(225,155,250,0.7)";
+
+                    x1=plan[i].spacetime[j].time_fx;
+                    x2=plan[i].spacetime[j].time_ex;
+                    xw=x2-x1;
+                    y1=plan[i].spacetime[j].from_x;
+                    y2=plan[i].spacetime[j].end_x;
+                    yw=y2-y1;
+
+                    // yHalf=plan[i].spacetime[j].end_x -y2/2-5;
+
+
+                    if(plan[i].spacetime[j].xz === 1){
+                        that.mtx.fillStyle="rgba(153,204,51,1)";
+
+                        // 拉伸边框
+                        that.mtx.strokeStyle = "#000";
+                        that.mtx.lineWidth=bW;
+                        that.mtx.strokeRect(x1+3,y1+3,xw-bW,yw-bW);
+                        that.mtx.globalCompositeOperation="destination-over";
+
+                        drawMain.cursorX1=x1;
+                        drawMain.cursorY1=y1;
+                        drawMain.cursorX2=x2;
+                        drawMain.cursorY2=y2;
+
+                    }
+
+                    that.mtx.fillRect(x1,y1,xw,yw);
+                }
+            }
+
+
+            // var mouse=tools.getMouse(that.canM);
+
+            that.canM.onmousedown=function (e) {
+                var gapX=235-dataCanvas.scrollLeft()-bodyDiv.scrollLeft(),gapY=131-dataCanvas.scrollTop()-bodyDiv.scrollTop();
+                var x= e.clientX-gapX; var y=e.clientY-gapY;
+
+                // console.log("left "+bodyDiv.scrollLeft());
+                // console.log("y "+ y);
+                SelectedShape(that.mtx,x,y,gapX,gapY);
+
+            }
+        },
+        paintbrush:function () {
+            this.canM=document.getElementById('dataCtx');
+            this.mtx=this.canM.getContext('2d');
+            this.drawData();
+        },
+        buttonD:function (ctx,bc,fc,x,y) {
+            ctx.fillStyle=bc;
+            ctx.fillRect(x,y,50,35);
+        }
+    };
+
+    drawMain.backstage();
+    drawMain.timeTitle();
+    drawMain.paintbrush();
+
+    dataCanvas.mousemove(function(e){
+        d3Move(e);
+    });
+
+    function isInteger(obj) {return parseInt(obj, 10) === obj;}
+
+
+
+    // var bigNum=1;
+    // function bigY() {
+    //     // console.log(document.getElementById("canvas"));
+    //
+    //     console.log(33);
+    //
+    //     bigNum+=0.1;
+    //
+    //     $("#backstageCtx,#dataCtx").css("transform","scale(1,"+bigNum+")");
+    //
+    // }
+
+</script>
+
+</body>
+</html>

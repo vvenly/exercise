@@ -1,0 +1,159 @@
+#chartPage{
+    background: url("../img/chartBg.png") no-repeat;
+    background-size: cover;
+    color:#fff;
+    /*line-height: 0;*/
+    height:100%;
+}
+
+#chartPage h3{margin:10px 0}
+#chartPage .myTabDiv{
+    border-bottom: 1px solid #d2d2d2;
+}
+
+#chartPage .myTabDiv>div{ margin:0 auto;}
+
+
+@media (max-width: 600px){
+    #chartPage #myTabContent{
+        width:350px;
+        overflow-x: auto;
+    }
+    #pillar, #circle{
+        display: block;
+    }
+}
+
+#chartPage #myTab{
+    display: block;
+    border: 0;
+    width: 100%;
+    height:45px;
+    overflow-x: scroll;
+}
+
+#chartPage #myTab>li{
+    text-align: center;
+    display: inline-block;
+}
+#chartPage #myTab>li.lastLi{
+    border-right: 0;
+}
+
+#chartPage #myTab>li>a{
+    border: 2px solid transparent;
+    color: #AFD6DD;
+}
+#chartPage #myTab>li.active>a{
+    border: 2px solid #059BC1;
+    border-bottom: 0;
+    border-radius: 5px 5px 0 0;
+    box-sizing: border-box;
+    background: transparent;
+    cursor: pointer;
+    color:#fff;
+    font-weight: bold;
+}
+#chartPage #myTab>li>a:hover,#chartPage #myTab>li>a:focus{
+    border: 2px solid #059BC1;
+    border-bottom: 0;
+    border-radius: 5px 5px 0 0;
+    background: transparent;
+    cursor: pointer;
+    color:#fff;
+    margin-bottom: -2px;
+}
+
+
+#chartPage #tc10,#chartPage #tc20{
+    padding:25px;
+}
+
+/*#chartPage #myTab>li>a{*/
+/*border: 2px solid transparent;*/
+/*}*/
+/*#chartPage #myTab>li.active>a{*/
+/*border: 2px solid #3fb1e3;*/
+/*border-radius: 5px;*/
+/*box-sizing: border-box;*/
+/*}*/
+
+#pillar,#circle{             /*柱形图*/
+    width:290px; height:255px;
+    display: inline-block;
+    margin:20px 0;
+}
+#circle{
+    float:right;
+    margin-right: 10px;
+}
+
+#chartPage #chart_line{             /*线形图*/
+    height:300px;
+    width:600px;
+    display: inline-block;
+}
+
+#chartPage .p_and_c{
+    margin: 20px auto;
+}
+
+.btn-inlineBlock{
+    display: block;
+    width: 35%;
+    margin:10px auto;
+}
+
+#work_progress_mbody label{
+    width:42%;
+    margin:5px 0;
+}
+
+@media (max-width: 620px){
+    #work_progress_mbody label{
+        width:35%;
+    }
+}
+
+#myTabs>li button{
+    padding:3px 6px;
+    background: transparent;
+    border:1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+#myTabs{
+    border:0;
+}
+#myTabs>li.active button{
+    border:1px solid #FCFF71;
+    color:#7EFFFF;
+}
+
+#work_progress_mbody{
+    padding:20px 15px 0;
+}
+
+#work_progress_footer{
+    text-align: right;
+    border-top: 1px solid #e5e5e5;
+    margin:10px;
+}
+
+
+#add_alert_info{
+    text-align: center;
+    color: #e4393c;
+    display: none;
+    font-weight: bold;
+    margin:8px 0;
+}
+
+#workName{
+    background: transparent;
+}
+
+#workName option{
+
+}

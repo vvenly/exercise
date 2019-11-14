@@ -1,0 +1,404 @@
+@extends('layout')
+@section('head')
+<link href="{{ asset('assets/css/time/mobiscroll.css') }}" rel="stylesheet">
+<link href="{{ asset('assets/css/time/mobiscroll_002.css') }}" rel="stylesheet">
+<link href="{{ asset('assets/css/time/mobiscroll_003.css') }}" rel="stylesheet">
+<link href="{{ asset('assets/css/bootstrap-select.css') }}" rel="stylesheet">
+@stop
+@section('content')
+<div id="page-inner">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            调度列表
+        </div>
+
+        <div id="command_title" class="dment-fn">
+            <button class="btn btn-warning new-add" data-toggle="modal" data-target="#myModal_add"
+                    onclick='searchcompanyList("add_train_company_id")'>新建调度命令
+                <i class="glyphicon glyphicon-plus"></i></button>
+
+            <div id="command_list">
+                &nbsp;
+                <select id="command_train" class="btn btn-default"></select>
+
+                <select id="command_issuer" class="btn btn-default"></select>
+
+                <select id="command_leader" class="btn btn-default"></select>
+
+                <select id="command_driver" class="btn btn-default"></select>
+
+                <select id="command_status" class="btn btn-default">
+                    <option value="">请选择命令状态</option>
+                    <option value="0">新命令</option>
+                    <option value="1">已接收</option>
+                    <option value="2">已经确认</option>
+                    <option value="3">作废</option>
+                    <option value="4">确认作废</option>
+                    <option value="5">完成</option>
+                    <option value="6">拒绝</option>
+                </select>
+                <input id="begin_time" class="appDateTime btn btn-default background_down" placeholder="请选择开始日期"/>
+                <input id="end_time" class="appDateTime btn btn-default background_down" placeholder="请选择结束日期"/>
+
+                <button class="btn btn-primary" style="padding:6px 16px" onclick="commandList(1, 10)">查询</button>
+
+            </div>
+        </div>
+
+
+
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>命令号</th>
+                        <th>受令机车</th>
+                        <th>受令车长</th>
+                        <th>受令司机</th>
+                        <th>受令处所</th>
+                        <th>值班调度</th>
+                        <th>状态</th>
+                        <th>发令时间</th>
+                        <th>确认时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="commandListPage"></tbody>
+                </table>
+            </div>
+        </div>
+        {{--分页--}}
+        <nav style="text-align: center">
+            <ul class="pagination">
+            </ul>
+        </nav>
+        {{---添加---}}
+        <div class="modal fade" id="myModal_add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog"  id="workPointAdd">
+                <div class="modal-content m_content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myModalLabel">添加信息</h4>
+                    </div>
+                    <div class="modal-body" id="new_add_page">
+                        <p id="add_message"></p>
+                        <div>
+                            <label class="label-half3">
+                                <p>公司名称</p>
+                                <select id="add_train_company_id" class="form-control" onchange='getTrain("{{ url('/train/getselectlist') }}","add_train_company_id");getUser("add_train_issuer","add_train_leader","add_train_driver")'></select>
+                            </label>
+
+                            <label class="label-half3">
+                                <p>受令机车</p>
+                                <select class="form-control clearInner" id="trainName"></select>
+                            </label>
+                            <label class="label-half3">
+                                <p>命令号</p>
+                                <input type="text" class="form-control" id="add_num" value="57001">
+                            </label>
+                        </div>
+
+                        <div>
+
+
+                            <label class="label-half3">
+                                <p>受令车长</p>
+                                <select id="add_train_leader" class="form-control clearInner"></select>
+                            </label>
+
+                            <label class="label-half3">
+                                <p>受令处所</p>
+                                <input id="add_receiptor" class="form-control" value="司机车长及施工负责人">
+                            </label>
+
+                            <label class="label-half3">
+                                <p>受令司机</p>
+                                <select type="text" class="form-control clearInner" id="add_train_driver"></select>
+                            </label>
+
+                        </div>
+
+                        <div>
+                            <label class="label-half3">
+                                <p>值班调度</p>
+                                <select type="text" class="form-control UserList clearInner" id="add_train_issuer"></select>
+                            </label>
+
+                            <label class="label-half3">
+                                <p>类型</p>
+                                <select id="add_train_type" class="form-control clearInner">
+                                    <option value="0">行车调度</option>
+                                    <option value="1">施工调度</option>
+                                </select>
+                            </label>
+
+                        </div>
+
+                        <div hidden>
+                            <label>
+                                <p>状态</p>
+                                <select id="add_train_status" class="form-control">
+                                    <option value="0">新命令</option>
+                                </select>
+                            </label>
+                        </div>
+
+                        <hr style="margin: 10px 0 15px;height: 1px;background: #ddd;">
+
+                        <div>
+                            <label style="margin-top: 0;">
+                                <p>
+                                    <b style="display: inline-block;margin-top: 10px;"> 调度命令内容</b>
+
+                                    <button id="templateDel" class="btn btn-blueTint rt" onclick="delTemplate('{{ url('/command/delete_temp') }}')">删除选中模板</button>
+
+                                    <select id="templateSel" class="selectRt" onchange="changeTemp(this)"></select>
+
+                                </p>
+                                <textarea class="form-control" rows="6" id="add_order_content" maxlength="512" onkeyup="testContentLength('#add_order_content','#contentAlert',512)">准许_____号轨道车由____站___线发车，经___站___线行至__站间工地方向，在此区域内进行________作业，完毕后沿____线返回____站下料口停妥，现时刻办理。
+时间：___月___日___时__分——___月___日___时___分。
+注意事项：加强瞭望，严守速度，保证联系畅通，停车及施工过程中做好防溜保护措施，确保安全
+
+                                    </textarea>
+                                <span id="contentAlert">最多不可超过512字</span>
+                            </label>
+                        </div>
+                        <p id="add_alert_info">请完整的填写信息</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-mature lf" data-toggle="modal" data-target="#templateContent">新建调度内容模板
+                            <i class="glyphicon glyphicon-plus"></i></button>
+
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">关闭</button>
+
+                        <button type="button" class="btn btn-primary" onclick='testAddSubmit()'>确认添加</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{---详情---}}
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myModalLabel">调度详情</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <div id="command_desc">
+                                <p class="inline">
+                                    <b>命令号码 : </b>
+                                    <span class="desc_num"></span>
+                                </p>
+
+                                <p class="inline">
+                                    <b>值班调度 : </b>
+                                    <span class="desc_issuer"></span>
+                                </p>
+
+                                <p class="inline">
+                                    <b>当前状态 : </b>
+                                    <span class="desc_status"></span>
+                                </p>
+
+                                <p class="inline">
+                                    <b>受令机车 : </b>
+                                    <span class="desc_train"></span>
+                                </p>
+
+                                <p class="inline">
+                                    <b>受令司机 : </b>
+                                    <span class="desc_driver"></span>
+                                </p>
+
+                                <p class="inline">
+                                    <b>受令车长 : </b>
+                                    <span class="desc_train_leader"></span>
+                                </p>
+
+                                <p>
+                                    <b>受令处所 : </b>
+                                    <span class="desc_receiptor"></span>
+                                </p>
+
+                                <p>
+                                    <b>发令时间 : </b>
+                                    <span class="desc_time"></span>
+                                </p>
+
+                                <p>
+                                    <b>确认时间 : </b>
+                                    <span class="confirm_time"></span>
+                                </p>
+
+                                <p>
+                                    <b>调度命令内容:</b>
+                                </p>
+
+                                <div class="desc_content">
+                                    <div></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="templateContent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">新增调度内容模板</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div>
+                            <label>
+                                <p>新增名称 <span id="name_alert">名称最大不得超过10个文字</span></p>
+                                <input id="tempName" type="text" class="form-control" maxlength="10" onkeyup="testContentLength('#tempName','#name_alert',10)">
+                            </label>
+
+                        </div>
+                        <div>
+                            <label>
+                                <p>新增内容</p>
+                                <textarea id="tempContent" class="form-control" style="height:160px;text-decoration:underline" maxlength="512" onkeyup="testContentLength('#tempContent','#contentAlert2',512)"></textarea>
+                                <span id="contentAlert2">最多不可超过512字</span>
+                            </label>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">关闭</button>
+
+                        <button type="button" class="btn btn-primary" onclick='addTemp("{{ url('/command/add_temp') }}")' data-dismiss="modal">确认添加</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="print" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">打印调度命令详情</h4>
+                    </div>
+
+                    <div id="printPage" class="modal-body">
+
+                        <h2 class="text-center" style="margin-top: 5px;">调度命令 （行车调度）</h2>
+                        <div id="printContent">
+                            <div class="row">
+                                <div class="col-xs-1">命令号码</div>
+                                <div class="col-xs-2">sdfsdfsdf</div>
+                                <div class="col-xs-1">受令处所</div>
+                                <div class="col-xs-4">立刻就立刻感觉到房管局水电费开个会</div>
+                                <div class="col-xs-1">当前状态</div>
+                                <div class="col-xs-2">新状态</div>
+                                <div class="col-xs-1"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-1">受令机车</div>
+                                <div class="col-xs-2">TD-2563</div>
+                                <div class="col-xs-1">受令车长</div>
+                                <div class="col-xs-4">张家加里</div>
+                                <div class="col-xs-1">受令司机</div>
+                                <div class="col-xs-2">张家加里</div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-1">值班调度</div>
+                                <div class="col-xs-2">张家加里</div>
+                                <div class="col-xs-1">确认时间</div>
+                                <div class="col-xs-4">2018-05-23 10:22:00</div>
+                                <div class="col-xs-1">发令时间</div>
+                                <div class="col-xs-3">2018-05-23 10:22:00</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-1">调度命令内容</div>
+                                <div class="col-xs-10">
+                                    准许____1_号轨道车由____站___线发车，经___站___线行至__站间工地方向，在此区域内进行________作业，完毕后沿____线返回____站下料口停妥，现时刻办理。 时间：___月___日___时__分——___月___日___时___分。 注意事项：加强瞭望，严守速度，保证联系畅通，停车及施工过程中做好防溜保护措施，确保安全
+                                    准许____1_号轨道车由____站___线发车，经___站___线行至__站间工地方向，在此区域内进行________作业，完毕后沿____线返回____站下料口停妥，现时刻办理。 时间：___月___日___时__分——___月___日___时___分。 注意事项：加强瞭望，严守速度，保证联系畅通，停车及施工过程中做好防溜保护措施，确保安全                                    </div>
+                            </div>
+                        </div>
+                        <p style="padding: 5px 15px;">注：本调度命令一式四份，调度留存一份，联络员，施工负责人各一份。</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" id="printBtn" data-dismiss="modal" onclick="printdiv('printPage')">打印</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="{{ asset('assets/js/pagingFile.js') }}"></script>
+<script src="{{ asset('assets/js/Command.js') }}"></script>
+<script>
+    function testAddSubmit() {
+        if(!$("#trainName").val() || !$("#add_train_leader").val() || !$("#add_train_driver").val() || !$("#add_train_issuer").val() || $("#add_train_company_id").val()=="-1"){
+            $("#add_alert_info").css('display','block');
+        }else{
+            addCommand("{{ url('/command/add') }}","trainName","add_num","add_receiptor","add_train_leader","add_train_driver","add_train_issuer",
+                "add_order_content","add_train_type","add_train_status","add_train_company_id");
+        }
+    }
+</script>
+
+<script src="{{ asset('assets/js/time_js/mobiscroll_002.js') }}"></script>
+<script src="{{ asset('assets/js/time_js/mobiscroll_004.js') }}"></script>
+<script src="{{ asset('assets/js/time_js/mobiscroll.js') }}"></script>
+<script src="{{ asset('assets/js/time_js/mobiscroll_003.js') }}"></script>
+<script src="{{ asset('assets/js/time_js/mobiscroll_005.js') }}"></script>
+
+<script type="text/javascript">
+    $("#add_from_time_label").mouseenter(function(){
+        currentHour=8;
+    });
+
+    $("#add_end_time_label").mouseenter(function(){
+        currentHour=18;
+    });
+
+
+    $(function () {
+        var currYear = (new Date()).getFullYear();
+        var opt={};
+        opt.date = {preset : 'date'};
+        opt.datetime = {preset : 'datetime'};
+        opt.time = {preset : 'time'};
+        opt.default = {
+            theme: 'android-ics light',
+            display: 'modal',
+            mode: 'scroller',
+            dateFormat: 'yyyy-mm-dd',
+            lang: 'zh',
+            showNow: true,
+            nowText: "今天",
+            startYear: currYear - 10,
+            endYear: currYear + 10
+        };
+
+
+        $("#appDate").mobiscroll($.extend(opt['date'], opt['default']));
+        var optDateTime = $.extend(opt['datetime'], opt['default']);
+        var optTime = $.extend(opt['time'], opt['default']);
+        $(".appDateTime").mobiscroll(optDateTime).datetime(optDateTime);
+        $("#appTime").mobiscroll(optTime).time(optTime);
+    });
+</script>
+
+@stop

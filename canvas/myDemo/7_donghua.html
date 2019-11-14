@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>rotate</title>
+</head>
+<body>
+
+
+<div style="text-align: center;">
+    <br><br><br><br><br><br>
+
+    <canvas id="seventhC" width="300" height="300" style="border: 1px solid #fff123"></canvas>
+
+</div>
+
+<div hidden>
+
+    转换：
+
+    Canvas 转换方法：   所有单位默认为 "px " ;
+
+    scale()	    缩放当前绘图至更大或更小　（缩放）
+    语法：scale(x, y)    X轴缩放的倍数  y轴缩放的倍数
+    ctx.scale() 不仅改变图形的大小、还有坐标位置、线条粗细等，使用时需谨慎；
+
+    rotate()	旋转当前绘图　         　（旋转）
+    语法：
+    ctx.rotate  需要注意的是它默认旋转的原点并不是以之前绘制的图形某一点为原点  而是以Canvas 画布 x轴坐标0  y轴坐标0 的位置为原点的;
+    可以看下示例代码
+
+
+
+    translate()	重新映射画布上的 (0,0) 位置　　（平移）
+    语法：translate(x ,y)   x为正数向右移动 y为正数向下移动
+
+    transform()	替换绘图的当前转换矩阵　　　　 （转换矩阵）
+    语法：transform(a,b,c,d,e,f);
+    a	水平缩放绘图
+    b	水平倾斜绘图
+    c	垂直倾斜绘图
+    d	垂直缩放绘图
+    e	水平移动绘图
+    f	垂直移动绘图
+
+    setTransform()	将当前转换重置为单位矩阵。然后运行 transform()　　　（转换矩阵）
+    语法：setTransform(a,b,c,d,e,f)
+    a	水平旋转绘图
+    b	水平倾斜绘图
+    c	垂直倾斜绘图
+    d	垂直缩放绘图
+    e	水平移动绘图
+    f	垂直移动绘图
+
+    setTransform() 方法把当前的变换矩阵重置为单位矩阵，然后以相同的参数运行 transform()。
+
+    这两种目前用的不多，了解即可，感兴趣的小伙伴可以进这里了解更多：
+    http://www.w3school.com.cn/tags/canvas_transform.asp
+
+    http://www.w3school.com.cn/tags/canvas_settransform.asp
+
+    Canvas 转换方法的用法其实跟CSS3 的转换非常相似  对CSS3熟悉的小伙伴上手会很快的！
+
+</div>
+
+<script>
+    window.onload=function () {
+        let cans = document.getElementById("seventhC");
+        let ctx = cans.getContext("2d");
+
+        ctx.strokeStyle="#FF2E98";
+
+        let c=0;
+        let t=setInterval(function () {
+            c++;
+            ctx.clearRect(0,0,300,300);
+            ctx.save();
+            ctx.translate(150,150);
+            ctx.rotate(c * Math.PI/180);
+            ctx.strokeRect(0,0,100,100);
+            ctx.restore();
+
+            stop();
+        },20);
+
+       function stop() {
+           if (c>360){
+               clearInterval(t)
+           }
+       }
+
+       //效果图 ：21.gif
+
+
+
+
+
+    }
+</script>
+
+</body>
+</html>

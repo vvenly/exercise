@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<select name="" id="dfg" class="sta" onchange="cvss(this)"></select>
+
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+    function asd() {
+        var option="<option value='1'>0</option><option value='2'>1</option><option value='3'>2</option>";
+
+        $(".sta").html(option);
+    }
+
+    asd();
+
+
+    function cvss() {
+        console.log(document.getElementById('dfg').selectedIndex);
+    }
+</script>
+
+</body>
+</html>

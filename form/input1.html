@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>样式</title>
+    <style>
+        #d1{
+            width:200px;
+            margin: 100px auto;
+        }
+        label{
+            position: relative;
+            display: inline-block;
+            width: 48%;
+        }
+        .inputStatus{
+            position: absolute;
+            top:0;
+            left: 0;
+            width: 22px;
+            height: 15px;
+            opacity: 0;
+        }
+
+        .inputStyle2{
+            position: relative;
+            top: 3px;
+            left: 0;
+            display: inline-block;
+            padding: 10px;
+            /*多选*/
+            background: url("img/allBgs.png") no-repeat -3px -2px;
+            /*单选*/
+            /*background: url("img/allBgs.png") no-repeat -52px -2px;*/
+        }
+
+        .inputStatus:checked+.inputStyle2{
+            /*多选*/
+            background: url("img/allBgs.png") no-repeat -28px -2px;
+            /*单选*/
+            /*background: url("img/allBgs.png") no-repeat -75px -2px;*/
+        }
+
+    </style>
+</head>
+<body>
+
+<div  id="d1">
+    <label class='' style="position: relative;">
+        <input type='radio'  id="history_finish0" class='inputStatus' name="v1">
+        <span class='inputStyle2'></span> 确定
+    </label>
+
+    <label class='labelRadio' style="margin-bottom: 0;">
+        <input type='radio' class='inputStatus' name="v1">
+        <span class='inputStyle2'></span> 取消
+    </label>
+</div>
+
+</body>
+</html>

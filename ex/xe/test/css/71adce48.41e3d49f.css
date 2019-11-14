@@ -1,0 +1,72 @@
+.btn[data-v-4097739b] {
+  width: 100%;
+  margin: 0 0 5px
+}
+
+.btn.active[data-v-4097739b] {
+  background: #027be3;
+  color: #fff
+}
+
+.content>div[data-v-4097739b] {
+  vertical-align: top
+}
+
+.optionList[data-v-4097739b] {
+  padding: 5px 10px
+}
+
+.itemList[data-v-4097739b] {
+  text-align: center;
+  border-bottom: 1px solid rgba(86,61,124,.2)
+}
+
+.itemList p[data-v-4097739b] {
+  padding: 0;
+  margin: 0;
+  line-height: 36px;
+  border: 1px solid rgba(86,61,124,.2);
+  border-bottom: 0;
+  border-left: 0
+}
+
+.itemList p.active[data-v-4097739b] {
+  background: rgba(86,61,124,.15)
+}
+
+.checkitem[data-v-4097739b] {
+  margin-right: 30px
+}
+
+.draw[data-v-4097739b] {
+  width: 400px;
+  height: 300px;
+  text-align: center;
+  line-height: 300px;
+  background: rgba(0,0,0,.1);
+  margin: 0 auto;
+  position: relative;
+  border: 1px solid rgba(86,61,124,.2)
+}
+
+.draw>img[data-v-4097739b] {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0
+}
+
+.inputgrap[data-v-4097739b]:after {
+  content: "";
+  display: block;
+  clear: both
+}
+
+.Collection[data-v-4097739b] {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>frame</title>
+</head>
+<body>
+
+
+<div style="text-align: center;">
+
+    <br><br><br>
+
+    <canvas id="myCanvas" width="300" height="300" style="border: 1px solid #fff123"></canvas>
+
+
+</div>
+
+<div hidden>
+    Canvas动画 与 一般的JS动画不太一样，因为它并不是用定时器 setInterval() 实现的，
+    事实上，setInterval() 稍微存在一些性能问题，对于Canvas动画来说不能准确的掌控 动画帧。
+
+    Canvas在动画中，一般都采用 requestAnimationFrame() ; 请求动画帧，
+    通过循环，来实现动画的效果；
+
+    setInterval()需要手动设置来设置间隔时间，
+    requestAnimationFrame()不需要，这个方法自动根据浏览器的绘制帧率调整。
+
+    不需要注意一点的就是，其实requestAnimationFrame() 是有一些兼容性问题的，需要做一点处理：
+
+    <!--<script>-->
+        <!--window.requestAnimationFrame=(-->
+            <!--window.webkitRequestAnimationFrame ||-->
+            <!--window.mozRequestAnimationFrame ||-->
+            <!--window.mzRequestAnimationFrame ||-->
+            <!--window.oRequestAnimationFrame ||-->
+            <!--function (callback) {-->
+                <!--return window.setTimeout(callback,50);-->
+            <!--}-->
+        <!--)-->
+    <!--</script>-->
+
+
+</div>
+
+
+
+<script>
+
+    window.onload=function () {
+        let cans = document.getElementById("myCanvas");
+        let ctx = cans.getContext("2d");
+
+        let x=0,y=0;
+
+
+
+        (function frame() {
+            window.requestAnimationFrame(frame);
+
+            //先清除，再次绘制
+            ctx.clearRect(0,0,cans.width,cans.height);
+
+            ctx.beginPath();
+            ctx.arc(x,y,30,0,360*Math.PI/180);
+            ctx.closePath();
+
+            ctx.fillStyle=(x<150) ? "rgba(255,155,250,0.5)" : "rgba(95,211,255,0.5)";
+
+            ctx.fill();
+
+            x+=0.5;
+            y+=0.5;
+
+
+        })()
+
+
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #show1,#show2{
+            width:200px;
+            height:100px;
+            margin: 15px 0;
+            border: 1px solid #aaf;
+        }
+    </style>
+</head>
+<body>
+
+
+
+<input id="input1" type="text">
+
+<button id="btn1">字符转Unicode</button>
+
+<div id="show1"></div>
+
+
+<input id="input2" type="text">
+
+<button id="btn2">Unicode转字符</button>
+
+<div id="show2"></div>
+
+
+<script>
+    function $(id) {
+        var value = document.getElementById(id);
+
+        return value;
+    }
+
+    // 转为unicode 编码     charCodeAt() 方法可返回指定位置的字符的 Unicode 编码。返回值是 0 - 65535 之间的整数。
+    function toUnicode(str) {
+        var res = [];
+        for ( var i=0; i<str.length; i++ ) {
+            res[i] = ( "00" + str.charCodeAt(i).toString(16) ).slice(-4);
+        }
+        return "\\u" + res.join("\\u");
+    }
+
+    // unicode转字符    escape() 函数可对字符串进行编码
+    function toStr(str){
+        str = str.replace(/(\\u)(\w{1,4})/gi,function(v){
+            return (String.fromCharCode(parseInt((escape(v).replace(/(%5Cu)(\w{1,4})/g,"$2")),16)));
+        });
+        str = str.replace(/(&#x)(\w{1,4});/gi,function(v){
+            return String.fromCharCode(parseInt(escape(v).replace(/(%26%23x)(\w{1,4})(%3B)/g,"$2"),16));
+        });
+        str = str.replace(/(&#)(\d{1,6});/gi,function(v){
+            return String.fromCharCode(parseInt(escape(v).replace(/(%26%23)(\d{1,6})(%3B)/g,"$2")));
+        });
+
+        return str;
+    }
+
+    $("btn1").onclick=function () {
+
+        $("show1").innerHTML=toUnicode($("input1").value);
+
+    };
+
+
+    $("btn2").onclick=function () {
+
+        $("show2").innerHTML=toStr($("input2").value);
+
+    }
+
+</script>
+
+</body>
+</html>

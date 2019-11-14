@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Canvas Learn</title>
+    <style>
+        body{
+            background-color:#cccccc;
+            border:solid 1px;
+            border-color:white;
+            font-family:Geneva,Arial,Helvetica,sans-serif;
+            margin:0px auto;
+        }
+        header{
+            text-align:center;
+            background-color:#7f3058;
+            display:block;
+            color:#FFFFFF;
+        }
+        h1{
+            font-size:36px;
+        }
+        nav{
+            float:left;
+            display:block;
+            text-align:center;
+            width:15%;
+        }
+        nav h3{
+            margin:15px;
+            color:white;
+        }
+        nav a:link,nav a:visited{
+            display:block;
+            padding:10px;
+            font-weight:bold;
+            border-bottom:3px solid #fff;
+            margin:5px;
+            text-decoration:none;
+        }
+        nav a:hover{
+            color:white;
+            background-color:#7f3058;
+        }
+        section{
+            float:left;
+            display:block;
+            width:55%;
+        }
+        article{
+            background-color:#ddd;
+            display:block;
+            margin:10px;
+            padding:10px;
+            -webkit-border-radius:10px;
+            -moz-border-radius:10px;
+            border-radius:10px;
+            -webkit-box-shadow:2px 2px 20px #aaa;
+            -moz-box-shadow:2px 2px 20px #aaa;
+            box-shadow:2px 2px 20px #aaa;
+        }
+        article header{
+            padding:5px;
+            -webkit-border-radius:10px;
+            -moz-border-radius:10px;
+            border-radius:10px;
+            font-size:18px;
+        }
+        article div{
+            width:440px;
+            height:300px;
+            margin:10px;
+            padding:10px;
+            border:1px solid #000;
+            float:center;
+        }
+        footer{
+            clear:both;
+            display:block;
+            background-color:#7f3058;
+            color:#fff;
+            text-align:center;
+            padding:5px;
+            float:bottom;
+            -webkit-border-radius:5px;
+            -moz-border-radius:5px;
+            border-radius:5px;
+            font-size:18px;
+        }
+        p{
+            color:blue;
+            text-align:center;
+        }
+        aside{
+            display:block;
+            width:25%;
+            float:left;
+
+            background-color:#ddd;
+            margin:10px;
+            padding:10px;
+            -webkit-border-radius:10px;
+            -moz-border-radius:10px;
+            border-radius:10px;
+            -webkit-box-shadow:2px 2px 20px #aaa;
+            -moz-box-shadow:2px 2px 20px #aaa;
+            box-shadow:2px 2px 20px #aaa;
+        }
+        aside header{
+            margin:15px;
+            color:white;
+            font-size:15px;
+            -webkit-border-radius:10px;
+            -moz-border-radius:10px;
+            border-radius:10px;
+        }
+        aside p{
+            margin:15px;
+            color:white;
+            font-weight:bold;
+            font-style:italic;
+            text-align:left;
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <h1>Canvas Learn</h1>
+</header>
+
+<div id="canvas">
+    <nav>
+        <header><h3>导 航 栏</h3></header>
+        <a href="http://www.w3school.com.cn/html5/tag_canvas.asp">canvas标签</a>
+        <a href="http://www.w3school.com.cn/html5/html_5_canvas.asp">canvas学习</a>
+        <a href="http://zh.wikipedia.org/wiki/Canvas_(HTML%E5%85%83%E7%B4%A0)">canvas维基</a>
+    </nav>
+
+    <section>
+        <article>
+            <header><h3>Canvas图像处理</h3></header><br />
+            <div id="src">
+                <canvas id='image_src' width='420' height='300'
+                        draggable="true" ondragstart="drag(event)">
+                    当前浏览器无法使用canvas标签，请更换新版本浏览器
+                </canvas>
+            </div>
+            <p>将图片拖拽到下面方框内</p>
+            <div id="dst" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <canvas id='image_dst' width='420' height='300'></canvas>
+
+            </div><br />
+
+            <footer>
+                <h4>拖拽图片到另一个框内，图像发生反转</h4>
+            </footer>
+        </article>
+    </section>
+</div>
+
+<aside>
+    <header><h3>定义和用法</h3></header>
+    <p>canvas 标签定义图形，比如图表和其他图像。</p>
+    <p>canvas 标签只是图形容器，您必须使用脚本来绘制图形。</p>
+</aside>
+
+<footer>
+    <h2>Copyright:Caijinping</h2>
+</footer>
+
+</body>
+
+</html>
+
+<script type="text/javascript">
+    <!--
+    var canvasSrc = document.getElementById('image_src');
+    var contextSrc = canvasSrc.getContext('2d');
+    image = new Image();
+    image.src="test.jpg";
+    image.onload=function(){
+        contextSrc.drawImage(image,0,0);
+    }
+
+
+    function draw(){
+        var canvasDst = document.getElementById('image_dst');
+        var contextDst = canvasDst.getContext('2d');
+        var imageDataSrc = contextSrc.getImageData(0,0,image.width,image.height);
+        var imageDataDst = contextDst.createImageData(image.width, image.height);
+        for (var j = 0; j < image.height ; j++ )
+            for (var i = 0; i < image.width ;i++ ){
+                k = 4*(image.width*j+i);
+                imageDataDst.data[k + 0] = 255 - imageDataSrc.data[k + 0];
+                imageDataDst.data[k + 1] = 255 - imageDataSrc.data[k + 1];
+                imageDataDst.data[k + 2] = 255 - imageDataSrc.data[k + 2];
+                imageDataDst.data[k + 3] = 255;
+            }
+        contextDst.putImageData(imageDataDst,0,0);
+    }
+
+    function allowDrop(ev){
+        ev.preventDefault();
+    }
+    function drag(ev){
+        ev.dataTransfer.setData("Text", ev.target.id);
+
+    }
+    function drop(ev){
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("Text");
+        ev.target.appendChild(document.getElementById(data));
+        draw();
+    }
+    //-->
+</script>

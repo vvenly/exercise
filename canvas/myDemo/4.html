@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>曲线图形</title>
+</head>
+<body>
+
+<div style="text-align: center;">
+
+    <canvas id="fourthlyC" width="800" height="600" style="border: 1px solid #ff00ff"></canvas>
+
+</div>
+
+<div hidden>
+    画圆的时候必须配套使用 beginPath() 和 closePath()，圆形属于一个“闭合图形”，先在画布上开辟一个路径，画完以后结束路径。
+
+    语法：
+
+        ctx.beginPath();
+        ctx.arc(x,y,半径,开始角度,结束角度,  是否逆时针绘制);
+                                            默认为false
+        ctx.closePath();
+        ctx.stroke();
+
+
+    显示图 ：  5
+
+
+    //画弧线
+    画弧线与画圆 最大区别就是不使用closePath()  这个方法，弧线不属于“闭合图形” 所以并不需要封闭它；
+    closePath()主要是用来连接起点和终点
+
+    语法：
+
+    ctx.beginPath();
+    ctx.arc(x,y,半径,开始角度,结束角度,  是否逆时针绘制);
+    ctx.stroke();
+</div>
+
+
+<script>
+    let cans=document.getElementById("fourthlyC");
+    let ctx=cans.getContext("2d");
+
+    ctx.beginPath();    //开始新路径
+    ctx.arc(150,100,70,0,180*Math.PI/180,true);  //以画布X轴 坐标150  Y轴坐标300点为圆心 画一个半径长70，度数为180，的圆，逆时针旋转
+    ctx.closePath();   //结束这次绘图路径，不影响其他
+    ctx.stroke();       //以描边方式显示这个圆
+
+    //角度的单位建议写  *Math.PI/180  这样设定了多少度一目了然
+
+    ctx.beginPath();
+    ctx.arc(550,100,70,0,180*Math.PI/180);  //最后一个值不写默认是不旋转的
+    ctx.closePath();
+    ctx.strokeStyle="#1AC6FF";          //定位圆边的颜色
+    ctx.stroke();
+
+   // 效果图： 4.jpg
+
+
+    //给圆 填充上颜色
+    ctx.beginPath();
+    ctx.arc(550,400,150,0,360*Math.PI/180);
+    ctx.closePath();
+    ctx.fillStyle="#f00";
+    ctx.fill();
+
+    //第二个圆
+    ctx.beginPath();
+    ctx.arc(550,400,100,0,360*Math.PI/180);
+    ctx.closePath();
+    ctx.fillStyle="#FFFC43";
+    ctx.fill();
+
+    // 效果图： 6.jpg
+
+
+
+
+    //曲线：
+    ctx.beginPath();
+    ctx.arc(150,400,100,0,270*Math.PI/180);
+    ctx.strokeStyle="#391C9B";
+    ctx.stroke();
+
+    // 效果图： 7.jpg
+
+
+</script>
+
+</body>
+</html>

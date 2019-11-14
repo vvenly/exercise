@@ -1,0 +1,52 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>pictureViewer</title>
+
+<link rel="stylesheet" href="css/pictureviewer.css">
+
+</head>
+<body>
+<div class="main-content">
+    <h4 class="title">点击任意图片使用插件</h4>
+    <h3 class="title">交互：ESC键关闭弹框，左键、右键和鼠标滚轮切换图片</h3>
+    <div class="image-list">
+        <div class="cover"><img src="picture/0.png" alt=""></div>
+        <div class="cover"><img src="picture/1.png" alt=""></div>
+        <div class="cover"><img src="picture/3.png" alt=""></div>
+        <div class="cover"><img src="picture/4.png" alt=""></div>
+        <div class="cover"><img src="picture/2.png" alt=""></div>
+        <div class="cover"><img src="picture/5.png" alt=""></div>
+    </div>
+</div>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.mousewheel.min.js"></script>
+<script src="js/pictureviewer.js"></script>
+<script>
+$(function () {
+	$('.image-list').on('click', '.cover', function () {
+		var this_ = $(this);
+		var images = this_.parents('.image-list').find('.cover');
+		var imagesArr = new Array();
+		// $.each(images, function (i, image) {
+		// 	imagesArr.push($(image).children('img').attr('src'));
+		// });
+
+		// console.log(this_);
+		// console.log(this_.index());
+
+		$.pictureViewer({
+			images: imagesArr, //需要查看的图片，数据类型为数组
+			initImageIndex: this_.index() + 1, //初始查看第几张图片，默认1
+			scrollSwitch: true //是否使用鼠标滚轮切换图片，默认false
+		});
+	});
+});
+</script>
+
+</body>
+</html>

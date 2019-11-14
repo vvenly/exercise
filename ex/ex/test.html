@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #d1{
+            width: 400px;
+            margin: 100px auto;
+            overflow-x: auto;
+            /*height:;*/
+        }
+
+        #d2{
+            width: 600px;
+            height: 100px;
+            background: #afa;
+        }
+    </style>
+</head>
+<body>
+
+
+<div id="d1">
+    <div id="d2"></div>
+</div>
+
+<button onblur="plus()">加宽</button>
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+    function plus() {
+        $("#d1").width(700);
+    }
+</script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>转换</title>
+</head>
+<body>
+
+<br><br><br>
+<div style="text-align: center;">
+
+    <canvas id="seventhC" width="300" height="300" style="border: 1px solid #fff123"></canvas>
+
+
+    <div>
+        <button id="btn">继续添加图形</button>
+
+        &nbsp; &nbsp;&nbsp;
+
+        <button id="btn2">添加图形(先清掉上一次画的)</button>
+    </div>
+
+
+</div>
+
+<div hidden>
+
+    转换：
+
+    Canvas 转换方法：   所有单位默认为 "px " ;
+
+    scale()	    缩放当前绘图至更大或更小　（缩放）
+                语法：
+
+    rotate()	旋转当前绘图　         　（旋转）
+                语法：
+
+    translate()	重新映射画布上的 (0,0) 位置　　（平移）
+                语法：translate(x ,y)   x为正数向右移动 y为正数向下移动
+
+    transform()	替换绘图的当前转换矩阵　　　　 （转换矩阵）
+                语法：transform()
+
+    setTransform()	将当前转换重置为单位矩阵。然后运行 transform()　　　（转换矩阵）
+    语法：
+
+    Canvas 转换方法的用法其实跟CSS3 的转换非常相似  对CSS3熟悉的小伙伴上手会很快的！
+
+</div>
+
+<script>
+    window.onload=function () {
+        let cans = document.getElementById("seventhC");
+        let ctx = cans.getContext("2d");
+
+        ctx.fillStyle="#27A5FF";
+        ctx.fillRect(20,20,70,70);
+
+        ctx.translate(50,60);       //定义即将绘制矩形位置的偏移量 x轴向右50 y轴向右60
+        ctx.strokeStyle="#2EE8F0";
+        ctx.strokeRect(20,20,70,70);
+
+        //效果图： 17    (Canvas 所有定义的状态语句都必须写在 动作 之前才有效)
+
+
+        //Canvas 每次绘制前 都是基于之前绘制后的效果，所以在每次点击的时候都会在上一次添加矩形的地方继续位移添加新的矩形
+        btn.onclick=function () {
+            ctx.translate(20,10);
+            ctx.strokeStyle="#DE34B2";
+            ctx.strokeRect(20,20,70,70);
+        };
+
+        //如果不希望继续添加新的矩形，可以用clearRect    这两个事件可以作为参考
+
+        btn2.onclick=function () {
+            ctx.clearRect(19,19,210,210);    //每次添加新矩形的时候清空掉上一次添加的
+            ctx.translate(20,10);
+            ctx.strokeStyle="#DE34B2";
+            ctx.strokeRect(20,20,70,70);
+        };
+
+    }
+</script>
+
+</body>
+</html>

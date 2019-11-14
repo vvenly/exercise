@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<label>
+    <input id="in1" type="file" accept="image/jpg,image/jpeg,image/png,image/bmp">
+</label>
+
+<div class="preview_wrap"></div>
+
+
+<img src="" alt=""  id="img1">
+
+
+<script src="../jQuery-3.3.1.min.js"></script>
+<script>
+
+    //1、 createObjectURL
+    $("input").change(function(){
+
+        var fileS = this.files;
+
+        if(!fileS.length) {
+            return;
+        }
+
+        $("img").attr("src", window.URL.createObjectURL(fileS[0]));
+
+    });
+
+    //2、 上面的 js 原生版
+    // document.getElementById('in1').onchange=function () {
+    //     // console.log(this.files[0]);
+    //     var fileS=this.files;
+    //     if(!fileS.length) {
+    //         return;
+    //     }
+    //
+    //     document.getElementById('img1').setAttribute("src",window.URL.createObjectURL(fileS[0]));
+    //
+    // }
+
+
+    //3、   URL.createObjectURL 方式
+    // document.getElementById('in1').onchange = function(){
+    //     var ele =  this.files[0];
+    //
+    //     var createObjectURL = function(blob){
+    //         return window[window.webkitURL ? 'webkitURL' : 'URL']['createObjectURL'](blob);
+    //     };
+    //     var newimgdata = createObjectURL(ele);
+    //
+    //     console.log(newimgdata);
+    //
+    //     var pvImg = new Image();
+    //     pvImg.src = newimgdata;
+    //     pvImg.setAttribute('id','previewImg');
+    //
+    //     $('.preview_wrap').html('').append(pvImg);
+    // }
+
+
+
+    //4、  filereader方式
+    // document.getElementById('in1').onchange = function(){
+    //
+    //     var ele =  this.files[0];
+    //
+    //     var fr = new FileReader();
+    //     fr.onload = function(ele){
+    //
+    //         var pvImg = new Image();
+    //         pvImg.src = ele.target.result;
+    //         pvImg.setAttribute('id','previewImg');
+    //
+    //         $('.preview_wrap').html('').append(pvImg);
+    //     }
+    //     fr.readAsDataURL(ele);
+    // }
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script type="text/javascript">
+    function abc() {
+
+        for (i=1;i<10;i++) {
+            if (i==3) {
+                return;
+            }
+
+            console.log(i);
+        }
+    }
+
+    abc();  //输出  1、2     i等于3时 跳出当前循环不再执行
+</script>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas image切割</title>
+</head>
+<body>
+
+<div style="text-align: center;">
+
+    <canvas id="sixthC" width="500" height="300" style="border: 1px solid #ff00ff"></canvas>
+
+    <canvas id="sixthC2" width="500" height="300" style="border: 1px solid #ff00ff"></canvas>
+</div>
+
+<div hidden>
+
+    图片切割：
+
+    语法：
+
+    ctx.clip();
+    从画布中剪切任意形状和尺寸。
+
+    需要注意的是： 剪切之后，除设定Canvas “状态” 外，
+    一般都会在裁剪后的图形里绘制。
+
+</div>
+
+
+<script>
+
+    window.onload=function () {
+        let cans=document.getElementById("sixthC");
+        let ctx=cans.getContext("2d");
+
+        //先绘制一个想要切割后的图形：  （本来想画个五角星，太懒了 ，画个箭头吧...(￣ε(#￣)）
+        ctx.strokeStyle = "#F00";
+        ctx.moveTo(170,100);
+        ctx.lineTo(300,150);
+        ctx.lineTo(170,200);
+        ctx.lineTo(210,150);
+        ctx.lineTo(170,100);
+        ctx.stroke();
+
+        //将上面汇好的图形设定为图片被切割后的图形
+        ctx.clip();
+
+        let pic=new Image();
+        pic.src="img/img1.jpg";
+
+        pic.onload=function () {
+            ctx.drawImage(pic,170,100);
+
+
+            ctx.font="bold 30px KaiTi";
+            let title=ctx.createPattern(im,'no-repeat');
+            ctx.fillStyle=title;
+            ctx.fillText("马上就下班了",30,200);
+        };
+
+       // 效果图：  15
+
+
+        //将图片作为文字的背景：  图文相结合  (由于 clip() 原因，这里就分开两个canvas来示例，clip()比较复杂，后面会单独说)
+        let cans2=document.getElementById("sixthC2");
+        let ctx2=cans2.getContext("2d");
+
+        let im=new Image();
+        im.src="img/img1.jpg";
+
+        im.onload=function () {
+            ctx2.font="bold 30px KaiTi";
+            let title=ctx2.createPattern(im,'no-repeat');
+            ctx2.fillStyle=title;
+            ctx2.fillText("马上就下班了",20,50);
+        }
+
+        // 效果图：  16
+
+    };
+
+</script>
+
+
+</body>
+</html>

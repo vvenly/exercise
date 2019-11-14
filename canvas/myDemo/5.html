@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas text</title>
+</head>
+<body>
+
+<div style="text-align: center;">
+
+    <canvas id="fifthC" width="800" height="600" style="border: 1px solid #ff00ff"></canvas>
+
+</div>
+
+<div hidden>
+    关于文本的方法和属性如下 ：
+
+    11.jpg
+
+    另外再加上 fillStyle()   与  strokeStyle();
+
+    一般情况下都是 fillStyle() 与 fillText()  | 或 | strokeStyle() 与 strokeText()  配合着使用;
+
+    1、描边文字
+    ctx.strokeText("要显示的文本",x , y ,最大宽度);
+                                    最后一个为可选参数，表示要显示的文字最大不能超过多少像素
+
+    2、填充文字
+    ctx.fillText();
+
+    3、获取文本长度
+    ctx.measureText();
+
+    定义文本的三个属性： font 、textAlign、textBaseline
+    font同CSS 属性一样的用法   本身属性其实挺多的，不过日常我们使用的大概也就那么两三个：
+
+    ctx.font="bold 30px KaiTi";
+
+    textAlign 和 textBaseline 用的不多，可以点下面链接,了解一下即可;
+
+    http://www.w3school.com.cn/tags/canvas_textalign.asp
+
+    http://www.w3school.com.cn/tags/canvas_textbaseline.asp
+
+
+
+</div>
+
+<script>
+    (function cvs() {
+        let cans=document.getElementById("fifthC");
+        let ctx=cans.getContext("2d");
+
+        //描边文字
+        let text="要显示的字符串文本：随便写点";
+        ctx.font="bold 30px KaiTi";  //font 属性使用的语法与 CSS font 属性相同。
+        ctx.strokeStyle="#FF7C00";
+        ctx.strokeText(text,200,40);
+
+        //填充文字
+        ctx.fillStyle="#0AD3FA";
+        ctx.fillText(text,200,80);
+
+       // 效果图：  12
+
+        //获取文本长度
+        console.log(ctx.measureText(text).width);
+
+        //利用measureText() 让文本水平居中
+        let tw=ctx.measureText(text).width,
+            cw=cans.width;
+        let textX = cw/2 -   tw/2;
+
+        ctx.fillStyle="#BC41F1";
+        ctx.fillText(text,textX,150);
+    })()
+
+
+
+</script>
+
+
+</body>
+</html>

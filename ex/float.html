@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{width: 500px;margin: 50px auto;}
+        ul{border: 1px solid #ccc;}
+        ul:before{display: table;content: " ";}
+        li{float: left;list-style: none;margin: 20px;}
+    </style>
+</head>
+<body>
+
+<div>
+    <ul>
+        <li>11</li>
+        <li>22</li>
+        <li>33</li>
+        <li>44</li>
+        <li>55</li>
+        <li>66</li>
+
+        <div style="clear: both"></div>
+        <!--ul里面放入div这种在低版本IE下会有些问题，需要兼容IE9以下的不推荐使用-->
+    </ul>
+</div>
+
+
+<div>
+    <ul>
+        <li>11</li>
+        <li>22</li>
+        <li>33</li>
+        <li>44</li>
+        <li>55</li>
+        <li>66</li>
+
+        <div style="clear: both"></div>
+        <!--ul里面放入div这种在低版本IE下会有些问题，需要兼容IE9以下的不推荐使用-->
+    </ul>
+</div>
+
+</body>
+</html>

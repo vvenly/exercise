@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript">
+        function printpage() {
+            window.print()
+
+        }
+    </script>
+</head>
+<body>
+<input type="button" value="打印当前页面"
+       onclick="printpage()" />
+
+
+<div id="d1">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto autem delectus deserunt dolorem doloribus eius eos eum iste laboriosam, minus nam nesciunt officia quidem reprehenderit saepe, sed tempora ut vel?
+</div>
+
+
+
+<div style="text-align:center; margin-top: 30px">
+    <div id="printArea">
+        <div>......文本打印区域......</div>
+        <div>......文本打印区域......</div>
+        <div>......文本打印区域......</div>
+        <div>......文本打印区域......</div>
+        <div>......文本打印区域......</div>
+    </div>
+
+    <br>
+    <br>
+
+    <input id="btnPrint" type="button" value="打印文本区域">
+    <input id="btnPrintFull" type="button" value="全屏打印">
+</div>
+
+
+<script src="jquery-1.12.4.min.js"></script>
+<script src="jquery.PrintArea.min.js"></script>
+<script>
+    $("#btnPrint").click(function(){
+        $("#printArea").printArea();
+    });
+
+    $("#btnPrintFull").click(function(){
+        $("body").printArea();
+    });
+
+</script>
+</body>
+</html>

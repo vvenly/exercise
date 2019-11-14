@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #tips{position:absolute;border:1px solid #ccc;background-color:#eee;padding:10px;}
+    </style>
+</head>
+<body>
+
+
+<div id="tips" style="display:none"></div>
+<a href="#" title="点击去首页">首页</a>
+<a href="#" title="点击离开这里">离开</a>
+<script type="text/javascript">
+    window.onload=function(){
+        var as = document.getElementsByTagName('a');
+
+
+        for(var i=0,l=as.length;i<l;i++){
+            as[i].onmouseenter = function(e){
+                var e=e||window.event;
+                var tit=this.getAttribute('title');
+                this.setAttribute('msg',tit);
+                this.setAttribute('title','');
+                var obj = document.getElementById('tips');
+                obj.innerHTML = tit;
+                obj.style.left = e.clientX + 'px';
+                obj.style.top = e.clientY + 'px';
+                obj.style.display='block';
+            }
+            as[i].onmouseleave = function(e){
+                this.setAttribute('title',this.getAttribute('msg'));
+                document.getElementById('tips').style.display = 'none';
+            }
+        }
+    }
+</script>
+
+
+</body>
+</html>

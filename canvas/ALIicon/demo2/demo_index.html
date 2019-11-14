@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>IconFont Demo</title>
+    <!--注意要引入CSS 和 一些字体文件， 相关文件可以在官方下载：https://www.iconfont.cn/home/index  -->
+  <link rel="stylesheet" href="iconfont.css">
+
+    <style>
+        li{display: inline-block;width: 10%;margin: 15px;}
+        li span.iconfont{font-size: 40px;}
+        canvas{border: 1px solid #ccc;margin: 20px;}
+    </style>
+
+</head>
+<body>
+<div class="content unicode" style="display: block;">
+    <ul class="icon_lists dib-box">
+
+        <li class="dib">
+            <span class="icon iconfont" id="c1" style="color: #62F24B">&#xe615;</span>
+            <div class="name">四叶草</div>
+            <div class="code-name">&amp;#xe615;</div>
+        </li>
+
+        <li class="dib">
+            <span class="icon iconfont" id="c2">&#xe6af;</span>
+            <div class="name">花朵</div>
+            <div class="code-name">&amp;#xe6af;</div>
+        </li>
+
+
+        <li class="dib">
+            <span class="icon iconfont" id="c3">&#xe616;</span>
+            <div class="name">皇冠</div>
+            <div class="code-name">&amp;#xe616;</div>
+        </li>
+
+
+        <li class="dib">
+            <span class="icon iconfont" id="c4">&#xe606;</span>
+            <div class="name">熊猫</div>
+            <div class="code-name">&amp;#xe606;</div>
+        </li>
+
+        <li class="dib">
+            <span class="icon iconfont" id="c5" style="color: #faf">&#xe613;</span>
+            <div class="name">猫爪爪</div>
+            <div class="code-name">&amp;#xe613;</div>
+        </li>
+
+
+        <li class="dib">
+            <span class="icon iconfont" id="c6">&#xe625;</span>
+            <div class="name">猫</div>
+            <div class="code-name">&amp;#xe625;</div>
+        </li>
+
+    </ul>
+</div>
+
+<div>
+    <canvas id="canvas" width="1000" height="300"></canvas>
+</div>
+<script>
+    function iconFont(id) {
+        return document.getElementById(id).textContent;
+    }
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+
+    var icon1 = iconFont("c1"),
+        icon2 = iconFont("c2"),
+        icon3 = iconFont("c3"),
+        icon4 = iconFont("c4"),
+        icon5 = iconFont("c5"),
+        icon6 = iconFont("c6");
+
+    setTimeout(function () {
+
+        ctx.fillStyle = '#17D60D';      //样式1
+        ctx.font = '48px IconFont';  //  !!!设置字体， 必须是IconFont
+        //  绘制内容
+        ctx.fillText(icon1, 10, 50);
+        ctx.fillText(icon2, 70, 50);
+
+        ctx.fillStyle = '#FF6450';
+        ctx.fillText(icon4, 200, 50);
+        ctx.fillText(icon5, 280, 50);
+
+
+        ctx.strokeStyle = '#FF5055';    //样式2
+        ctx.strokeText(icon1, 10, 150);
+        ctx.strokeText(icon2, 70, 150);
+
+
+        ctx.strokeStyle = '#0000CC';    //样式3
+        ctx.lineWidth=3;
+        ctx.fillStyle = '#FFFF66';
+        ctx.strokeText(icon6, 200, 150);
+        ctx.strokeText(icon3, 280, 150);
+        ctx.fillText(icon6, 200, 150);
+        ctx.fillText(icon3, 280, 150);
+
+    },200)
+
+
+</script>
+</body>
+</html>

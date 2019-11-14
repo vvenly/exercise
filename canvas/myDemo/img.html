@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+    <canvas id="myCanvas" width="300" height="300"></canvas>
+    <img id="imgId" src="" />
+
+
+    <script>
+
+            let cans = document.getElementById("myCanvas");
+            let ctx = cans.getContext("2d");
+
+//        cans.style.height= 300+200+"px";
+//
+//        console.log(cans.height);
+
+            ctx.fillText("测试文字",50,50);
+
+
+//            picBtn.onclick=function () {
+//                window.location=cans.toDataURL("image/png");
+//            }
+
+
+        var cimg = function() {
+            var imgSrc = document.getElementById("myCanvas").toDataURL("image/png");
+            document.getElementById("imgId").src = imgSrc;
+        }
+
+        window.onload=function () {
+            cimg();
+        }
+    </script>
+</body>
+</html>

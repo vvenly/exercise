@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas事件操作</title>
+    <style>
+        #myCanvas{
+            border: 1px solid #fff123;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+
+
+<div style="text-align: center;">
+
+    <canvas id="myCanvas" width="300" height="120"></canvas>
+
+
+</div>
+
+<div hidden>
+    Canvas 鼠标事件
+    在Canvas中  鼠标事件分为以下三种：
+    1、鼠标按下 : mousedown
+    2、鼠标松开 : mouseup;
+    3、鼠标移动 : mousemove
+
+    一般需要用到与 鼠标有关系的交互 都离不开这三种，例如常用的拖拽、移动、获取当前位置信息等；
+    不过这里需要知道是的，Canvas 的一些复杂操作都是JavaScript的语法，利用JS来实现的功能，并不是Canvas 自己本身的。
+
+    举一个简单的例子：
+    获取鼠标按下时的坐标点：
+
+</div>
+
+<script src="../tool.js"></script>
+<script>
+
+    window.onload=function(){
+        let cans = document.getElementById("myCanvas");
+        let ctx = cans.getContext("2d");
+
+        let mouse=tools.getMouse(cans);
+
+        cans.addEventListener("mousedown",function(){
+            console.log("当前坐标为："+mouse.x+ ","+mouse.y);
+        },false);
+
+    }
+
+    //34.gif
+</script>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas 渐变</title>
+</head>
+<body>
+
+<div style="text-align: center;">
+
+    <br><br><br><br><br>
+
+    <canvas id="seventhC" width="300" height="500" style="border: 1px solid #fff123"></canvas>
+
+
+</div>
+
+<div hidden>
+    基础渐变三部曲：
+    语法：
+    1、创建渐变对象
+            ctx.createLinearGradient(x0,y0,x1,y1);
+             x0,y0	渐变开始点坐标         x1,y1	   渐变结束点坐标
+
+    2、设定渐变样式
+            addColorStop(value1,"black");
+            addColorStop(value2,"white");
+            value1是渐变开始的地方，value2是渐变结束的地方
+
+    3、将设定好的渐变样式赋值使用
+            ctx.fillStyle=grd;
+            ctx.fillRect(20,20,150,100);
+
+
+
+</div>
+
+<script>
+    window.onload=function () {
+        let cans = document.getElementById("seventhC");
+        let ctx = cans.getContext("2d");
+
+        //径向渐变
+        let gra=ctx.createLinearGradient(50,100,250,0);
+        gra.addColorStop(0,"#D348FF");
+        gra.addColorStop(1,"#43D1FF");
+        ctx.fillStyle=gra;
+        ctx.fillRect(0,20,300,100);
+
+        //文字渐变
+        ctx.font="bold 30px KaiTi";
+        ctx.fillText("文字渐变效果",100,200);
+
+        //圆形渐变
+        ctx.beginPath();
+        ctx.arc(200,380,100,0,180*Math.PI);
+        ctx.closePath();
+        gra.addColorStop(0,"#FF6CE5");
+        gra.addColorStop(0.3,"#43D1FF");
+        gra.addColorStop(1,"#D348FF");
+        ctx.fillStyle=gra;
+        ctx.fill();
+
+    };
+
+    //效果图 22
+
+
+
+</script>
+</body>
+</html>

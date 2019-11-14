@@ -1,0 +1,298 @@
+@extends('layout_material_management')
+@section('content')
+<div id="drawCurrent">
+    <div id="page-inner" style="margin:0;padding:0 10px;">
+        {{--<div class="text-center">--}}
+        {{--<div class="drawRow">--}}
+
+            {{--<h3 class="drawRowH">水泥</h3>--}}
+            {{--<div class="headerDiv">--}}
+                {{--<span class="dws drawSpanOrg">剩余量：</span>--}}
+
+                {{--<span class="dws drawSpanOrg"> <b class="" style="text-decoration:underline">300</b>（公斤）</span>--}}
+                {{--</div>--}}
+
+            {{--<div class="headerDiv">--}}
+                {{--<span class="dws drawSpanRed">预警值：</span>--}}
+
+                {{--<span class="dws drawSpanRed"> <b style="text-decoration:underline">50</b>（公斤）</span>--}}
+                {{--</div>--}}
+
+            {{--<div>--}}
+                {{--<div id="pillar0"></div>--}}
+                {{--</div>--}}
+
+
+            {{--</div>--}}
+
+        {{--<div class="drawRow">--}}
+
+            {{--<h3 class="drawRowH">水泥</h3>--}}
+            {{--<div class="headerDiv">--}}
+                {{--<span class="dws drawSpanOrg">剩余量：</span>--}}
+
+                {{--<span class="dws drawSpanOrg"> <b style="text-decoration:underline">300</b>（公斤）</span>--}}
+                {{--</div>--}}
+
+            {{--<div class="headerDiv">--}}
+                {{--<span class="dws drawSpanRed">预警值：</span>--}}
+
+                {{--<span class="dws drawSpanRed"> <b style="text-decoration:underline">50</b>（公斤）</span>--}}
+                {{--</div>--}}
+
+            {{--<div>--}}
+                {{--<div id="pillar1"></div>--}}
+                {{--</div>--}}
+
+
+            {{--</div>--}}
+
+
+
+        {{--</div>--}}
+    </div>
+</div>
+
+<script src="{{ asset('assets/js/chart/echarts.min.js') }}"></script>
+<script src="{{ asset('assets/js/chart/walden.js') }}"></script>
+<script>
+    (function () {
+        $("#drawCurrent").parent().css("padding","0");
+        getMaterialCount();
+    })();
+
+
+    function getMaterialCount() {
+        $.ajax({
+            type: "POST",
+            url: webUrl.materialCount,
+            dataType: "json",
+//                data: {"page": page,"page_size":pageSize},
+            success: function (json) {
+                console.log(json);
+                var html="",dataLength=Math.ceil(json.data.length);
+                for(var i=0;i<dataLength;i++){
+                    html+="<div class='text-center'>" +
+                        "<div class='drawRow'>" +
+                        "<h3 class='drawRowH'>水泥</h3><div class='headerDiv'>" +
+                        "<span class='dws drawSpanOrg'>剩余量：</span>" +
+                        "<span class='dws drawSpanOrg'> <b style='text-decoration:underline'>300</b>（公斤）</span></div>" +
+                        "<div class='headerDiv'>" +
+                        "<span class='dws drawSpanRed'>预警值：</span>" +
+                        "<span class='dws drawSpanRed'> <b style='text-decoration:underline'>50</b>（公斤）</span></div><div><div id='pillar"+i+"'>" +
+                        "</div></div></div>" +
+                        "<div class='drawRow'><h3 class='drawRowH'>水泥</h3>" +
+                        "<div class='headerDiv'>" +
+                        "<span class='dws drawSpanOrg'>剩余量：</span>" +
+                        "<span class='dws drawSpanOrg'> <b style='text-decoration:underline'>300</b>（公斤）</span></div>" +
+                        "<div class='headerDiv'>" +
+                        "<span class='dws drawSpanRed'>预警值：</span>" +
+                        "<span class='dws drawSpanRed'> <b style='text-decoration:underline'>50</b>（公斤）</span>" +
+                        "</div><div><div id='pillar"+i+"'></div></div></div>" +
+                        "</div>";
+
+
+                    getPillar(json,i);
+                }
+
+                $("#page-inner").html(html);
+
+//                    getPillar(json);
+
+//                    getPillar1(json);
+
+            },
+            error: function () {
+                console.log("请求失败");
+            }
+        });
+
+    }
+
+    //柱形图
+    function getPillar(json,num) {
+
+        var dateArr=[];
+
+        for(var i in json.data[num].month){
+            dateArr.push(i);
+        }
+
+//            console.log(dateArr);
+
+
+
+
+//            console.log('pillar'+num);
+
+        var myChart = echarts.init(document.getElementById('pillar'+num),'walden');
+
+        var option = {
+
+            tooltip : {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['入库记录','出库记录']
+            },
+            toolbox: {
+                show : false,
+                feature : {
+                    saveAsImage : {show: true}
+                }
+            },
+            calculable : true,
+            xAxis : [
+                {
+                    type : 'category',
+                    data : [dateArr[5],dateArr[4],dateArr[3],dateArr[2],dateArr[1],dateArr[0]]
+                }
+            ],
+            grid: {
+                x: 70,
+                x2: 50,
+                y2: 30,// y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
+            },
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
+                {
+                    name:'入库记录',
+                    type:'bar',
+                    itemStyle: {
+                        normal: {
+                            label: {
+                                show: true,
+                                textStyle: {
+                                    fontWeight:'bolder',
+                                    fontSize : '14',
+                                    fontFamily : '微软雅黑',
+                                    color:"#fff"
+                                }
+                            }
+                        }
+                    },
+                    data:[33,22, 26,36,59,80],
+                },
+                {
+                    name:'出库记录',
+                    type:'bar',
+                    itemStyle: {
+                        normal: {
+                            label: {
+                                show: true,
+                                textStyle: {
+                                    fontWeight:'bolder',
+                                    fontSize : '14',
+                                    fontFamily : '微软雅黑',
+                                    color:"#fff"
+                                }
+                            }
+                        }
+                    },
+                    data:[55,12, 26,16,39,50]
+                }
+            ]
+
+        };
+
+        myChart.setOption(option);
+    }
+
+    //        function getPillar1(json) {
+    //
+    //            var dateArr=[];
+    //
+    //            for(var i in json.data[1].month){
+    //                dateArr.push(i);
+    //            }
+    //
+    ////            console.log(dateArr);
+    //
+    //
+    //
+    //
+    ////            console.log('pillar'+num);
+    //
+    //            var myChart = echarts.init(document.getElementById('pillar1'),'walden');
+    //
+    //            var option = {
+    //
+    //                tooltip : {
+    //                    trigger: 'axis'
+    //                },
+    //                legend: {
+    //                    data:['入库记录','出库记录']
+    //                },
+    //                toolbox: {
+    //                    show : false,
+    //                    feature : {
+    //                        saveAsImage : {show: true}
+    //                    }
+    //                },
+    //                calculable : true,
+    //                xAxis : [
+    //                    {
+    //                        type : 'category',
+    //                        data : [dateArr[5],dateArr[4],dateArr[3],dateArr[2],dateArr[1],dateArr[0]]
+    //                    }
+    //                ],
+    //                grid: {
+    //                    x: 70,
+    //                    x2: 50,
+    //                    y2: 30,// y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
+    //                },
+    //                yAxis : [
+    //                    {
+    //                        type : 'value'
+    //                    }
+    //                ],
+    //                series : [
+    //                    {
+    //                        name:'入库记录',
+    //                        type:'bar',
+    //                        itemStyle: {
+    //                            normal: {
+    //                                label: {
+    //                                    show: true,
+    //                                    textStyle: {
+    //                                        fontWeight:'bolder',
+    //                                        fontSize : '14',
+    //                                        fontFamily : '微软雅黑',
+    //                                        color:"#0D0052"
+    //                                    }
+    //                                }
+    //                            }
+    //                        },
+    //                        data:[33,22, 26,36,59,80],
+    //                    },
+    //                    {
+    //                        name:'出库记录',
+    //                        type:'bar',
+    //                        itemStyle: {
+    //                            normal: {
+    //                                label: {
+    //                                    show: true,
+    //                                    textStyle: {
+    //                                        fontWeight:'bolder',
+    //                                        fontSize : '14',
+    //                                        fontFamily : '微软雅黑',
+    //                                        color:"#151F62"
+    //                                    }
+    //                                }
+    //                            }
+    //                        },
+    //                        data:[55,12, 26,16,39,50]
+    //                    }
+    //                ]
+    //
+    //            };
+    //
+    //            myChart.setOption(option);
+    //        }
+
+</script>
+@stop

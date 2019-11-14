@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>路径</title>
+</head>
+<body>
+<div style="text-align: center;">
+
+    <canvas id="seventhC" width="800" height="300" style="border: 1px solid #fff123"></canvas>
+
+
+</div>
+
+<div hidden>
+
+    Canvas 路径
+    Canvas 路径可以说是一个非常的 ！ 相当的！ 重要的东西，除了矩形，其他基本所有图形都是以路径为基础的。
+
+    路径操作有三种方法：
+    beginPath()	起始一条路径，或重置当前路径
+    closePath()	创建从当前点回到起始点的路径
+    isPointInPath()	如果指定的点位于当前路径中，则返回 true，否则返回 false
+
+    beginPath()  和 closePath() 在画圆形的时候是必备的条件，其他图形有时候也需要
+
+
+    beginPath()
+
+    Canvas 是基于 状态 绘制的图形，每一次绘制时，Canvas 会检测整个过程定义的 所有！ 状态，比如strokeStyle、lineWidth之类的状态值，当这个状态值没有被改变，
+    Canvas 就一直使用最初的值。当一个状态值被改变后， 如果不使用 beginPath() 将其路径分开， 后面定义的样式 就会覆盖掉前面定义的  ！！！
+    判断开始新路径的唯一标准 就是 beginPath() ！！
+
+    在Canvas中，大部分定义的样式如果被覆盖，都可以检查一下是否写在了同一个路径里。
+
+    closePath()
+    这个方法主要是 将 我们最后一次设置的坐标点 与 第一次设置的坐标点 相连接 ， 并关闭了当前的路径，
+    在这里需要注意的一点是  closePath()仅仅只是“关闭路径”， 并不等于 “结束路径”！
+
+    还是刚才那个例子  ：
+
+    效果图25
+
+    想要结束当前路径 只有 beginPath() 另开路径  这一个方法；
+
+    其实closePath() 的主要作用就是用来做 “封闭图形的 ”！
+
+    这个一般在画圆形的时候用的较多。
+
+    代码：
+
+
+    isPointInPath()
+    isPointInPath() 方法返回 true，如果指定的点位于当前路径中；否则返回 false。
+    语法 ： ctx.isPointInPath(x,y);     测试的 x 坐标 和 测试的 y 坐标
+    这个需要注意的是 不支持strokeRect() 和 ctx.fillRect() 这两个方法;
+    如果一定要用的话请用 rect() 代替。
+
+    </div>
+
+<script>
+    window.onload=function () {
+        let cans = document.getElementById("seventhC");
+        let ctx = cans.getContext("2d");
+
+//        ctx.beginPath();
+//        ctx.lineWidth="5";
+//        ctx.strokeStyle="#B946C6";
+//        ctx.moveTo(0,50);
+//        ctx.lineTo(200,50);
+//        ctx.stroke();
+//        ctx.closePath();
+//
+//        ctx.beginPath();
+//        ctx.lineWidth="10";
+//        ctx.strokeStyle="#3A4D94";
+//        ctx.moveTo(0,100);
+//        ctx.lineTo(200,100);
+//        ctx.stroke();
+//
+//     //   效果图 ：24
+//        //注释掉beginPath()   Canvas的“后来居上”原则  就会替换掉之前设定好的样式
+//
+//
+//      //  closePath()
+//
+        ctx.beginPath();
+        ctx.lineWidth="2";
+        ctx.strokeStyle="#F54DBC";
+        ctx.moveTo(150,150);
+        ctx.lineTo(250,200);
+        ctx.lineTo(200,250);
+        ctx.lineTo(150,250);
+        ctx.closePath();
+        ctx.stroke();
+
+        //效果图  26   27
+
+
+        //isPointInPath()
+        ctx.lineWidth="3";
+        ctx.strokeStyle="#31F036";
+        ctx.rect(20,20,100,100);
+        ctx.stroke();
+
+        if(ctx.isPointInPath(20,50)){
+            //判断指定坐标是否在当前路径
+            alert(ctx.isPointInPath(20,50));
+        }
+
+        //效果图 ：  28
+
+
+    }
+</script>
+
+</body>
+</html>

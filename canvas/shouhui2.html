@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #d1{
+            width: 600px;
+            margin: 50px auto;
+        }
+        canvas{
+            position: absolute;
+            top:0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="d1">
+        <div>
+            <button onclick="setCanvas.drawDown()">开始绘制</button>
+            <button onclick="setCanvas.currentClear()">清除当前设置</button>
+            <button onclick="setCanvas.allClear()">清除所有</button>
+        </div>
+
+        <br>
+
+        <div id="poCan" style="position: relative;border: 1px solid #ddd;width: 500px;height:350px;">
+            <!--<canvas id="getCanvas" width="500" height="350" style="border: 1px solid #ddd;"></canvas>-->
+        </div>
+
+
+    </div>
+
+
+    <script src="jquery-1.12.4.min.js"></script>
+<script>
+    function addEvent(obj,type,handle){
+        try{  // Chrome、FireFox、Opera、Safari、IE9.0及其以上版本
+            obj.addEventListener(type,handle,false);
+        }catch(e){
+            try{  // IE8.0及其以下版本
+                obj.attachEvent('on' + type,handle);
+            }catch(e){  // 早期浏览器
+                obj['on' + type] = handle;
+            }
+        }
+    }
+
+    window.tools={};
+
+    window.tools.getMouse=function(element){
+        var mouse={x:0,y:0};
+
+        addEvent(element,"mousedown",function(e){
+            var x, y;
+            var e= e || window.event;
+
+            // console.log(e);
+
+            x=e.clientX-poCan.offsetLeft-1;
+            y=e.clientY-poCan.offsetTop-1;
+
+
+            // console.log(x);
+
+            // if(e.pageX || e.pageY){ //兼容做到ie9
+            //     x=e.pageX;
+            //     y=e.pageY;
+            // }else{
+            //     x=e.clientX-poCan.offsetLeft-1;
+            //     y=e.clientY-poCan.offsetTop-1;
+            // }
+            //
+            // x-=element.offsetLeft;
+            // y-=element.offsetTop;
+
+            mouse.x=x;
+            mouse.y=y;
+        });
+
+        return mouse;
+    };
+
+    document.oncontextmenu = function(){
+        return false;
+    };
+
+    // window.onload=function () {
+    //     setCanvas.drawDown();
+    // }
+
+    var setCanvas={
+        x:0,
+        y:0,
+        num:0,
+
+        drawDown:function (ev) {
+            var that=this;
+            that.num++;
+
+
+
+            var canvasId="layer_a"+that.num,
+                zx=8 + that.num;
+
+            var layer=document.createElement('canvas');
+            layer.width=500;
+            layer.height=350;
+
+            layer.id=canvasId;
+            layer.style.zIndex = zx;
+            // layer1.style.border = "1px solid";
+            document.getElementById("poCan").appendChild(layer);
+
+            $(layer).ready(function () {
+                var newLayer=document.getElementById(canvasId);
+                var ltx=newLayer.getContext("2d");
+
+                console.log(newLayer);
+                var mouse=tools.getMouse(newLayer);
+
+
+
+                newLayer.addEventListener("mousedown",function(ev){
+                    console.log(mouse);
+                    var ex=mouse.x,ey=mouse.y;
+
+
+                    console.log(ev.button);
+                    if(ev.button==1 || ev.button==0){
+                        // console.log(123);
+
+                        ltx.fillStyle= "#f00";
+                        // console.log("当前坐标为："+ex+ ","+ey);
+                        ltx.fillRect(ex-2,ey-2,5,5);
+
+                        // console.log(this);
+
+
+                        ltx.lineTo(ex,ey);
+                        ltx.stroke();
+
+
+                        // if(ex>5 && ey>5){
+                        //
+                        // }
+
+
+                        // if(ev.button==2){
+                        //
+                        // }
+                    }else if(ev.button==2){
+
+
+
+                        that.drawDown();
+                        // ltx.closePath();
+                        ltx.beginPath();
+
+                        // newLayer.mousedown = null;
+                        // newLayer.onmouseup = null;
+                        // ltx.moveTo(100,100);
+
+                        // console.log(222);
+                        // var num=1;
+                        //
+                        // num++;
+
+                        // newCans(setCanvas.num);
+                    }
+
+
+                },false);
+
+                newLayer.addEventListener("mouseup",function(){
+                    // console.log("当前坐标为："+ex+ ","+mouse.y);
+
+                    ltx.moveTo(mouse.x,mouse.y);
+
+                },false);
+            })
+
+
+
+
+
+
+
+
+
+
+
+
+            // newCans(this.num);
+
+
+            // var cans=document.getElementById("getCanvas");
+            // var ctx=cans.getContext("2d"),
+            //     width=cans.width,
+            //     height=cans.height;
+            //
+            // // var e = ev || window.event;
+            // //
+            // // var ex=e.clientX-poCan.offsetLeft-1;
+            // // var ey=e.clientY-poCan.offsetTop-1;
+            //
+            // var mouse=tools.getMouse(cans);
+            //
+            // // console.log(ey);
+            //
+            // cans.addEventListener("mousedown",function(ev){
+            //     // console.log("当前坐标为："+mouse.x+ ","+mouse.y);
+            //     ctx.fillStyle= "#f00";
+            //     ctx.fillRect(mouse.x,mouse.y,5,5);
+            //
+            //     ctx.lineTo(mouse.x,mouse.y);
+            //     ctx.stroke();
+            //
+            //     if(ev.button==2){
+            //         var num=0;
+            //
+            //         num++;
+            //
+            //         newCans(num);
+            //     }
+            //
+            // },false);
+            //
+            // cans.addEventListener("mouseup",function(){
+            //     // console.log("当前坐标为："+mouse.x+ ","+mouse.y);
+            //     ctx.moveTo(mouse.x,mouse.y);
+            //
+            // },false);
+        },
+        currentClear:function () {
+            var ele=$("#poCan").find("canvas:last-child").attr("id");
+
+            console.log(ele);
+
+            var cans = document.getElementById(ele);
+            var ctx = cans.getContext("2d");
+
+            ctx.clearRect(0,0,500,350);
+        },
+        allClear:function () {
+            var ele=$("#poCan").find("canvas");
+            ele.remove();
+        }
+    }
+
+    function newCans(num) {
+        var canvasId="layer_a"+num,
+            zx=8 + num;
+
+        var layer=document.createElement('canvas');
+        layer.width=500;
+        layer.height=350;
+
+        layer.id=canvasId;
+        layer.style.zIndex = zx;
+        // layer1.style.border = "1px solid";
+        document.getElementById("poCan").appendChild(layer);
+
+        $(layer).ready(function () {
+            var newLayer=document.getElementById(canvasId);
+            var ltx=newLayer.getContext("2d");
+
+            console.log(newLayer);
+            var mouse=tools.getMouse(newLayer);
+
+            console.log(mouse);
+
+            newLayer.addEventListener("mousedown",function(ev){
+
+                // console.log(ev);
+
+
+                if(ev.button==1){
+                    console.log(123);
+
+                    ltx.fillStyle= "#f00";
+                    // console.log("当前坐标为："+mouse.x+ ","+mouse.y);
+                    ltx.fillRect(mouse.x,mouse.y,5,5);
+
+                    ltx.lineTo(mouse.x,mouse.y);
+                    ltx.stroke();
+
+                    // if(ev.button==2){
+                    //
+                    // }
+                }else if(ev.button==2){
+
+                    // console.log(222);
+                    // var num=1;
+                    //
+                    // num++;
+
+                    // newCans(setCanvas.num);
+                }
+
+
+            },false);
+
+            newLayer.addEventListener("mouseup",function(){
+                // console.log("当前坐标为："+mouse.x+ ","+mouse.y);
+                ltx.moveTo(mouse.x,mouse.y);
+
+            },false);
+        })
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // function setCanvas() {
+    //     // $("#canvasDiv").css("background","")
+    //
+    //     var cans=document.getElementById("getCanvas");
+    //     var ctx=cans.getContext("2d");
+    //
+    //     // var host = window.location.host;
+    //
+    //     // var imgSrc="/uploads/security_pic/1.jpg";
+    //     //
+    //     // var image=new Image();
+    //     // image.src=imgSrc;
+    //     //
+    //     // image.onload=function () {
+    //     //     ctx.drawImage(image,0,0,500,350);
+    //     // };
+    //
+    //     cans.onmousedown=function (ev) {
+    //         var e = ev || window.event;
+    //
+    //         var ex=e.clientX+Number(0-(document.getElementById("myModal-set").offsetWidth - 600)/2 -50),
+    //             ey=e.clientY-174;
+    //
+    //         // var ex=Number(0-(document.getElementById("myModal-set").offsetWidth - 600)/2 -48),
+    //         //     ey=-174;
+    //         //
+    //         ctx.fillStyle="#F00";
+    //         ctx.fillRect(ex-2,ey-2,5,5); //红点
+    //         ctx.moveTo(ex,ey);
+    //
+    //         document.onmousemove=function (ev2) {
+    //             var ev = ev || window.event;//获取event对象
+    //             // oCG.lineTo(ev.clientX-oC.offsetLeft,ev.clientY-oC.offsetTop);
+    //             console.log(ex);
+    //             console.log(ey);
+    //             ctx.lineTo(ev.clientX+Number(0-(document.getElementById("myModal-set").offsetWidth - 600)/2 -50),ev.clientY-174);
+    //             ctx.stroke();
+    //         };
+    //         cans.onmouseup = function() {
+    //             document.onmousemove = null;
+    //             document.onmouseup = null;
+    //         };
+    //
+    //
+    //     }
+    // }
+</script>
+
+</body>
+</html>

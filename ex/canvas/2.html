@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+<head><title>canvas</title><meta charset="utf-8" /></head>
+<body>
+<canvas id="canvas" width="600"height="400" style="border:1px solid black">
+    <p>Your browserdoes not support the canvas element!</p>
+</canvas>
+<script type="text/javascript">
+    var endX=200;
+    var endY=100;
+    var end='11111111111111111111';
+    var canvas =document.getElementById("canvas");
+    var ctx =canvas.getContext("2d");
+    ctx.beginPath();
+
+    ctx.fillStyle = "#000000";
+
+    ctx.font = "52pt 楷体";
+    ctx.textAlign = "center";
+    ctx.fillText(this.end, endX, endY);
+
+    ctx.save();
+    ctx.translate(endX, endY);
+    ctx.rotate(Math.PI/2);
+    ctx.fillText("文字2", 0, 0);
+    ctx.restore();
+</script>
+</body>
+</html>

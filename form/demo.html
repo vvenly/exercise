@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<iframe hidden id="exec_target" name="exec_target"></iframe>
+
+<form id="company_modal" target="exec_target" class="validatorTest" style="width: 600px;">
+    <div class="modal-header">
+        <h3 class="modal-title">添加用户信息</h3>
+    </div>
+
+    <div class="modal-body m_bd1">
+
+        <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+                <div class="form-group">
+                    <label>
+                        <span class="label-title1"><b class="mustWord2">*</b> 姓名</span>
+                        <input class="form-control" data-ky="name" type="text" id="add_name" maxlength="30" autocomplete="off"/>
+                    </label>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+                <div class="form-group">
+                    <label>
+                        <span class="label-title1"><b class="mustWord2">*</b> 密码</span>
+                        <input class="form-control" data-ky="password" type="password" id="add_password" maxlength="20" autocomplete="off"/>
+                    </label>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+                <div class="form-group">
+                    <label>
+                        <span class="label-title1"><b class="mustWord2">*</b> 手机</span>
+                        <input class="form-control" data-ky="phone" type="text" maxlength="11" autocomplete="off"/>
+                    </label>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+                <div class="form-group">
+                    <label>
+                        <span class="label-title1"><b class="mustWord2">*</b> 选项</span>
+                        <select class="form-control" data-ky="num">
+                            <option value="1">11</option>
+                            <option value="2">22</option>
+                            <option value="3">33</option>
+                        </select>
+                    </label>
+
+                </div>
+            </div>
+        </div>
+
+        <p id="add_message" class="sub_message"></p>
+    </div>
+    <div class="modal-footer">
+        <p class="remarks">备注 ： <b class="mustWord2">*</b> 为必填项</p>
+
+        <button type="button" class="mine-btn btn-blue" onclick="test2('company_modal')">确定</button>
+
+    </div>
+</form>
+
+
+<script>
+
+
+    function test2(id){
+        var FS=document.getElementById(id).querySelectorAll('[data-ky]'),obj={};
+        console.log(FS);
+        for(var i=0;i<FS.length;i++){
+            obj[FS[i].attributes["data-ky"].value]=FS[i].value;
+
+            if(FS[i].value===""){       //验证，可不要
+                console.log("必填项不能为空");
+            }
+        }
+
+        console.log(obj);
+
+    }
+
+</script>
+</body>
+</html>

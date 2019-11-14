@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas image</title>
+</head>
+<body>
+
+<img id="pic" src="img/img2.jpg" alt="" hidden>
+
+<div style="text-align: center;">
+
+    <canvas id="sixthC" width="800" height="450" style="border: 1px solid #ff00ff"></canvas>
+
+    <br> <br>
+
+    <canvas id="sixthC2" width="800" height="300" style="border: 1px solid #ff00ff"></canvas>
+
+</div>
+
+<div hidden>
+    绘制图片目前有三种调用的方式 ：
+
+    1、ctx.drawImage(image,dx,dy);           //image 是要显示的图片  dx与 dy 是图片左上角 的横坐标  与 纵坐标，
+        这种方法中引用的图片可以是JS 创建的，也可以是 直接引用页面中 img标签的图片
+
+    2、ctx.drawImage(image, dx, dy, dw, dh);
+    与上面相同，增加了dw 这个参数设置图片宽， dh设置高
+
+    3、ctx.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
+    同上，增加了sx, sy, sw, sh参数作为图片截取  （如果要使用第三种方法，参数不能选填）
+    sx: 图片截取部分的横坐标
+    sy: 图片截取部分的纵坐标
+    sw: 图片截取部分的宽度
+    sy: 图片截取部分的高度
+
+
+    PS :
+    图片平铺 ：ctx.createPattern(img,属性值);
+       属性值包含 ： repeat	默认。该模式在水平和垂直方向重复。
+                    repeat-x	该模式只在水平方向重复。
+                    repeat-y	该模式只在垂直方向重复。
+                    no-repeat	该模式只显示一次（不重复）。
+
+    这个方法不仅可以平铺图片 ， 也可以用来平铺canvas ;
+
+    一般来说页面加载图片都需要一定的时间，如果不是很复杂的东西，我们可以自己用canvas绘制或者 自己填充图案等，对页面优化还是很有帮助的。
+
+    //代码 +  效果图  14
+
+    图片切割 ：
+
+
+
+
+</div>
+
+
+
+
+<script>
+
+    window.onload=function () {
+        let cans=document.getElementById("sixthC");
+        let ctx=cans.getContext("2d");
+
+        let image=new Image();
+        image.src="img/img1.jpg";
+
+        //必须在图片加载完后才能绘制
+        image.onload=function () {
+            ctx.drawImage(image,100,100);   //在画布X轴 坐标100  Y轴坐标100处添加一张图片
+
+            //截取图片
+            ctx.drawImage(image,10,10,180,170,400,100,180,180);   //从图片横坐标10px 纵坐标10px 处开始截取 裁剪出宽180，高170的图片   放在画布X轴 坐标400  Y轴坐标100处，并设置宽为180，高为180;
+
+        };
+
+        //这种方法是直接获取页面上的img元素， 在书上和有些网上看到使用这方法的时候不需要 onload 配合，直接drawImage即可，但是关于JS的各种方法 还有一些其他因素，测试了一些，部分还是会显示不了，
+        //个人推荐上面那种方法比较好
+        let pic=document.getElementById('pic');
+
+        ctx.drawImage(pic,200,300,100,120); //在画布X轴 坐标200  Y轴坐标300处添加一张图片 宽度为100，高度为120
+
+        //效果图： 13
+
+
+        let cans2=document.getElementById("sixthC2");
+        let ctx2=cans2.getContext("2d");
+
+        //图片平铺
+        let img=new Image();
+        img.src="img/img3.png";
+
+        img.onload=function () {
+            let tiled=ctx.createPattern(img,"repeat");
+
+            ctx2.fillStyle=tiled;
+
+            ctx2.fillRect(0,0,450,143)
+        };
+
+        //平铺圆形
+        let createCS=document.createElement("canvas");
+        createCS.width=30;
+        createCS.height=30;
+
+        let cs=createCS.getContext("2d");
+
+        cs.beginPath();
+        cs.arc(15,15,15,0,360*Math.PI/180);  //最后一个值不写默认是不旋转的
+        cs.closePath();
+        cs.fillStyle="#1AC6FF";          //定位圆边的颜色
+        cs.fill();
+
+        let exercise=ctx2.createPattern(createCS,"repeat");
+        ctx2.fillStyle=exercise;
+        ctx2.fillRect(0,210,500,30)
+
+
+
+
+    };
+</script>
+</body>
+</html>

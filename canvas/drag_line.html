@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #d1{
+            width: 800px;
+            margin: 50px;
+        }
+        #canvas{background: #afa;}
+    </style>
+</head>
+<body>
+
+
+<div id="d1">
+    <canvas id="canvas" width="800" height="500"></canvas>
+</div>
+
+<script src="tool.js"></script>
+<script>
+
+    var dragLine={
+        ctx:"",
+        lineArr:[],
+        drawMain:function () {
+
+            var that=this;
+            var canvas = document.getElementById("canvas");
+            var ccx = canvas.getContext("2d");
+
+            this.ctx=ccx;
+
+            this.lineDraw(50,50,400,50);
+            this.lineDraw(50,150,400,150);
+
+            var mouse=tools.getMouse(canvas);
+
+            canvas.onmousedown=function(e) {
+                canvas.onmousemove = function (e) {
+                    x = e.clientX;
+                    y = e.clientY;
+
+                    // //限制移动不能超出画布
+                    // (x < 173) ? ax = 75 : ax = 425;
+                    // (y < 148) ? ay = 50 : ay = 350;
+                    //
+                    // (x < 425 && x > 75) ? x = e.clientX : x = ax;
+                    //
+                    // (y > 50 && y < 350) ? y = e.clientY : y = ay;
+
+                    //先清除之前的然后重新绘制
+                    ccx.clearRect(0,0,canvas.width,canvas.height);
+
+                    // console.log(ccx.clearRect());
+                    // ccx.beginPath();
+                    // ccx.moveTo(x-50,y-50.5);
+                    // ccx.lineTo(x+300,y-50.5);
+                    // ccx.stroke();
+                    // ccx.closePath();
+
+                    that.lineDraw(x-50,y-50.5,x+300+400,y-50.5);
+                };
+
+            }
+            // canvas.addEventListener("mousemove",function(){
+            //     console.log("当前坐标为："+mouse.x+ ","+mouse.y);
+            //     console.log(that);
+            //
+            //     that.ctx.clearRect(0,0,400,100);
+            //
+            //     that.lineDraw(mouse.x,mouse.y,mouse.x+400,mouse.y);
+            // },false);
+
+            console.log(this.lineArr);
+            // console.log(this.ctx);
+        },
+        lineDraw:function (x1,y1,x2,y2) {
+            this.ctx.beginPath();
+            this.ctx.lineWidth=1;
+            this.ctx.moveTo(x1,y1-0.5);
+            this.ctx.lineTo(x2,y2-0.5);
+            this.ctx.stroke();
+            this.ctx.closePath();
+
+            this.lineArr.push({"x1":x1,"y1":y1,"x2":x2,"y2":y2});
+        }
+    };
+
+
+    dragLine.drawMain();
+
+
+</script>
+</body>
+</html>

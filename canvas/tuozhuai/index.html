@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script src="first.js"></script>
+<script src="app.870e33a7.js"></script>
+<script src="runtime.a4c8c368.js"></script>
+<script src="vendor.cf4d461f.js"></script>
+<div style="width: 500px;height: 500px;background: #ddd;">
+    <div id="q-app"></div>
+</div>
+
+<script>
+    window.initialW=420;window.initialH=300;
+    window.canWidth=initialW;
+    window.canHeight=initialH;
+    window.positionArr=[];
+    window.currentCanData=[];
+
+    function canvasBg(that,id) {
+
+        var imgUrl=$(that).parent().siblings('.img').html();
+
+        $("#update_pos_id").val(id);
+
+        var ele=$('#Canvas'),parent=$("#myModal-set");
+
+        ele.css("border","1px solid #ccc");
+
+        if(!imgUrl || imgUrl.length<10){
+            ele.css("background","#ddd");
+
+            window.canWidth=initialW;
+            window.canHeight=initialH;
+
+            ele.attr("width",initialW);
+            ele.attr("height",initialH);
+
+            parent.find(".modal-dialog").css("width",600);
+            parent.find(".modal-body").css("width",455);
+
+            $(".setCans").attr("disabled",true)
+
+        }else{
+            var src="http://"+window.location.host+imgUrl;
+            ele.css({
+                "backgroundImage":"url("+src+")",
+                "backgroundSize":"100% 100%",
+                "backgroundRepeat":"no-repeat"
+            });
+            $(".setCans").attr("disabled",false);
+            var img = new Image();
+
+            img.src=src;
+
+            img.onload = function(){
+                // console.log(img.width+"_____ "+img.height);
+
+                window.canWidth=img.width;
+
+                window.canHeight=img.height;
+
+                ele.attr("width",img.width);
+                ele.attr("height",img.height);
+                parent.find(".modal-dialog,.modal-body").css("width",img.width+5);
+
+                $.post("{{url('api/backstage/xalt_video_device/get_protection')}}",   {
+                        "vid": id
+                    },
+                    function(json){
+                        // console.log(json);
+                        // deviceList(Number($('#current_page').html()), 10);
+                        var data=json.data;
+                        currentCanData=json.data;
+
+                        // console.log(currentCanData);
+                        window.cans = document.getElementById("Canvas");
+                        window.ctex = cans.getContext("2d");
+
+                        var current;
+
+                        $.each(data,function (i) {
+                            // console.log(data[i]);
+
+                            ctex.beginPath();
+                            ctex.moveTo(data[i][0].x,data[0].y);
+                            current=data[i];
+                            $.each(current,function (j) {
+                                ctex.lineTo(current[j].x,current[j].y);
+                            });
+                            ctex.closePath();
+                            // ctex.strokeStyle="#5DE8E0";
+                            ctex.stroke();
+                        });
+
+                    });
+            }
+
+
+
+        }
+    }
+</script>
+</body>
+</html>

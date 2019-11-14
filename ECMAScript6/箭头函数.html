@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<button id="btn1">11111</button>
+<button id="btn2">2222222222222</button>
+
+<script>
+    let num=100;
+
+    //ES5 之前
+    var test1=function(n) {
+        return n*3;
+    };
+
+    console.log(test1(num));
+
+    //使用箭头函数
+    let test2=(n) =>{
+        return n*3;
+    };
+
+    console.log(test2(num));
+
+    //如果参数只有一个， 连括号都可以省略了， 当然，两个以上的就不能省略了，
+    // 基于上面的例子，因为只有一条语句，一个参数，可以简写为：
+    let test3=n => n*3;
+
+    console.log(test3(num));
+
+    //立即执行：
+    let test4=(()=> console.log(num*3))()
+
+
+    let test5 = {
+        content:"I'M test5",
+        init:function(){
+            // btn1.onclick = function () {
+            //     console.log(this);   //this指向的是 btn1 , 谁调用就指谁
+            // }
+
+            btn1.onclick =  ()=> {
+                console.log(this);   //箭头函数完全修复了this的指向，this总是指向词法作用域，也就是外层调用者 test5
+            }
+        }
+    };
+    test5.init();
+
+
+    let test56 = {
+        content:"I'M test6",
+        init:()=>{
+            btn2.onclick = ()=>{
+                console.log(this);// 因为init用了箭头函数，这里的this 指的是 init的this:  就是window,
+            }
+        }
+    }
+    test56.init();
+
+
+    //另外， 箭头函数不能当成构造函数来使用，并且其没有prototype 属性 和 arguments 对象
+
+    //还有一些需要注意的是，箭头函数返回对象时，要加一个小括号
+
+    var func = () => ({ foo: 1 }); //正确
+    var func = () => { foo: 1 };   //错误
+</script>
+</body>
+</html>

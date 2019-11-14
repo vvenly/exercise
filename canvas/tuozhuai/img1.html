@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {margin: 0;padding: 0;border: 0;}
+        body {
+            overflow: hidden;
+        }
+        #pandiv {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #111111;
+        }
+        canvas {
+            position: absolute;
+            top:15px;
+            left:50%;
+            transform: translate(-50%);
+        }
+        #popup{
+            position: absolute;
+            display: none;
+            min-width: 150px;
+            max-width: 280px;
+            padding: 0;
+            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+            font-size: 15px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: left;
+            text-decoration: none;
+            text-shadow: none;
+            text-transform: none;
+            letter-spacing: normal;
+            word-break: normal;
+            word-spacing: normal;
+            word-wrap: normal;
+            white-space: normal;
+            background-color: #fff;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+            border: 1px solid #ccc;
+            opacity:0.8;
+            /*box-shadow: 1px 2px 3px 2px #66adce;*/
+        }
+        #popup h3{
+            padding: 5px 14px;
+            margin: 0;
+            font-size: 15px;
+            background-color: #c5e0e6;
+            border-bottom: 1px solid #ebebeb;
+            border-radius: 5px 5px 0 0;
+        }
+        #popup .p-content{
+            padding: 10px 15px;
+        }
+        #popup .p-content p{
+            margin-bottom: 8px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 5px 15px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-image: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+        .btn-success {
+            color: #fff;
+            background-color: #5cb85c;
+            border-color: #4cae4c;
+        }
+        .btn-info {
+            color: #fff;
+            background-color: #5736dc;
+            border-color: #624bc1;
+        }
+    </style>
+</head>
+<body>
+
+<div id="pandiv">
+    <!--<img src="../img/map4.svg" style="position: absolute;top:-10000px;left: -10000px;">-->
+
+    <canvas id="canvas" style="cursor: default;"> </canvas>
+    <canvas id="spotCanvas" style="cursor: default;"> </canvas>
+
+
+    <div id="popup">
+        <h3>当前定位信息</h3>
+        <div class="p-content">
+            <p id="p-name"></p>
+            <p id="p-x"></p>
+            <p id="p-y"></p>
+        </div>
+    </div>
+
+
+    <div class="scaleBox" style="position: fixed;top:10px;right:30px;color: #b49bff"></div>
+    <button onclick="restore()" style="position: fixed;top:40px;right:50px;" class="btn btn-info">恢复原状</button>
+</div>
+
+<script>
+    var pandiv = document.getElementById("pandiv");
+    var isMouseDown = false;
+    var cWidth=1200,cHeight=900;
+
+    var imgScale = 1; // 放大比例
+
+    function windowToCanvas(canvas, x, y) {
+        var bbox = canvas.getBoundingClientRect();
+
+        return {
+            x : x - bbox.left - (bbox.width - canvas.width) / 2,
+            y : y - bbox.top - (bbox.height - canvas.height) / 2
+        };
+    }
+
+    function drawImg(){
+        var canvas = document.getElementById("canvas");
+        canvas.width=cWidth;
+        canvas.height=cHeight;
+        var ctx = canvas.getContext("2d");
+
+        var image=new Image();
+        image.src="../img/map4.svg";
+
+        //必须在图片加载完后才能绘制
+        image.onload=function () {
+            ctx.drawImage(image,0,0,cWidth*imgScale,cHeight*imgScale);   //在画布X轴 坐标100  Y轴坐标100处添加一张图片
+
+            //截取图片
+            // ctx.drawImage(image,10,10,180,170,400,100,180,180);   //从图片横坐标10px 纵坐标10px 处开始截取 裁剪出宽180，高170的图片   放在画布X轴 坐标400  Y轴坐标100处，并设置宽为180，高为180;
+
+        };
+
+    }
+
+    drawImg();
+
+    /**鼠标按下*/
+    pandiv.onmousedown = function(event) {
+        mouseDownLocation = windowToCanvas(canvas, event.clientX, event.clientY);
+        isMouseDown = true;
+    };
+    /**鼠标弹起*/
+    document.body.onmouseup = function() {
+        isMouseDown = false;
+    };
+    /**鼠标移动*/
+    pandiv.onmousemove = function(event) {
+        if (isMouseDown) {
+            var newMouseLocation = windowToCanvas(canvas, event.clientX, event.clientY);
+            var x = newMouseLocation.x - mouseDownLocation.x;
+            var y = newMouseLocation.y - mouseDownLocation.y;
+            mouseDownLocation = newMouseLocation;
+            imgX += x;
+            imgY += y;
+            // drawImage();
+        }
+    }
+</script>
+</body>
+</html>

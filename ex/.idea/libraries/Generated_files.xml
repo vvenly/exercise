@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="Generated files" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/image/1/www.17sucai.com/js/jquery.min.min.js" />
+        <item url="file://$PROJECT_DIR$/image/js/jquery.min.min.js" />
+        <item url="file://$PROJECT_DIR$/image/js/jquery.qrcode.min.min.js" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/ex/js/yasuo.min.js" />
+      <root url="file://$PROJECT_DIR$/image/1/www.17sucai.com/js/jquery.min.min.js" />
+      <root url="file://$PROJECT_DIR$/image/js/jquery.min.min.js" />
+      <root url="file://$PROJECT_DIR$/image/js/jquery.qrcode.min.min.js" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>

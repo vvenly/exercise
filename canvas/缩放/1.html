@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #d1{position: fixed;
+            top: 100px;left: 100px;}
+        canvas{position:absolute;top:10px;left:10px;border: 1px solid #ccc;}
+
+        /*canvas:hover{*/
+            /*transform: scale(1,1.5);*/
+        /*}*/
+    </style>
+</head>
+<body>
+
+<div id="d1">
+
+    <canvas id="canvas" width="500" height="500"></canvas>
+</div>
+
+
+<button onclick="big()">放大</button>
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+
+    ctx.fillStyle="#FF9BFA";
+    // ctx.translate(10,10);
+    // ctx.translate(1.5,0,0,1.5,0,0);
+    // ctx.scale(1,2);
+    ctx.fillRect(100,100,200,200);
+
+    var n=1;
+
+    function big() {
+        // console.log(document.getElementById("canvas"));
+
+        // console.log();
+
+        n+=0.1;
+
+        $("#canvas").css("transform","scale(1,"+n+")");
+
+    }
+
+</script>
+</body>
+</html>
